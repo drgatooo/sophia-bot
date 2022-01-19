@@ -1,0 +1,86 @@
+#cards {
+    margin-left: 2em;
+    margin-top: 4em;
+}
+.card {
+    background: rgb(29, 31, 39);
+    border: 1px solid rgb(26, 28, 34);
+    border-radius: 8px;
+    height: 12.5em;
+    width: 12em;
+    margin: 3em 1em;
+    float: left;
+}
+
+.buttons-card {
+    background: rgb(33, 181, 226);
+    border: 1px solid rgb(33, 181, 226);
+    border-radius: 8px;
+    margin: 0 1em 1em 1em;
+    float: left;
+    padding: 0.5em;
+    text-align: left;
+}
+.card h3 {
+    max-width: 9em;
+    word-break: keep-all;white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    margin-top: 1em;
+    margin-left: 1em;
+}
+
+.card .card-img {
+    height: 5em;
+    background: #36393fbb;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+}
+
+.card-img {
+    padding: 1em 0 0 3.7em;
+}
+
+.card img {
+    width: 4em;
+    height: 4em;
+    border: 2px solid rgb(255, 255, 255);
+    border-radius: 50%;
+}
+
+.iconCustom {
+    width: 4em;
+    height: 4em;
+    display: flex;
+    justify-content: center;
+    border: 2px solid rgb(255, 255, 255);
+    border-radius: 50%;
+    background: #242424;
+}
+
+h1 {
+    font-family: 'open sans';
+    font-weight: bold;
+    text-align: center;
+}
+
+#configurations, #stats {
+    font-size: 1.5em;
+    background-color: #242424;
+    min-height: 15em;
+    height: auto;
+    padding: 1em 2em 2em 2em;
+    width: 15em;
+    border-radius: 8px;
+}
+
+#sections {
+    margin-top: 3em;
+    justify-content: space-evenly;
+    display: flex;
+}
+
+#stats p {
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 0.8em;
+}
