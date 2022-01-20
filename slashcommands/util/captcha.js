@@ -72,6 +72,7 @@ timeOutEmbed = new MessageEmbed({ //El embed que se mandará si el captcha termi
 module.exports = {
     userPerms: [],
     botPerms: [],
+    category: 'Utilidad',
     data: new SlashCommandBuilder()
     .setName(`captcha`)
     .setDescription(`Usa el comando para verificarte en el servidor`),

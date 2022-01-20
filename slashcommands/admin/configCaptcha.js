@@ -5,6 +5,7 @@ captchaSchema = require(`../../models/captcha`),
 module.exports = {
     userPerms: [`MANAGE_GUILD`],
     botPerms: [],
+    category: "Administración",
     data: new SlashCommandBuilder()
     .setName(`configcaptcha`)
     .setDescription(`Configura el sistema de verificación captcha`)
