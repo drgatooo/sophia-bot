@@ -4,7 +4,6 @@ const welcomeModel = require('../../models/setWelcome');
 const antilinksModel = require('../../models/antilinks');
 const antispamModel = require("../../models/antispam");
 const premiumGuild = require("../../models/premiumGuild");
-const muteModel = require('../../models/setmuterole');
 const ignoreModel = require('../../models/ignorerol');
 
 module.exports = {
@@ -22,8 +21,7 @@ module.exports = {
         const rolignore = await ignoreModel.findOne({ ServerID: interaction.guild.id })
         const AntiSpam = await antispamModel.findOne({ ServerID: interaction.guild.id })
         const premium = await premiumGuild.findOne({ ServerID: interaction.guild.id })
-        const muteDB = await muteModel.findOne({ ServerID: interaction.guild.id })
-
+        
         // Emotes
 
         checked = '<:Check:886685653746720788>'
@@ -42,7 +40,6 @@ module.exports = {
         .addField('🔍 Anti-Links',`${Antilinks ? `${checked} **Activado**`: `${unchecked} **Desactivado**`}`,true)
         .addField('📴 Anti-Spam',`${AntiSpam ? `${checked} **Activado**`: `${unchecked} **Desactivado**`}`,true)
         .addField('🎭 Roles','*Configuracion de roles:*')
-        .addField('🤐 Mute rol',`${muteDB ? `${checked} **Activado**`: `${unchecked} **Desactivado**`}`,true)
         .addField('😎 Ignore rol',`${rolignore ? `${checked} **Activado**`: `${unchecked} **Desactivado**`}`,true)
         .setFooter({text: `${premium ? `🚀 El servidor es premium!`: `❌ El servidor no es premium`}`, iconURL: interaction.guild.iconURL({dynamic: true})})
 

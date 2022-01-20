@@ -14,18 +14,7 @@ const command = {
 
     data: new SlashCommandBuilder()
     .setName("serverinfo")
-    .setDescription("Observa información del servidor.")
-    .addStringOption(o => 
-   o.setName("información")
-    .setDescription("Elige una de la siguientes opciones para ir a ella")
-    .setRequired(true)
-    //.addChoice("Roles")
-    //.addChoice("Miembros")
-    //.addChoice("Nombre")
-    //.addChoice("IDserver")
-    //.addChoice("IDowner")
-    //.addChoice("Banner")
-    ),
+    .setDescription("Observa información del servidor."),
 
     /**
      * 
@@ -34,16 +23,6 @@ const command = {
      */
 
     async run(client, interaction){
-
-        if(interaction.options.getString("Información") !== "Roles" || "Miembros" || "Nombre" || "IDserver" || "IDowner" || "Banner") return interaction.reply({
-            embeds: [
-                new MessageEmbed()
-                .setTitle(":x: Error")
-                .setDescription("Debes escoger obligatoriamente una de las opciones del comando.")
-                .setColor("RED")
-            ],
-            ephemeral: true
-        })
 
         const row = new MessageActionRow().addComponents(
             new MessageButton()

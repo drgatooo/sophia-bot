@@ -16,7 +16,7 @@ const command = {
     .setName("hard-mute")
     .setDescription("Aisla temporalmente a un usuario.")
     .addUserOption(o => o.setName("usuario").setDescription("El usuario al cual aislaras.").setRequired(true))
-    .addStringOption(o => o.setName("minutos").setDescription("Minutos a aislar.").setRequired(true))
+    .addIntegerOption(o => o.setName("minutos").setDescription("Minutos a aislar.").setRequired(true))
     .addStringOption(o => o.setName("razon").setDescription("Razon del aislamiento.").setRequired(false)),
 
     /**
@@ -31,7 +31,7 @@ const command = {
         const args = interaction.options
         const usuario = args.getMember("usuario")
         let razon = args.getString("razon")
-        const tiempo = args.getString("minutos")
+        const tiempo = args.getInteger("minutos")
         const time = ms(`${tiempo}m`)
         const embed = new MessageEmbed()
         .setTitle(":x: Error")
@@ -70,6 +70,11 @@ const command = {
         if(interaction.guild.ownerId === usuario.id) return interaction.reply({ 
             embeds: [ 
                 embed.setDescription("No puedo mutear al dueño del servidor.") 
+            ], 
+            ephemeral: true 
+        })
+        if(!Number.isInteger(tiempo)) return interaction.reply({embeds: [ 
+            embed.setDescription("No puedes poner números con decima.") 
             ], 
             ephemeral: true 
         })

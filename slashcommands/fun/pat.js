@@ -12,7 +12,8 @@ const command = {
 
     data: new SlashCommandBuilder()
     .setName("pat")
-    .setDescription("Acaricia a un usuario."),
+    .setDescription("Acaricia a un usuario.")
+    .addUserOption(o => o.setName("usuario").setDescription("Usuario al que acariciaras.").setRequired(true)),
 
     /**
      * 
@@ -22,7 +23,7 @@ const command = {
 
     async run(client, interaction){
         let mention = interaction.options.getUser('usuario'); //-- define mention
-        if(mention.id === interaction.user.id || mention.user.bot) return await interaction.reply({
+        if(mention.id === interaction.user.id || mention.bot) return await interaction.reply({
             embeds: [
                 new MessageEmbed()
                 .setTitle(':x: Error')
@@ -33,10 +34,10 @@ const command = {
         });
         await interaction.reply({embeds: [
             new MessageEmbed()
-            .setTitle(`${message.author.username} a acariciado a ${mention.user.username}`)
+            .setTitle(`${interaction.user.username} a acariciado a ${mention.username}`)
             .setImage(pat[Math.floor(Math.random() * pat.length)])
             .setColor('RANDOM')
-            .setFooter(`${interaction.user.username}`, `${interaction.user.avatarURL()}`)
+            .setFooter(`${interaction.user.username}`, `${interaction.user.avatarURL({dynamic: true})}`)
             .setTimestamp()
         ]
          });

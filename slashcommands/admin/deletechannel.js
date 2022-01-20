@@ -1,14 +1,27 @@
-const { MessageEmbed, MessageActionRow, MessageButton } = require('discord.js');
 const { SlashCommandBuilder } = require("@discordjs/builders");
+const { Client, CommandInteraction, MessageEmbed, MessageActionRow, MessageButton } = require("discord.js");
 
-module.exports = {
-    userPerms: ['ADMINISTRATOR'],
-    botPerms: ['MANAGE_CHANNELS'],
-    category: 'Administración',
+/**
+* @type {import('../../types/typeslasg').Command}
+*/
+
+const command = {
+
+    userPerms: ["ADMINISTRATOR"],
+    botPerms: ["ADMINISTRATOR"],
+    category: "Administración",
+
+
     data: new SlashCommandBuilder()
     .setName("deletechannel")
-    .setDescription("Nukea o reinicia un canal de tu servidor con 0 mensajes.")
-    .addChannelOption(o => o.setName("canal").setDescription("Menciona el canal a nukear.").setRequired(true)),
+    .setDescription("Nukea un canal de tu servidor!")
+    .addChannelOption(o => o.setName("canal").setDescription("Menciona el canal a nukear").setRequired(true)),
+
+    /**
+     * 
+     * @param {Client} client 
+     * @param {CommandInteraction} interaction 
+     */
 
     async run(client, interaction){
 
@@ -33,63 +46,91 @@ module.exports = {
         .setDescription(`➡ Estas a punto de borrar ${canal}\nTodo el progreso que haya conseguido el canal, **⚠ se perdera ⚠**\nContinuas?`)
         .setColor('ORANGE');
         
-        const m = await interaction.reply({embeds: [confirmacion], components: [row]});
-        
+        await interaction.reply({embeds: [confirmacion], components: [row]});
         let iFilter = (i) => i.user.id === interaction.user.id; 
+        
         const collector = interaction.channel.createMessageComponentCollector({ filter: iFilter, time: 30000})
         collector.on("collect", async (i) => { 
             if (i.customId == 'SI'){
-                if(!canal.deletable) return m.editReply({ embeds: [
+                if(!canal.deletable) return interaction.editReply({ embeds: [
                     new MessageEmbed()
                     .setTitle(':x: Error')
                     .setDescription('No puedo borrar o modificar ese canal actualmente, verifica que siga teniendo permisos!')
                     .setColor('RED')
                 ], components: []});
+
+                if(!canal.isText()) return interaction.editReply({ embeds: [
+                    new MessageEmbed()
+                    .setTitle(':x: Error')
+                    .setDescription(`No puedo borrar ${canal} ya que es un canal de voz, menciona un canal valido.`)
+                    .setColor('RED')
+                ], components: []});
+
                 let canalClonado = await canal.clone();
+                canalClonado.setPosition(posicion);
+                setTimeout(() => {
+                    canal.delete()
+                }, 3000)
             
-            
-            
-            canalClonado.setPosition(posicion);
-                
-                        canal.delete();
-            
-            
-                
                 let Embed = new MessageEmbed()
-            .setTitle(":recycle: Canal eliminado correctamente!")
-            .setImage("https://i.pinimg.com/originals/01/82/5e/01825e981b49caaa693395ca637376db.gif")
-            .setColor("#00FFFF");
+                .setTitle(":recycle: Canal eliminado correctamente!")
+                .setFooter({text: "Este mensaje será eliminado en 10 segundos."})
+                .setImage("https://i.pinimg.com/originals/01/82/5e/01825e981b49caaa693395ca637376db.gif")
+                .setColor("#00FFFF");
             
                 
                 if (canalClonado.type == 'GUILD_TEXT'){
-                    await canalClonado.send({embeds: [Embed]});
+                    await canalClonado.send({embeds: [Embed]}).then(msg => {
+                        setTimeout(() => {
+                            msg.delete()
+                        }, 10000)
+                    })
                 }
                 
     
         
                 if (canalClonado.type == 'GUILD_VOICE'){
-                    interaction.editReply({embeds: [Embed]});
+                    interaction.editReply({embeds: [
+                        new MessageEmbed()
+                        .setTitle(':x: Error')
+                        .setDescription('No puedo borrar o modificar un canal de voz!')
+                        .setColor('RED')
+                    ], components: []});
                 }
+
+                interaction.editReply({ embeds: [
+                    new MessageEmbed()
+                    .setTitle('<a:Giveaways:878324188753068072> Perfecto')
+                    .setDescription(`He borrado ${canal}, y a la vez lo he vuelto a crear, pero... sin mensajes!`)
+                    .setColor('GREEN')
+                ], components: []});
             
             
             }
             
             if (i.customId == 'NO'){
                 const exit = new MessageEmbed()
-        .setTitle('⬅ Saliendo')
-        .setColor('WHITE')
-        .setDescription('Este mensaje será eliminado.');
-                m.editReply({ embeds: [exit], components: []});
-            setTimeout(() => m.delete(), 5000);
+                .setTitle('⬅ Saliendo')
+                .setColor('WHITE')
+                .setDescription('Este mensaje será eliminado.');
+                interaction.editReply({ embeds: [exit], components: []});
+            setTimeout(() => interaction.deleteReply(), 5000);
             }
             
         });
             
             collector.on("end", (_collector, reason) => {
                 if (reason === "time"){
-                    m.editReply({embeds: [offTime], components: []});
-                    setTimeout(() => m.delete(), 5000);
+                    const offTime = new MessageEmbed()
+                    .setColor("RED")
+                    .setDescription("Se ha agotado el tiempo para elegir, reutiliza el comando.")
+                    .setTitle(":x: Error \`OffTime\`")
+                    interaction.editReply({embeds: [offTime], components: []});
+                    setTimeout(() => interaction.deleteReply(), 5000);
                 }
             });
+
     }
 }
+
+module.exports = command;
