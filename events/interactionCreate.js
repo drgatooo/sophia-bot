@@ -3,6 +3,7 @@ const client = require('../index.js');
 const toml = require("toml");
 const fs = require('fs');
 const config = toml.parse(fs.readFileSync("./config/config.toml", "utf-8"));
+const premiumguild = require("../models/premiumGuild")
 
 client.on("interactionCreate", async (interaction) => {
    if(!interaction.isCommand()) return;
@@ -36,6 +37,18 @@ client.on("interactionCreate", async (interaction) => {
         .setColor('RED')
         .setTimestamp()
     ], ephemeral: true});
+
+    if(slashcmds.isPremium === true){
+        const premium = await premiumguild.findOne({ServerID: interaction.guildId})
+        if(!premium) return interaction.reply({embeds: [
+            new MessageEmbed()
+            .setTitle(':x: Error')
+            .setDescription('Este comando es de categoria Premium, adquiere la membresía en el [Servidor de soporte.](https://discord.sophia-bot.com).')
+            .setColor('RED')
+            .setTimestamp()
+        ], ephemeral: true});
+    }
+
     try{
         const blackuser = require("../models/blacklist-user");
         const blackguild = require("../models/blacklist-guild");
