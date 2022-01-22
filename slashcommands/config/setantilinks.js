@@ -15,7 +15,15 @@ const command = {
 
     data: new SlashCommandBuilder()
     .setName("setantilinks")
-    .setDescription("Enciende o apaga el antilinks."),
+    .setDescription("Enciende o apaga el antilinks.")
+    .addSubcommand(o => 
+      o.setName("activalo")
+      .setDescription("Activa el sistema anti links")        
+    )
+    .addSubcommand(o => 
+          o.setName("desactivalo")
+          .setDescription("Desactiva el anti links")
+    ),
 
     /**
      * 
@@ -25,110 +33,85 @@ const command = {
 
     async run(client, interaction){
 
-    const anti = await antilinksModel.findOne({ ServerID: interaction.guild.id });
+      const subcmd = interaction.options.getSubcommand()
 
-    linkEmoji = "<:blurple_link:886742617524682792>";
-    checked = "<:Check:886685653746720788>";
-    unchecked = "<:notcheck:886685696100818994>";
+      if(subcmd === "activalo"){
 
-    const exit = new MessageEmbed()
-    .setTitle('⬅ Saliendo')
-    .setColor('WHITE')
-    .setDescription('Este mensaje será eliminado.')
+        const anti = await antilinksModel.findOne({ ServerID: interaction.guild.id });
 
-    const offTime = new MessageEmbed()
-    .setTitle('⏳ Error')
-    .setColor('ORANGE')
-    .setDescription('Error de tiempo, usa el comando nuevamente!')
+      spamEmoji = "🚫";
+      checked = "<:Check:886685653746720788>";
+      unchecked = "<:notcheck:886685696100818994>";
+  
+      if (!anti) {
 
-    if (!anti) {
-      var response = new MessageEmbed()
-        .setTitle(`${linkEmoji} Anti-Links`)
-        .setColor("BLURPLE")
-        .setDescription(`El antilinks ahora está : \n${unchecked} **Desactivado**`);
-
-      var row = new MessageActionRow().addComponents(
-        new MessageButton()
-          .setCustomId("YesActivate")
-          .setLabel("Activalo")
-          .setStyle("SUCCESS"),
-
-        new MessageButton()
-          .setCustomId("No")
-          .setLabel("Cancelalo")
-          .setStyle("DANGER")
-      );
-
-      var final = new MessageEmbed()
-        .setTitle("✅ Exito")
-        .setColor("GREEN")
-        .setDescription(`El antilinks ahora está : \n ${checked} **Activado**`);
-
-    } else {
-      var response = new MessageEmbed()
-        .setTitle(`${linkEmoji} Anti-Links`)
-        .setColor("BLURPLE")
-        .setDescription(`The Anti-links now is: \n${checked} **Enabled**`);
-
-      var row = new MessageActionRow().addComponents(
-        new MessageButton()
-          .setCustomId("YesDisactivate")
-          .setLabel("Desactivalo!")
-          .setStyle("SUCCESS"),
-
-        new MessageButton()
-          .setCustomId("No")
-          .setLabel("Cancelalo")
-          .setStyle("DANGER")
-      );
-
-      var final = new MessageEmbed()
-        .setTitle("✅ Exito")
-        .setColor("GREEN")
-        .setDescription(`El antilinks ahora está : \n${unchecked} **Desactivado**`);
-    }
-
-    const m = await interaction.reply({ embeds: [response], components: [row] });
-
-    let iFilter = (i) => i.user.id === interaction.user.id;
-
-    const collector = interaction.channel.createMessageComponentCollector({
-      filter: iFilter,
-      time: 60000,
-      errors:['time']
-    })
-
-    collector.on("collect", async (i) => {
-      if (i.customId === "YesActivate") {
-        await i.deferUpdate();
-        i.editReply({ embeds: [final], components: []});
+        var final = new MessageEmbed()
+          .setTitle("✅ Exito")
+          .setColor("GREEN")
+          .setDescription(`El Anti-Links ahora está: \n ${checked} **Activado**`);
+          
+          
         let aM = new antilinksModel({
-            ServerID: interaction.guild.id
+          ServerID: interaction.guildId
         })
+
         await aM.save()
-        setTimeout(() => interaction.deleteReply(), 5000)
-      }
-
-      if (i.customId === "YesDisactivate") {
-          await i.deferUpdate();
-          i.editReply({ embeds: [final], components: []})
-          await antilinksModel.findOneAndDelete({ServerID: interaction.guild.id})
-          setTimeout(() => interaction.deleteReply(), 5000)
-      }
-
-      if (i.customId === "No"){
-        await i.deferUpdate();
-        i.editReply({ embeds: [exit], components: []})
-        setTimeout(() => interaction.deleteReply(), 5000)
-      }
-    })
-
-    collector.on("end", (_collector, reason) => {
-            if (reason === "time"){
-                interaction.editReply({embeds: [offTime], components: []})
-                setTimeout(() => interaction.deleteReply(), 5000)
-            }
+        
+        interaction.reply({embeds: [final]}).then(() => {
+          setTimeout(() => {
+            interaction.deleteReply()
+          }, 5000)
         })
+  
+      } else {
+
+        var ya = new MessageEmbed()
+          .setTitle("✅ Exito")
+          .setColor("GREEN")
+          .setDescription(`El Anti-Links **ya** está: \n ${checked} **Activado**`);
+
+          interaction.reply({embeds: [ya], ephemeral: true})
+
+      }      
+
+  }
+
+  if(subcmd === "desactivalo"){
+
+      const anti = await antilinksModel.findOne({ ServerID: interaction.guild.id });
+
+      spamEmoji = "🚫";
+      checked = "<:Check:886685653746720788>";
+      unchecked = "<:notcheck:886685696100818994>";
+
+      if (!anti) {
+
+        var final = new MessageEmbed()
+          .setTitle(":x: Error")
+          .setColor("RED")
+          .setDescription(`El Anti-Links **no** se encuentra: \n ${unchecked} **Activado**`);
+          
+        
+          interaction.reply({embeds: [final], ephemeral: true})
+
+      } else {
+
+        var ya = new MessageEmbed()
+          .setTitle("✅ Exito")
+          .setColor("GREEN")
+          .setDescription(`El Anti-Links ahora está: \n ${unchecked} **Desactivado**`);
+
+          await antilinksModel.findOneAndDelete({ServerID: interaction.guild.id})
+
+        interaction.reply({embeds: [ya]}).then(() => {
+          setTimeout(() => {
+            interaction.deleteReply()
+          }, 5000)
+        })
+      
+      }      
+
+  }
 
     }
 }
