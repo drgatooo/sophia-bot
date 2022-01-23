@@ -1,6 +1,7 @@
 const { SlashCommandBuilder } = require("@discordjs/builders");
 const { Client, CommandInteraction, MessageEmbed } = require("discord.js");
 const { inspect } = require("util");
+const ms = require("ms");
 
 /**
 * @type {import('../../types/typeslasg').Command}
