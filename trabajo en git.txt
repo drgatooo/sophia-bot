@@ -18,4 +18,3 @@ PASO 2:
 
 - git fetch (para revisar cambios que no tengas en tu repositorio local)
 - git merge (extrae a tu repositorio local)
- estatus
