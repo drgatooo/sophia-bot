@@ -2,15 +2,14 @@ const { SlashCommandBuilder } = require("@discordjs/builders");
 const { Client, CommandInteraction, MessageEmbed } = require("discord.js");
 
 /**
-* @type {import('../../types/typeslash').Command}
+* @type {import('../../types/typeslasg').Command}
 */
 
 const command = {
 
     userPerms: [],
     botPerms: [],
-    category: "",
-    
+    category: "categoria en español y sin faltas ortograficas",
 
 
     data: new SlashCommandBuilder()
