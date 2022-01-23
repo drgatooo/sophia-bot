@@ -5,7 +5,7 @@ const toml = require("toml");
 const config = toml.parse(fs.readFileSync("./config/config.toml", "utf-8"));
 const { token, botId } = config
 const commands = [];
-const slashcommandsFiles = fs.readdirSync("./slashcommands");
+const slashcommandsFiles = fs.readdirSync("./slashcommands"); 
 
 for(const folder of slashcommandsFiles){
     const Folder = fs.readdirSync(`./slashcommands/${folder}/`).filter(file => file.endsWith('js'));

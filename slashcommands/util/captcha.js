@@ -1,5 +1,5 @@
-const { SlashCommandBuilder } = require(`@discordjs/builders`),
-{ Client, CommandInteraction, MessageEmbed, MessageActionRow, MessageButton} = require(`discord.js`),
+const { SlashCommandBuilder } = require(`@discordjs/builders`);
+const { Client, CommandInteraction, MessageEmbed, MessageActionRow, MessageButton} = require(`discord.js`);
 captchaSchema = require(`../../models/captcha`),
 firstLineNumbers = new MessageActionRow().addComponents( //La línea de los botones del 0 al 4
     new MessageButton()

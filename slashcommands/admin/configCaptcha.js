@@ -6,7 +6,6 @@ module.exports = {
     userPerms: [`MANAGE_GUILD`],
     botPerms: [],
     category: "Administración",
-    isPremium: true,
     data: new SlashCommandBuilder()
     .setName(`configcaptcha`)
     .setDescription(`Configura el sistema de verificación captcha`)

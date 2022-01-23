@@ -15,15 +15,7 @@ const command = {
 
     data: new SlashCommandBuilder()
     .setName("setantispam")
-    .setDescription("Activa o desactiva el antispam")
-    .addSubcommand(o => 
-            o.setName("activalo")
-            .setDescription("Activa el sistema anti spam")        
-    )
-    .addSubcommand(o => 
-            o.setName("desactivalo")
-            .setDescription("Desactiva el anti spam")
-    ),
+    .setDescription("Activa o desactiva el antispam"),
 
     /**
      * 
@@ -33,87 +25,114 @@ const command = {
 
     async run(client, interaction){
 
-      const subcmd = interaction.options.getSubcommand()
+    const anti = await antispamModel.findOne({ ServerID: interaction.guild.id });
+    const { spamEmoji, checked, unchecked } = {
+      spamEmoji: '🚫',
+      checked: '<:Check:886685653746720788>',
+      unchecked: '<:notcheck:886685696100818994>'
+    };
 
-      if(subcmd === "activalo"){
+    const exit = new MessageEmbed()
+    .setTitle('⬅ Saliendo')
+    .setColor('WHITE')
+    .setDescription('Este mensaje será eliminado.')
 
-        const anti = await antispamModel.findOne({ ServerID: interaction.guild.id });
+    const offTime = new MessageEmbed()
+    .setTitle('⏳ Error')
+    .setColor('ORANGE')
+    .setDescription('Error de tiempo, usa el comando nuevamente!')
 
-      spamEmoji = "🚫";
-      checked = "<:Check:886685653746720788>";
-      unchecked = "<:notcheck:886685696100818994>";
-  
-      if (!anti) {
+    if (!anti) {
+      var response = new MessageEmbed()
+        .setTitle(`${spamEmoji} Anti-Spam`)
+        .setColor("BLURPLE")
+        .setDescription(`El Anti-Spam ahora está: \n${unchecked} **Desactivado**`);
 
-        var final = new MessageEmbed()
-          .setTitle("✅ Exito")
-          .setColor("GREEN")
-          .setDescription(`El Anti-Spam ahora está: \n ${checked} **Activado**`);
-          
-          
+      var row = new MessageActionRow().addComponents(
+        new MessageButton()
+          .setCustomId("YesActivate")
+          .setLabel("Activalo")
+          .setStyle("SUCCESS"),
+
+        new MessageButton()
+          .setCustomId("No")
+          .setLabel("Cancelalo")
+          .setStyle("DANGER")
+      );
+
+      var final = new MessageEmbed()
+        .setTitle("✅ Exito")
+        .setColor("GREEN")
+        .setDescription(`El Anti-Spam ahora está: \n ${checked} **Activado**`);
+
+    } else {
+      var response = new MessageEmbed()
+        .setTitle(`${spamEmoji} Anti-Spam`)
+        .setColor("BLURPLE")
+        .setDescription(`El Anti-Spam ahora está: \n ${checked} **Activado**`);
+
+      var row = new MessageActionRow().addComponents(
+        new MessageButton()
+          .setCustomId("YesDisactivate")
+          .setLabel("Desactivalo")
+          .setStyle("SUCCESS"),
+
+        new MessageButton()
+          .setCustomId("No")
+          .setLabel("Cancelalo")
+          .setStyle("DANGER")
+      );
+
+      var final = new MessageEmbed()
+        .setTitle("✅ Exito")
+        .setColor("GREEN")
+        .setDescription(`El Anti-Spam ahora está: \n${unchecked} **Desactivado**`);
+    }
+
+    await interaction.reply({
+      embeds: [response],
+      // components: [row], a
+    });
+
+    let iFilter = (i) => i.user.id === interaction.user.id;
+
+    const collector = interaction.channel.createMessageComponentCollector({
+      filter: iFilter,
+      time: 60000,
+      errors:['time']
+    })
+
+    collector.on("collect", async (i) => {
+      if (i.customId === "YesActivate") {
+        await i.deferUpdate();
+        i.editReply({ embeds: [final], components: []});
         let aM = new antispamModel({
-          ServerID: interaction.guildId
+            ServerID: interaction.guild.id
         })
-
         await aM.save()
-        
-        interaction.reply({embeds: [final]}).then(() => {
-          setTimeout(() => {
-            interaction.deleteReply()
-          }, 5000)
-        })
-  
-      } else {
+        setTimeout(() => interaction.deleteReply(), 5000)
+      }
 
-        var ya = new MessageEmbed()
-          .setTitle("✅ Exito")
-          .setColor("GREEN")
-          .setDescription(`El Anti-Spam **ya** está: \n ${checked} **Activado**`);
-
-          interaction.reply({embeds: [ya], ephemeral: true})
-
-      }      
-
-  }
-
-  if(subcmd === "desactivalo"){
-
-      const anti = await antispamModel.findOne({ ServerID: interaction.guild.id });
-
-      spamEmoji = "🚫";
-      checked = "<:Check:886685653746720788>";
-      unchecked = "<:notcheck:886685696100818994>";
-
-      if (!anti) {
-
-        var final = new MessageEmbed()
-          .setTitle(":x: Error")
-          .setColor("RED")
-          .setDescription(`El Anti-Spam **no** se encuentra: \n ${unchecked} **Activado**`);
-          
-        
-          interaction.reply({embeds: [final], ephemeral: true})
-
-      } else {
-
-        var ya = new MessageEmbed()
-          .setTitle("✅ Exito")
-          .setColor("GREEN")
-          .setDescription(`El Anti-Spam ahora está: \n ${unchecked} **Desactivado**`);
-
+      if (i.customId === "YesDisactivate") {
+          await i.deferUpdate();
+          i.editReply({ embeds: [final], components: []})
           await antispamModel.findOneAndDelete({ServerID: interaction.guild.id})
+          setTimeout(() => interaction.deleteReply(), 5000)
+      }
 
-        interaction.reply({embeds: [ya]}).then(() => {
-          setTimeout(() => {
-            interaction.deleteReply()
-          }, 5000)
+      if (i.customId === "No"){
+        await i.deferUpdate();
+        i.editReply({ embeds: [exit], components: []})
+        setTimeout(() => interaction.deleteReply(), 5000)
+      }
+    })
+
+    collector.on("end", (_collector, reason) => {
+            if (reason === "time"){
+                interaction.editReply({embeds: [offTime], components: []})
+                setTimeout(() => interaction.deleteReply(), 5000)
+            }
         })
-      
-      }      
-
-  }
-
-       
 
     }
 

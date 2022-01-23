@@ -3,14 +3,14 @@ const { Client, CommandInteraction, MessageEmbed } = require("discord.js");
 const schema = require("../../models/ignorerol");
 
 /**
-* @type {import('../../types/typeslasg').Command}
+* @type {import('../../types/typeslash').Command}
 */
 
 const command = {
 
     userPerms: ["ADMINISTRATOR"],
     botPerms: ["ADMINISTRATOR"],
-    category: "Configuración",
+    category: 'Configuración',
 
 
     data: new SlashCommandBuilder()
