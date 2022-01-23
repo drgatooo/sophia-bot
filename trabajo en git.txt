@@ -10,7 +10,7 @@ Seguidamente, una vez realizemos un cambio y git lo marque como un archivo de co
 - git add . o git add ruta/nombre archivo
 - git commit -m "Nombre del commit (comentario, el cual guia a la siguiente persona que obtenga tus cambios)"
 - git remote add origin master
-- git push
+- git push origin master
 
 FORMA DE EXTRACCIÓN DE CAMBIOS HECHOS POR TERCEROS:
 
