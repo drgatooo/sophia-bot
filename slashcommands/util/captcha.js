@@ -54,19 +54,23 @@ secondLineNumbers = new MessageActionRow().addComponents( //Línea de los botone
     .setStyle(`PRIMARY`)
 ),
 failedCaptcha = new MessageEmbed({ //El embed que se mandará al fallar el captcha
-    title: `:x: ¡Haz fallado el captcha!`,
+    title: `:x: ¡Has fallado el captcha!`,
     color: `RED`,
-    description: `Vuelve a intentarlo y asegurate de hacerlo con calma`
+    description: `Vuelve a intentarlo y asegúrate de hacerlo con calma`
 }),
 completedCaptcha = new MessageEmbed({ //El embed cuando se complete el captcha
-    title: `¡Haz pasado el captcha!`,
+    title: `¡Has pasado el captcha!`,
     color: `GREEN`,
-    description: `¡Disfruta tu estadía en el servido!`
+    description: `¡Disfrúta tú estadía en el servidor!`
 }),
 timeOutEmbed = new MessageEmbed({ //El embed que se mandará si el captcha terminó el tiempo para responder
     title: `:x: ¡El tiempo se acabo!`,
     color: `RED`,
-    description: "No has compledato la verificación, vuelve a usar el comando `/captcha`"
+    description: "No has completado la verificación, vuelve a usar el comando `/captcha`"
+}),
+errorEmbed = new MessageEmbed({ //El embed que se mandará si el captcha terminó el tiempo para responder
+    title: `:x: ¡Error!`,
+    color: `RED`
 })
 
 module.exports = {
@@ -88,17 +92,17 @@ module.exports = {
         const db = await captchaSchema.findOne({ guild: interaction.guildId})
         var captcha = [] //Creamos un array vacio
 
-        if(!db) return interaction.reply({ content: `No se ha configurado la verificación captcha en este servidor`, ephemeral: true}) //Verificamos que la base de datos tenga al servidor
-        if(db.enable == false) return interaction.reply({ content: `La verificación captcha en este servidor está desactivada!`, ephemeral: true}) //Checamos que el sistema no esté desactivado
-        if(!db.role) return interaction.reply({ content: `El rol que se dará al pasar el captcha no está establecido. Por favor habla con un administrador para que resuelva el problema`, ephemeral: true}) //Checamos si existe un rol en la base de datos
+        if(!db) return interaction.reply({ embeds: [errorEmbed.setDescription(`No se ha configurado la verificación captcha en este servidor`)], ephemeral: true}) //Verificamos que la base de datos tenga al servidor
+        if(db.enable == false) return interaction.reply({ embeds: [errorEmbed.setDescription(`La verificación captcha en este servidor está desactivada!`)], ephemeral: true}) //Checamos que el sistema no esté desactivado
+        if(!db.role) return interaction.reply({ embeds: [errorEmbed.setDescription(`El rol que se dará al pasar el captcha no está establecido. Por favor habla con un administrador para que resuelva el problema`)], ephemeral: true}) //Checamos si existe un rol en la base de datos
         if(db.channel){ //Si existe un canal
-            if(!interaction.guild.channels.cache.has(db.channel)) return interaction.reply({ content: `El canal de la verificación fue eliminado, contacta con un admin para que establezca un nuevo canal`, ephemeral: true}) //Verificamos que exista el canal en el servidor
-            if(interaction.channelId !== db.channel) return interaction.reply({ content: `Este comando solo se puede usar en <#${db.channel}>`, ephemeral: true}) //Comprobamos que el canal esté en el canal para los captchas
+            if(!interaction.guild.channels.cache.has(db.channel)) return interaction.reply({ embeds: [errorEmbed.setDescription(`El canal de la verificación fue eliminado, contacta con un admin para que establezca un nuevo canal`)], ephemeral: true}) //Verificamos que exista el canal en el servidor
+            if(interaction.channelId !== db.channel) return interaction.reply({ embeds: [errorEmbed.setDescription(`Este comando solo se puede usar en <#${db.channel}>`)], ephemeral: true}) //Comprobamos que el canal esté en el canal para los captchas
         }
         const role = interaction.guild.roles.cache.get(db.role) //Buscamos el rol
 
         if(!role) return interaction.reply({ content: `No se encontró el rol puede que haya sido eliminado`, ephemeral: true}) //Si no se encuentra el rol retornamos
-        if(interaction.member.roles.cache.has(role.id)) return interaction.reply({ content: `Ya haz usado el chaptcha`, ephemeral: true}) //Comprobamos que el miembro no tenga el rol
+        if(interaction.member.roles.cache.has(role.id)) return interaction.reply({ embeds: [errorEmbed.setDescription("Ya has usado el captcha!")], ephemeral: true}) //Comprobamos que el miembro no tenga el rol
 
         for(let i = 0; i < 6; i++) {  //Hacemos que se pongan 6 dijitos del 0 al 9 en el array captcha
             captcha.push(`${Math.floor(Math.random() * 10)}`)
@@ -120,6 +124,7 @@ module.exports = {
 
         collector.on("collect", async(i) => { //Cuando se prenda el collector
             if(!i.member.id === interaction.user.id) return i.reply({ content: `¡Esta interacción no es para ti!`, ephemeral: true}) //Si el id no es el mismo de la persona que creó la interacción retornará
+            i.deferUpdate(); //agregamos una especie de cooldown entre boton, para que no lanze interaccion fallida
 
             var choice = i.customId.substring(i.customId.length - 1) //Agarramos el id del boton y sustraemos el número
 
