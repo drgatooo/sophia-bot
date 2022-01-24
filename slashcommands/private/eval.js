@@ -28,7 +28,7 @@ const command = {
         const { options } = interaction;
     const code = options.getString("code");
     const evaluating = new MessageEmbed()
-      .setTitle("`⌛` | Evaluating...")
+      .setTitle("`⌛` | Evaluando...")
       .setColor("#00ff00");
 
     await interaction.reply({ embeds: [evaluating] });
@@ -36,18 +36,18 @@ const command = {
       const result = await eval(code);
       const final = inspect(result, { depth: 0 });
       const embed = new MessageEmbed()
-        .setTitle("`✅` | Evaluation finished!")
-        .addField("`🧩` | Type", `\`\`\`ini\n[${typeof result}]\`\`\``, true)
+        .setTitle("`✅` | Evaluación finalizada!")
+        .addField("`🧩` | Tipo", `\`\`\`ini\n[${typeof result}]\`\`\``, true)
         .addField(
-          "`⌛` | Time",
+          "`⌛` | Tiempo",
           `\`\`\`yaml\n${ms(Date.now() - interaction.createdTimestamp, {
             long: true,
           })}\`\`\``,
           true
         )
-        .addField("`📥` | Input", `\`\`\`js\n${code}\`\`\``)
+        .addField("`📥` | Entrada", `\`\`\`js\n${code}\`\`\``)
         .addField(
-          "`📤` | Output",
+          "`📤` | Salida",
           `\`\`\`js\n${
             final.length >= 1024 ? `${final.slice(0, 1010)}...` : `${final}`
           }\n\`\`\``
@@ -56,20 +56,20 @@ const command = {
       await interaction.editReply({ embeds: [embed] });
     } catch (err) {
       const embed = new MessageEmbed()
-        .setTitle("`❌` | Evaluation failed!")
-        .addField("type", `\`\`\`ini\n[${typeof err}]\`\`\``, true)
+        .setTitle("`❌` | Evaluación Errada!")
+        .addField("tipo", `\`\`\`ini\n[${typeof err}]\`\`\``, true)
         .addField(
-          "time",
+          "tiempo",
           `\`\`\`yaml\n${ms(Date.now() - interaction.createdTimestamp, {
             long: true,
           })}\`\`\``,
           true
         )
-        .addField("Code", `\`\`\`js\n${err}\n\`\`\``)
+        .addField("Codigo", `\`\`\`js\n${err}\n\`\`\``)
         .setColor("RED");
       await interaction.editReply({ embeds: [embed] });
     }
     }
 }
-// prueba
+
 module.exports = command;
