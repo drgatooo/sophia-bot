@@ -35,7 +35,7 @@ const command = {
     const subcmd = interaction.options.getSubcommand()
         
     if(subcmd === "activate"){
-        const canal = interaction.options.getChannel("canal") || interaction.channel
+        const canal = interaction.options.getChannel("canal") || interaction.channel;
         const everyone = interaction.guild
 
         if(canal.permissionOverwrites.cache.get([{id: `${everyone.id}`, deny: ["SEND_MESSAGES"] }])){
@@ -43,7 +43,7 @@ const command = {
             .setTitle(":x: Error")
             .setDescription(`${canal} ya se encuentra bloqueado, desbloquealo o menciona otro canal.`)
             .setColor("RED")
-            interaction.reply({embeds: [e], ephemeral: true})
+            return interaction.reply({embeds: [e], ephemeral: true})
         } else {
             canal.permissionOverwrites.set([{id: everyone.id, deny: ["SEND_MESSAGES"] }])
 
@@ -51,7 +51,7 @@ const command = {
             .setTitle("<a:Giveaways:878324188753068072> Listo!")
             .setDescription(`He bloqueado ${canal} a todos, menos a los administradores del servidor.`)
             .setColor("GREEN")
-            interaction.reply({embeds: [embed]})
+            return interaction.reply({embeds: [embed]})
         }
     }
 
@@ -65,7 +65,7 @@ const command = {
             .setTitle(":x: Error")
             .setDescription(`${canal} no se encuentra bloqueado, bloquealo o menciona otro canal.`)
             .setColor("RED")
-            interaction.reply({embeds: [e], ephemeral: true})
+            return interaction.reply({embeds: [e], ephemeral: true})
         } else {
             canal.permissionOverwrites.set([{id: everyone.id, allow: ["SEND_MESSAGES"] }])
 
@@ -73,7 +73,7 @@ const command = {
             .setTitle("<a:Giveaways:878324188753068072> Listo!")
             .setDescription(`He desbloqueado ${canal} a todos.`)
             .setColor("GREEN")
-            interaction.reply({embeds: [embed]})
+            return interaction.reply({embeds: [embed]})
         }
     }
 
