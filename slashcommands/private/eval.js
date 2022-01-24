@@ -45,9 +45,9 @@ const command = {
           })}\`\`\``,
           true
         )
-        .addField("`📥` | Entrada", `\`\`\`js\n${code}\`\`\``)
+        .addField("`📥` | Imput", `\`\`\`js\n${code}\`\`\``)
         .addField(
-          "`📤` | Salida",
+          "`📤` | Output",
           `\`\`\`js\n${
             final.length >= 1024 ? `${final.slice(0, 1010)}...` : `${final}`
           }\n\`\`\``
