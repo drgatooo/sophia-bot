@@ -13,7 +13,7 @@ MongoDB_URL = "mongodb+srv://sophiauser:otFJOnzjCP0lSgVy@cluster0.p0yum.mongodb.
 # Tiempo minimo para eliminar mensajes
 deleteTime = "5000"
 
-# ID del Servidor para el guildCreate
+# ID del canal para el guildCreate
 serverID = '915230633280823336'
 
 # ID del Bot
