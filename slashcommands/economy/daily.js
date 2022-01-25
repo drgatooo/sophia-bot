@@ -2,7 +2,7 @@ const { SlashCommandBuilder } = require("@discordjs/builders");
 const { Client, CommandInteraction, MessageEmbed } = require("discord.js");
 const add = require("../../helpers/add-money.js");
 const { CommandCooldown, msToMinutes } = require("discord-command-cooldown");
-const a = new CommandCooldown("daily", 90000) // 86400000 = 24h
+const a = new CommandCooldown("daily", 86400000) // 86400000 = 24h
 
 /**
 * @type {import('../../types/typeslasg').Command}
