@@ -35,16 +35,17 @@ const command = {
             guildid: interaction.guild.id, 
             userid: interaction.user.id
         });
+        var money = interaction.options.getString("cantidad")
 
         const err = new MessageEmbed()
         .setTitle(":x: Error").setColor("RED")
 
-        if(interaction.options.getString("cantidad") !== "all" && isNaN(interaction.options.getString("cantidad")) && !Number.isInteger(interaction.options.getString("cantidad"))) {
+        if(![`all`, `max`].includes(money) && isNaN(money) && !Number.isInteger(money)) {
             err.setDescription("Debes poner un numero valido!")
             return interaction.reply({embeds: [err], ephemeral: true})
         }
-        if(interaction.options.getString("cantidad") == 'all') interaction.options.getString("cantidad") = resultsBank.money;
-        if(interaction.options.getString("cantidad") !== "all" && parseInt(interaction.options.getString("cantidad")) < 1) {
+        if([`all`, `max`].includes(money)) money = resultsBank.money;
+        if(money && parseInt(interaction.options.getString("cantidad")) < 1) {
             err.setDescription("Debes poner un numero mayor a 0!")
             return interaction.reply({embeds: [err], ephemeral: true})
         }
@@ -52,15 +53,15 @@ const command = {
             err.setDescription("No tienes dinero para retirar!")
             return interaction.reply({embeds: [err], ephemeral: true})
         }
-        if(resultsBank.money < parseInt(interaction.options.getString("cantidad"))) {
+        if(resultsBank.money < parseInt(money)) {
             err.setDescription("No tienes suficiente dinero para retirar!")
             return interaction.reply({embeds: [err], ephemeral: true})
         }
 
         if(resultsBank) {
             if(resultsWallet) {
-                let addEco = parseInt(interaction.options.getString("cantidad")) + parseInt(resultsWallet.money);
-                let rmvBank = parseInt(resultsBank.money) - parseInt(interaction.options.getString("cantidad"));
+                let addEco = parseInt(money) + parseInt(resultsWallet.money);
+                let rmvBank = parseInt(resultsBank.money) - parseInt(money);
                 await schema.updateOne({
                     guildid: interaction.guild.id, 
                     userid: interaction.user.id
@@ -75,7 +76,7 @@ const command = {
                 });
                 const embed = new MessageEmbed()
                 .setTitle("✅ Dinero retirado!")
-                .setDescription(`**${interaction.user.username}** ha retirado \`${interaction.options.getString("cantidad")}$\` del banco`)
+                .setDescription(`**${interaction.user.username}** ha retirado \`${money}$\` del banco`)
                 .setColor("GREEN")
                 interaction.reply({embeds: [embed]});
             }

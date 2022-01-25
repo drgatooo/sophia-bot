@@ -3,7 +3,10 @@
   "version": "3.0",
   "description": "",
   "main": "index.js",
-  "scripts": {},
+  "scripts": {
+    "uploadChanges": "git pull https://github.com/DomingoDeveloper/sophia-bot.git",
+    "test": "nodemon node index.js"
+  },
   "keywords": [],
   "author": "Domingo, ElShyrux, Mateo, Risto",
   "license": "ISC",
@@ -41,5 +44,8 @@
     "uuid": "^8.3.2",
     "virustotal-api": "^1.1.7",
     "wikijs": "^6.3.2"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.15"
   }
 }
