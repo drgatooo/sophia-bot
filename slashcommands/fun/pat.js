@@ -23,7 +23,16 @@ const command = {
 
     async run(client, interaction){
         let mention = interaction.options.getUser('usuario'); //-- define mention
-        if(mention.id === interaction.user.id || mention.bot) return await interaction.reply({
+        if(mention.id === interaction.user.id) return interaction.reply({
+            embeds: [
+                new MessageEmbed()
+                .setTitle(':x: Error')
+                .setDescription('menciona a un usuario valido, que no seas tu y no sea un bot!')
+                .setColor('RED')
+            ],
+            ephemeral: true
+        });
+        if(mention.bot) return interaction.reply({
             embeds: [
                 new MessageEmbed()
                 .setTitle(':x: Error')
@@ -37,7 +46,7 @@ const command = {
             .setTitle(`${interaction.user.username} a acariciado a ${mention.username}`)
             .setImage(pat[Math.floor(Math.random() * pat.length)])
             .setColor('RANDOM')
-            .setFooter(`${interaction.user.username}`, `${interaction.user.avatarURL({dynamic: true})}`)
+            .setFooter({text: `${interaction.user.username}`, iconURL: `${interaction.user.avatarURL({dynamic: true})}`})
             .setTimestamp()
         ]
          });

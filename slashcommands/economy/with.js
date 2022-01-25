@@ -18,7 +18,6 @@ const command = {
     .setName("with")
     .setDescription("Retira dinero de tu banco!")
     .addStringOption(o => o.setName("cantidad").setDescription("Cantidad a retirar!").setRequired(true)),
-
     /**
      * 
      * @param {Client} client 
@@ -89,6 +88,6 @@ const command = {
         }
 
     }
-}
+} //Puto el que lo lea, Atte: Risto
 
 module.exports = command;
