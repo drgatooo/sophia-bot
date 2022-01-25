@@ -104,6 +104,6 @@ const command = {
     interaction.reply({embeds: [embedSuccess]});
 
     }
-} //Puto el que lo lea, Atte: Risto
+}
 
 module.exports = command;

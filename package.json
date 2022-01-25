@@ -1,5 +1,5 @@
 {
-  "name": "sophia",
+  "name": "Sophia.",
   "version": "3.0",
   "description": "",
   "main": "index.js",
@@ -8,7 +8,8 @@
     "test": "nodemon node index.js"
   },
   "keywords": [],
-  "author": "Domingo, ElShyrux, Mateo, Risto",
+  "owners": "Domingo, ElShyrux",
+  "programadores": "Domingo, ElShyrux, Mateo, Risto",
   "license": "ISC",
   "dependencies": {
     "@discordjs/builders": "^0.8.2",

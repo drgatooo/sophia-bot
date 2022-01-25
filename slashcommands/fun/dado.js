@@ -23,7 +23,6 @@ const command = {
     async run(client, interaction){
         const caras = 12 
         num = Math.floor(Math.random() * (caras))
-        console.log(num)
         
         const embed = new MessageEmbed()
         .setTitle(`:game_die: :game_die: Has tirado los dados :game_die: :game_die:`)
@@ -33,7 +32,9 @@ const command = {
         interaction.reply({embeds: [embed]}).then(() => {
                 if(num === 7){
                     setTimeout(() => {
-                        interaction.editReply({embeds: [embed.addField(`JACKPOT! has sacado:`, `**${num}**`, true)]})
+                        const add = require("../../helpers/add-money");
+                        add(interaction.guild.id, interaction.user.id, 7000)
+                        interaction.editReply({embeds: [embed.addField(`JACKPOT! has sacado:`, `**${num}**`, true).addField("WOW!!!!", `Has recibido \`7.000$\` en tu balance por sacar el numero 7, guardalo lo antes posible!`)]})
                     }, 3000)
                 } else if(num > 7){
                     setTimeout(() => {

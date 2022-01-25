@@ -88,6 +88,6 @@ const command = {
         }
 
     }
-} //Puto el que lo lea, Atte: Risto
+}
 
 module.exports = command;

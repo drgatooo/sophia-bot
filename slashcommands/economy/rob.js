@@ -33,13 +33,17 @@ const command = {
         const userCooldowned = await a.getUser(interaction.member.id)
     if(userCooldowned){
         const timeLeft = msToMinutes(userCooldowned.msLeft);
-        interaction.reply({embeds: [
-            new MessageEmbed()
+        const error = new MessageEmbed()
             .setTitle(":x: Oh noooo!!!")
             .setDescription(`Ya usaste el comando!, debes esperar:`)
-            .addField("Tiempo restante:", `${timeLeft.minutes} minutos y ${timeLeft.seconds} segundos`, true)
             .setColor("RED")
-        ]})
+        if(timeLeft.hours >= 1){
+            error.addField("Tiempo restante:", `${timeLeft.hours} horas`, true)
+        }
+        if(timeLeft.hours == 0){
+            error.addField("Tiempo restante:", `${timeLeft.minutes} minutos, ${timeLeft.seconds} segundos.`, true)
+        }
+        interaction.reply({embeds: [error]})
     } else {
 
         const err = new MessageEmbed().setTitle(":x: Error").setColor("RED")
