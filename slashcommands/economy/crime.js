@@ -57,6 +57,7 @@ const command = {
             .setColor("GREEN")
             .setFooter({text: "La proxima puede salir mal!", iconURL: interaction.user.displayAvatarURL({ dynamic: true})})
             .setTimestamp();
+            await a.addUser(interaction.member.id)
         return interaction.reply({embeds: [embedWin]});
     } else
     if(random == "lose") {
@@ -67,9 +68,9 @@ const command = {
                 .setColor("RED")
                 .setFooter({text: "La proxima puede salir bien!", iconURL: interaction.user.displayAvatarURL({ dynamic: true})})
                 .setTimestamp();
+                await a.addUser(interaction.member.id)
             return interaction.reply({embeds: [embedLose]});
         }
-        await a.addUser(interaction.member.id)
      }
     }
 }
