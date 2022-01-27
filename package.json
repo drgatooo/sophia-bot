@@ -32,7 +32,7 @@
     "libsodium-wrappers": "^0.7.9",
     "moment": "^2.29.1",
     "mongoose": "^6.0.5",
-    "nekos.life": "^2.0.4",
+    "nekos.life": "^2.0.9",
     "node-fetch": "^2.6.6",
     "opusscript": "^0.0.8",
     "passport": "^0.5.1",
