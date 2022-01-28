@@ -10,8 +10,6 @@ module.exports = {
     async run(client, interaction){
     
     var ping = Math.round(interaction.client.ws.ping)
-    let cpu = Math.round(process.cpuUsage().system)
-    let usocpu = Math.round((cpu) / 1000) / 10;
     const embed = new MessageEmbed()
     .setTitle(":ping_pong: Calculando...")
     .setDescription("⏳ Espere un momento...")
@@ -21,8 +19,6 @@ module.exports = {
         embed.setDescription(
         `> :ping_pong: **Ping actual:**\n` + 
         "`" + ping + " ms" + "`" + 
-        `\n\n > 📈 **CPU en uso:**\n` + 
-        "`" + usocpu + " %" + "`" + 
         `\n\n > ⏳ **Ram actual:**\n` + "`" + 
         `${(process.memoryUsage().heapUsed / 1024 / 1024).toFixed(2)}` + " MB" + "`"
         )

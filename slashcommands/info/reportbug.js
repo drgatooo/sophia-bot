@@ -126,7 +126,7 @@ const command = {
 
     const collector = interaction.channel.createMessageComponentCollector({
       filtro,
-      time: 15000,
+      time: 30000,
     });
 
     collector.on("collect", async (i) => {

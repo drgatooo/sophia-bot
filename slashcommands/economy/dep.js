@@ -29,6 +29,7 @@ const command = {
         const err = new MessageEmbed()
     .setTitle(":x: Error").setColor("RED")
     const args = interaction.options
+    var money = args.getString("cantidad")
 
     const resultsWallet = await schema.findOne({
         guildid: interaction.guild.id, 
@@ -39,7 +40,7 @@ const command = {
         userid: interaction.user.id
     });
     
-    if(args.getString("cantidad") !== "all" && isNaN(args.getString("cantidad")) && !Number.isInteger(args.getString("cantidad"))) {
+    if(![`all`, `max`].includes(money) && isNaN(money) && !Number.isInteger(money)) {
         err.setDescription("Debes poner un numero!")
         return interaction.reply({embeds: [err], ephemeral: true });
     }
@@ -47,21 +48,21 @@ const command = {
         err.setDescription("No tienes dinero para depositar!")
         return interaction.reply({embeds: [err], ephemeral: true });
     }
-    if(resultsWallet.money < parseInt(args.getString("cantidad"))) { 
+    if(resultsWallet.money < parseInt(money)) { 
         err.setDescription("No tienes ese dinero!")
         return interaction.reply({embeds: [err], ephemeral: true});
     }
 
-    if(args.getString("cantidad") == "all") args.getString("cantidad") = resultsWallet.money;
+    if([`all`, `max`].includes(money)) money = resultsWallet.money;
 
-    if(args.getString("cantidad") !== "all" && parseInt(args.getString("cantidad")) < 1) { 
+    if(![`all`, `max`].includes(money) && parseInt(money) < 1) { 
         err.setDescription("Debes poner un numero mayor a 0!")
         return interaction.reply({embeds: [err], ephemeral: true});
     }
 
     if(resultsBank) {
-        const addBank = parseInt(resultsBank.money) + parseInt(args.getString("cantidad"));
-        const rmvWallet = parseInt(resultsWallet.money) - parseInt(args.getString("cantidad"));
+        const addBank = parseInt(resultsBank.money) + parseInt(money);
+        const rmvWallet = parseInt(resultsWallet.money) - parseInt(money);
 
         await schemaBank.updateOne({
             guildid: interaction.guild.id, 
@@ -77,7 +78,7 @@ const command = {
         });
 
     } else {
-        const rmvEco = parseInt(resultsWallet.money) - parseInt(args.getString("cantidad"));
+        const rmvEco = parseInt(resultsWallet.money) - parseInt(money);
         await schema.updateOne({
             guildid: interaction.guild.id, 
             userid: interaction.user.id
@@ -88,7 +89,7 @@ const command = {
         let newBank = new schemaBank({
             guildid: interaction.guild.id,
             userid: interaction.user.id,
-            money: args.getString("cantidad")
+            money: money
           });
 
           await newBank.save();
@@ -96,7 +97,7 @@ const command = {
     }
 
     const embedSuccess = new MessageEmbed()
-    .setDescription(`**${interaction.user.username}** has depositado \`${args.getString("cantidad")}$\``)
+    .setDescription(`**${interaction.user.username}** has depositado \`${money}$\``)
     .setColor("GREEN")
     .setTimestamp()
     .setFooter({ text: `${interaction.user.username}`, iconURL: `${interaction.user.avatarURL()}`});

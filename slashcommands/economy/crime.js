@@ -31,17 +31,21 @@ const command = {
     const userCooldowned = await a.getUser(interaction.member.id)
     if(userCooldowned){
         const timeLeft = msToMinutes(userCooldowned.msLeft);
-        interaction.reply({embeds: [
-            new MessageEmbed()
+        const error = new MessageEmbed()
             .setTitle(":x: Oh noooo!!!")
             .setDescription(`Ya usaste el comando!, debes esperar:`)
-            .addField("Tiempo restante:", `${timeLeft.minutes} minutos y ${timeLeft.seconds} segundos`, true)
             .setColor("RED")
-        ]})
+        if(timeLeft.hours >= 1){
+            error.addField("Tiempo restante:", `${timeLeft.hours} horas`, true)
+        }
+        if(timeLeft.hours == 0){
+            error.addField("Tiempo restante:", `${timeLeft.minutes} minutos, ${timeLeft.seconds} segundos.`, true)
+        }
+        interaction.reply({embeds: [error]})
     } else {
 
     const danger = ["win", "lose"];
-    const crimes = ["asesinato", "robo", "atraco", "hacker", "homicidio calificado", "venta de pornografia infantil", "violación"];
+    const crimes = ["asesinato", "robo", "atraco", "hacker", "homicidio calificado"];
     const random = danger[Math.floor(Math.random() * danger.length)];
     const randomCrime = crimes[Math.floor(Math.random() * crimes.length)];
     const randomMoney = Math.floor(Math.random() * 151);
@@ -53,6 +57,7 @@ const command = {
             .setColor("GREEN")
             .setFooter({text: "La proxima puede salir mal!", iconURL: interaction.user.displayAvatarURL({ dynamic: true})})
             .setTimestamp();
+            await a.addUser(interaction.member.id)
         return interaction.reply({embeds: [embedWin]});
     } else
     if(random == "lose") {
@@ -63,9 +68,9 @@ const command = {
                 .setColor("RED")
                 .setFooter({text: "La proxima puede salir bien!", iconURL: interaction.user.displayAvatarURL({ dynamic: true})})
                 .setTimestamp();
+                await a.addUser(interaction.member.id)
             return interaction.reply({embeds: [embedLose]});
         }
-        await a.addUser(interaction.member.id)
      }
     }
 }
