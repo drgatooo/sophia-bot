@@ -82,7 +82,7 @@ if(antispamR){
       } else {
       message.delete();
       try{
-        message.author.send({ content: `👋 Hola ${message.author.username}! Desafortunadamente **${message.guild.name}** tiene mi anti-links activado, se nas cuidadoso la proxima!`})
+        message.author.send({ content: `👋 Hola ${message.author.username}! Desafortunadamente **${message.guild.name}** tiene mi anti-links activado, se más cuidadoso la proxima!`})
       } catch {
         message.channel.send({ content: `👋 Hola ${message.author.username}! Desafortunadamente **${message.guild.name}** tiene mi anti-links activado, se nas cuidadoso la proxima!`}).then(msg => {
           setTimeout(() => {
