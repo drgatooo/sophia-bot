@@ -1,9 +1,11 @@
 {
-  "name": "Sophia.",
+  "name": "Sophia",
   "version": "3.0",
   "description": "",
   "main": "index.js",
-  "scripts": {},
+  "scripts": {
+    "co": "sui-mono commit"
+  },
   "keywords": [],
   "owners": "Domingo, ElShyrux",
   "programadores": "Domingo, ElShyrux, Mateo, Risto",
@@ -42,5 +44,8 @@
     "uuid": " 8.3.2",
     "virustotal-api": " 1.1.7",
     "wikijs": " 6.3.2"
+  },
+  "devDependencies": {
+    "@s-ui/mono": "^2.18.0"
   }
 }
