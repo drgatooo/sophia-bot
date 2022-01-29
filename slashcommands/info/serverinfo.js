@@ -42,9 +42,11 @@ const command = {
             .addField("**Bots:**", `${interaction.guild.members.cache.filter(m => m.user.bot).size}`, true)
             .addField("**Canales:** ", `${interaction.guild.channels.cache.size}`, true)
             .addField("**Roles:** ", `${interaction.guild.roles.cache.size}`, true)
-            .setThumbnail(`${icono}`)
             .setFooter({text: "Consultado por: " + interaction.member.displayName, iconURL: interaction.user.displayAvatarURL({dynamic: true, size : 1024 })});
             
+        	if(icono){
+                Embed.setThumbnail(`${icono}`)
+            }
             if(interaction.guild.banner != null) {
                 Embed.setImage(`${interaction.guild.bannerURL({ dynamic: true })}`); 
             }
@@ -56,7 +58,15 @@ const command = {
 
         collector.on("collect", async i => {
             i.deferUpdate()
-
+			if(i.user.id != interaction.user.id){
+                return interaction.reply({embeds: [
+                    new MessageEmbed()
+                    .setTitle(":x: Error")
+                    .setDescription("Esta no es tu interacción.")
+                    .setColor("RED")
+                ]})
+            }
+            
             if(i.customId === "mapa"){
                 const embed = new MessageEmbed()
                 .setTitle("Mapa de roles.")
