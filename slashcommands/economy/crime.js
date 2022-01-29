@@ -70,9 +70,9 @@ const command = {
                 .setTimestamp();
                 await a.addUser(interaction.member.id)
             return interaction.reply({embeds: [embedLose]});
-        }
-     }
-    }
+   }
+  }
+ }
 }
 
 module.exports = command;

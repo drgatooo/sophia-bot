@@ -1,7 +1,7 @@
 const { SlashCommandBuilder } = require("@discordjs/builders");
 const { Client, CommandInteraction, MessageEmbed } = require("discord.js");
-const emojisi = "<a:Stable:910938393968517180>"
-const emojino = "<a:Down:910938393993699350>"
+emojisi = "<a:Stable:910938393968517180>"
+emojino = "<a:Down:910938393993699350>"
 
 /**
 * @type {import('../../types/typeslasg').Command}
@@ -32,7 +32,7 @@ const command = {
 
         const embed = new MessageEmbed()
         .setTitle("Nueva encuesta!")
-        .setDescription(`Se ha generado una nueva encuesta en la que tú puedes participar, a continuacióm, elige tu opción haciendo click sobre esa reacción.`)
+        .setDescription(`Se ha generado una nueva encuesta en la que tú puedes participar, a continuación, elige tu opción haciendo click sobre esa reacción.`)
         .addField("LA PREGUNTA ES:", si, true)
         .setColor("#00FFFF")
 
