@@ -45,7 +45,7 @@ const command = {
           })}\`\`\``,
           true
         )
-        .addField("`📥` | Imput", `\`\`\`js\n${code}\`\`\``)
+        .addField("`📥` | Input", `\`\`\`js\n${code}\`\`\``)
         .addField(
           "`📤` | Output",
           `\`\`\`js\n${

@@ -11,7 +11,7 @@ module.exports = {
     .addStringOption(o => o.setName('pregunta').setDescription('dime tu pregunta.').setRequired(true)),
 
     async run(client, interaction){
-		const respuesta = ["Si.", "No.", "Tal vez.", "Puede ser.", "No en absoluto.", "Mejor pregunta otra cosa.", "Mmmmm... no se.", "Eso no se pregunta...", "No lo se, dimelo tu."];
+		const respuesta = ["Si.", "No.", "Tal vez.", "Puede ser.", "No en absoluto.", "Mejor pregunta otra cosa.", "Mmmmm... no sé.", "Eso no se pregunta...", "No lo sé, dímelo tú."];
         const pregunta = interaction.options.getString('pregunta');
         const embed = new MessageEmbed()
         .setTitle("8Ball :8ball:")

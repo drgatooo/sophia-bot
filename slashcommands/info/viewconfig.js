@@ -36,13 +36,12 @@ module.exports = {
         .setDescription('Tu configuración actual:')
         .addField(`📚 Canales`,'*Configuración de canales:*')
         .addField('🔔 Bienvenidas / Despedidas ',`${welcomeChannel ? `${checked} **Activado**` : `${unchecked} **Desactivado**`}`,true)
-        .addField('👮‍♂️ Auto-Moderacion',`*Tu configuración de moderación*`)
+        .addField('👮‍♂️ Auto-Moderación',`*Tu configuración de moderación*`)
         .addField('🔍 Anti-Links',`${Antilinks ? `${checked} **Activado**`: `${unchecked} **Desactivado**`}`,true)
         .addField('📴 Anti-Spam',`${AntiSpam ? `${checked} **Activado**`: `${unchecked} **Desactivado**`}`,true)
-        .addField('🎭 Roles','*Configuracion de roles:*')
+        .addField('🎭 Roles','*Configuración de roles:*')
         .addField('😎 Ignore rol',`${rolignore ? `${checked} **Activado**`: `${unchecked} **Desactivado**`}`,true)
         .setFooter({text: `${premium ? `🚀 El servidor es premium!`: `❌ El servidor no es premium`}`, iconURL: interaction.guild.iconURL({dynamic: true})})
-
 
         interaction.reply({embeds: [configview]})
 

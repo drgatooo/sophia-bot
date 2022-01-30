@@ -55,7 +55,7 @@ const command = {
         const embedWin = new MessageEmbed()
             .setDescription(`**${interaction.user.username}** ha cometido el crimen: **${randomCrime}** y ganó \`${randomMoney}$\``)
             .setColor("GREEN")
-            .setFooter({text: "La proxima puede salir mal!", iconURL: interaction.user.displayAvatarURL({ dynamic: true})})
+            .setFooter({text: "La próxima puede salir mal!", iconURL: interaction.user.displayAvatarURL({ dynamic: true})})
             .setTimestamp();
             await a.addUser(interaction.member.id)
         return interaction.reply({embeds: [embedWin]});
@@ -64,9 +64,9 @@ const command = {
             remove(interaction.guild.id, interaction.user.id, randomMoney);
 
             const embedLose = new MessageEmbed()
-                .setDescription(`**${interaction.user.username}** ha cometido el crimen: **${randomCrime}** y lo atrapo la policia, perdió \`${randomMoney}$\``)
+                .setDescription(`**${interaction.user.username}** ha cometido el crimen: **${randomCrime}** y lo atrapó la policía, perdió \`${randomMoney}$\``)
                 .setColor("RED")
-                .setFooter({text: "La proxima puede salir bien!", iconURL: interaction.user.displayAvatarURL({ dynamic: true})})
+                .setFooter({text: "La próxima puede salir bien!", iconURL: interaction.user.displayAvatarURL({ dynamic: true})})
                 .setTimestamp();
                 await a.addUser(interaction.member.id)
             return interaction.reply({embeds: [embedLose]});

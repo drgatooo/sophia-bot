@@ -47,7 +47,7 @@ const command = {
 
         const embed = new MessageEmbed()
         .setTitle("😜 Feliz Dia!")
-        .setDescription(`Has recibido \`5.000$\` en efectivo, recuerda gaurdarlo en el banco!`)
+        .setDescription(`Has recibido \`5.000$\` en efectivo, recuerda guardarlo en el banco!`)
         .setColor("GREEN")
         .setThumbnail(interaction.guild.iconURL({dynamic: true}))
 

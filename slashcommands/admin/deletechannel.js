@@ -124,7 +124,7 @@ const command = {
                     const offTime = new MessageEmbed()
                     .setColor("RED")
                     .setDescription("Se ha agotado el tiempo para elegir, reutiliza el comando.")
-                    .setTitle(":x: Error \`OffTime\`")
+                    .setTitle(":x: Error")
                     interaction.editReply({embeds: [offTime], components: []});
                     setTimeout(() => interaction.deleteReply(), 5000);
                 }
