@@ -30,21 +30,71 @@ const command = {
             .setStyle("DANGER")
             .setCustomId("mapa")
         )
-        const icono = interaction.guild.iconURL({size : 2048, dynamic: true})
-        const Embed = new MessageEmbed()
-            .setColor("#00FFFF")
-            .setTitle(`Nombre del Servidor: ${interaction.guild.name}`)
-            .addField("**Dueño ID:**", interaction.guild.ownerId)
-            .addField("**Server ID:** ", `${interaction.guild.id}`)
-            .addField("**Dueño:**", `<@${interaction.guild.ownerId}>`, true)
-            .addField("**Fecha de Creación:** ", `${interaction.guild.createdAt}`, true)
-            .addField("**Miembros:** ", `${interaction.guild.memberCount}`, true)
-            .addField("**Bots:**", `${interaction.guild.members.cache.filter(m => m.user.bot).size}`, true)
-            .addField("**Canales:** ", `${interaction.guild.channels.cache.size}`, true)
-            .addField("**Roles:** ", `${interaction.guild.roles.cache.size}`, true)
-            .setFooter({text: "Consultado por: " + interaction.member.displayName, iconURL: interaction.user.displayAvatarURL({dynamic: true, size : 1024 })});
-            
-        	if(icono){
+    const icono = interaction.guild.iconURL({size : 2048, dynamic: true})
+    const guild = interaction.guild
+
+    const owner = await interaction.guild.fetchOwner()    
+    let guildDescription = guild.description
+    let guildTier = guild.premiumTier.toString()
+
+    if(!guildDescription) {
+      guildDescription = 'No establecida.'
+    }
+    if(guildTier == "NONE"){
+        guildTier = "Sin nivel actual."
+    }
+
+    const Embed = new MessageEmbed()
+    .setTitle('Información Servidor.')
+    .addFields({
+                name: 'NOMBRE:',
+                value: guild.name,
+                inline: true
+              },
+              {
+                name: 'ID SERVIDOR:',
+                value: guild.id,
+                inline: true
+              },
+              {
+                name: 'DESCRIPCIÓN:',
+                value: guildDescription,
+                inline: true
+              },
+              {
+                name: 'CREADO:',
+                value: `<t:${parseInt(interaction.guild.createdTimestamp / 1000)}:R>`,
+                inline: true
+              },
+              {
+                name: 'DUEÑO:',
+                value: owner.user.tag,
+                inline: true
+              },
+              {
+                name: 'MIEMBROS TOTALES:',
+                value: guild.memberCount.toString(),
+                inline: true
+              },
+              {
+                name: 'MEJORAS:',
+                value: guild.premiumSubscriptionCount.toString(),
+                inline: true
+              },
+              {
+                  name: 'ROLES:',
+                  value: guild.roles.cache.size.toString(),
+                  inline: true
+              },
+              {
+                name: 'NIVEL MEJORAS:',
+                value: guildTier,
+                inline: true
+              })
+        .setColor("#00FFFF")
+        .setFooter({text: "Consultado por: " + interaction.member.displayName, iconURL: interaction.user.displayAvatarURL({dynamic: true, size : 1024 })});
+        
+        if(icono){
                 Embed.setThumbnail(`${icono}`)
             }
             if(interaction.guild.banner != null) {
@@ -54,7 +104,7 @@ const command = {
         await interaction.reply({embeds: [Embed], components: [row]})
 
         const filtro = x => x.user.id === interaction.user.id
-        const collector = interaction.channel.createMessageComponentCollector({filter: filtro, time: 15000})
+        const collector = interaction.channel.createMessageComponentCollector({filter: filtro, time: 30000})
 
         collector.on("collect", async i => {
             i.deferUpdate()

@@ -74,7 +74,7 @@ const command = {
         
         const embedSuccess = new MessageEmbed()
             .setDescription(`**${interaction.user.username}** ha robado \`${randomMoney}$\` ha **${mention.username}**`)
-            .setColor('RED')
+            .setColor('GREEN')
             .setFooter({text: `${mention.username} asegurate de siempre guardarlo en el banco...`})
             .setTimestamp();
         interaction.reply({embeds: [embedSuccess]});
