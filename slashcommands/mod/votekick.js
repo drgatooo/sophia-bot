@@ -25,9 +25,9 @@ const command = {
      */
 
     async run(client, interaction){
-
-    let kickuser = interaction.options.getUser("usuario")
-
+    const embedError = new MessageEmbed({ title: ":x: Error", color: "RED"})
+    var kickuser = interaction.options.getUser("usuario")
+    var kickMember = interaction.guild.members.cache.get(kickuser.id)
     var kickear = "👍"//"<a:Stable:910938393968517180>"
     var noKickear = "👣"//"<a:Down:910938393993699350>"
 
@@ -36,6 +36,25 @@ const command = {
     .setTitle("Vota para sacar al usuario!")
     .addField("Usuario:", `${kickuser}`)
     .setDescription("Se ha abierto una nueva votación para sacar a un usuario del discord, participa en la decisión votando!")
+
+    if(interaction.member.roles.highest.comparePositionTo(kickMember.roles.highest) <= 0) return interaction.reply({ 
+        embeds: [ 
+            embedError.setDescription(`El miembro tiene un rol superior al tuyo.`) 
+        ], 
+        ephemeral: true 
+    })
+    if(interaction.guild.me.roles.highest.comparePositionTo(kickMember.roles.highest) <= 0) return interaction.reply({ 
+        embeds: [ 
+            embedError.setDescription(`El miembro tiene un rol superior al mio.`) 
+        ], 
+        ephemeral: true 
+    })
+    if(!kickMember.kickable) return interaction.reply({
+        embeds: [
+            embedError.setDescription(`El miembro no puede ser expulsado`)
+        ],
+        ephemeral: true
+    })
 
     interaction.reply({embeds: [new MessageEmbed()
     .setTitle("Listo!")
@@ -48,8 +67,9 @@ const command = {
 
     const filtro = reaction => reaction.emoji.name === kickear || reaction.emoji.name === noKickear
     const reacciones = await msg.awaitReactions({filter: filtro, time: 30000 })
+    console.log(reacciones)
     
-    var NO_Cuenta = reacciones.get(noKickear).count
+    var NO_Cuenta = reacciones.get(noKickear)
     var SI_Cuenta = reacciones.get(kickear);
 
     if (SI_Cuenta == undefined) {
@@ -57,6 +77,12 @@ const command = {
     } else {
       var SI_Cuenta = reacciones.get(kickear).count
     }
+
+    if (NO_Cuenta == undefined) {
+        var NO_Cuenta = 1;
+      } else {
+        var NO_Cuenta = reacciones.get(noKickear).count
+      }
 
     var sumsum = new MessageEmbed()
     .addField(
@@ -73,7 +99,7 @@ const command = {
 
     if (SI_Cuenta >= 0 && SI_Cuenta > NO_Cuenta) {
 
-      kickuser.kick("has perdido, la encuesta").then(() => {
+      kickMember.kick("has perdido, la encuesta").then(() => {
         msg.edit({embeds:[new MessageEmbed()
             .setColor("RED")
             .setDescription(`${kickuser} Ha sido Kickeado Exitosamente`)
@@ -91,4 +117,4 @@ const command = {
     }
 }
 
-module.exports = command;
+module.exports = command
