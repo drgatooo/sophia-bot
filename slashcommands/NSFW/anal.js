@@ -34,7 +34,7 @@ const command = {
         let { url } = await nsfw.anal()
         
         const titsEmbed = new MessageEmbed()
-        .setTitle('🕵️‍♀️ Aca tienes amigo mio ;)')
+        .setTitle('🕵️‍♀️ Acá tienes amigo mio ;)')
         .setColor('BLACK')
         .setImage(url)
         return interaction.reply({embeds: [titsEmbed]})

@@ -13,7 +13,7 @@ const command = {
 
 
     data: new SlashCommandBuilder()
-    .setName("deletechannel")
+    .setName("nukechannel")
     .setDescription("Nukea un canal de tu servidor!")
     .addChannelOption(o => o.setName("canal").setDescription("Menciona el canal a nukear").setRequired(true)),
 
