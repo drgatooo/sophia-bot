@@ -1,5 +1,5 @@
 const { SlashCommandBuilder } = require("@discordjs/builders");
-const { Client, CommandInteraction, MessageEmbed } = require("discord.js");
+const { Client, CommandInteraction, MessageEmbed, Interaction, Collection} = require("discord.js");
 const schema = require('../../models/economy-model.js');
 const bankschema = require('../../models/bank-model')
 
@@ -21,7 +21,7 @@ const command = {
     /**
      * 
      * @param {Client} client 
-     * @param {CommandInteraction} interaction 
+     * @param {CommandInteraction | Interaction} interaction 
      */
 
     async run(client, interaction){
