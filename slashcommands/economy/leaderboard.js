@@ -26,10 +26,10 @@ const command = {
 
     async run(client, interaction){
 
-        const collection = new Discord.Collection()
+        const collection = new Collection()
         
         await Promise.all(
-          message.guild.members.cache
+          interaction.guild.members.cache
             .filter((m) => !m.user.bot)
             .map(async (member) => {
               let datos = await schema.findOne({
@@ -60,7 +60,7 @@ const command = {
         const leaderboard = collection.sort((a, b) => b.bal - a.bal).first(10);
         const leaderboardMap = leaderboard.map((v, i) => `\`#${i+1} - ${client.users.cache.get(v.id).username} / ${v.bal}$\``).slice(0, 10).join("\n")
 
-        const embed = new Discord.MessageEmbed()
+        const embed = new MessageEmbed()
         .setTitle(`Leaderboard on ${interaction.guild.name}`)
         .setDescription(leaderboardMap)
         .setColor("0x388CEC")
