@@ -12,6 +12,7 @@
   "programadores": "Domingo, ElShyrux, Mateo, Risto",
   "license": "ISC",
   "dependencies": {
+    "@androz2091/discord-invites-tracker": "^1.1.0",
     "@discordjs/builders": "^0.8.2",
     "@discordjs/rest": "^0.1.0-canary.0",
     "@discordjs/voice": "^0.7.5",
