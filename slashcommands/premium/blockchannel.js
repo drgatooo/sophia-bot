@@ -7,7 +7,7 @@ const {
 } = require("discord.js");
 
 /**
- * @type {import('../../types/typeslasg').Command}
+ * @type {import('../../types/typeslash').Command}
  */
 
 const command = {

@@ -4,7 +4,7 @@ const { inspect } = require("util");
 const ms = require("ms");
 
 /**
-* @type {import('../../types/typeslasg').Command}
+* @type {import('../../types/typeslash').Command}
 */
 
 const command = {

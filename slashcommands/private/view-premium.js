@@ -3,7 +3,7 @@ const { Client, CommandInteraction, MessageEmbed, MessageActionRow, MessageButto
 const premiumGuild = require("../../models/premiumGuild");
 
 /**
-* @type {import('../../types/typeslasg').Command}
+* @type {import('../../types/typeslash').Command}
 */
 
 const command = {

@@ -3,7 +3,7 @@ const { Client, CommandInteraction, MessageEmbed } = require("discord.js");
 const remove = require("../../helpers/comando-remove-money");
 
 /**
-* @type {import('../../types/typeslasg').Command}
+* @type {import('../../types/typeslash').Command}
 */
 
 const command = {

@@ -3,7 +3,7 @@ const { Client, CommandInteraction, MessageEmbed, MessageAttachment } = require(
 const { imagenesEspañol } = require('discord-memes');
 
 /**
-* @type {import('../../types/typeslasg').Command}
+* @type {import('../../types/typeslash').Command}
 */
 
 const command = {

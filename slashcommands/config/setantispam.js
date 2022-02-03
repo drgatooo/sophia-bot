@@ -3,7 +3,7 @@ const { Client, CommandInteraction, MessageEmbed, MessageActionRow, MessageButto
 const antispamModel = require("../../models/antispam");
 
 /**
-* @type {import('../../types/typeslasg').Command}
+* @type {import('../../types/typeslash').Command}
 */
 
 const command = {

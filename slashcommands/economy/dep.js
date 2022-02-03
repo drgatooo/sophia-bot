@@ -4,7 +4,7 @@ const schema = require("../../models/economy-model.js");
 const schemaBank = require("../../models/bank-model.js");
 
 /**
-* @type {import('../../types/typeslasg').Command}
+* @type {import('../../types/typeslash').Command}
 */
 
 const command = {

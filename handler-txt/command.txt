@@ -9,7 +9,7 @@ const command = {
 
     userPerms: [],
     botPerms: [],
-    category: "",
+    category: "categoria en español y sin faltas ortograficas",
 
 
     data: new SlashCommandBuilder()

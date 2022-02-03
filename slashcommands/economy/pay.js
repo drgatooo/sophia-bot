@@ -5,7 +5,7 @@ const add = require('../../helpers/add-money.js');
 const remove = require('../../helpers/remove-money.js');
 
 /**
-* @type {import('../../types/typeslasg').Command}
+* @type {import('../../types/typeslash').Command}
 */
 
 const command = {

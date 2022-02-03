@@ -4,7 +4,7 @@ const schema = require("../../models/shop-model.js");
 const bigInt = require("big-integer");
 
 /**
-* @type {import('../../types/typeslasg').Command}
+* @type {import('../../types/typeslash').Command}
 */
 
 const command = {

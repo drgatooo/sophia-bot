@@ -7,7 +7,7 @@ let timeModel = require('../../models/quizTime')
 
 
 /**
-* @type {import('../../types/typeslasg').Command}
+* @type {import('../../types/typeslash').Command}
 */
 
 const command = {

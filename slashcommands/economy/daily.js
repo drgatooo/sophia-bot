@@ -5,7 +5,7 @@ const { CommandCooldown, msToMinutes } = require("discord-command-cooldown");
 const a = new CommandCooldown("daily", 86400000) // 86400000 = 24h
 
 /**
-* @type {import('../../types/typeslasg').Command}
+* @type {import('../../types/typeslash').Command}
 */
 
 const command = {

@@ -3,7 +3,7 @@ const { Client, CommandInteraction, MessageEmbed } = require("discord.js");
 const schemaInv = require("../../models/inventory-model.js");
 
 /**
-* @type {import('../../types/typeslasg').Command}
+* @type {import('../../types/typeslash').Command}
 */
 
 const command = {

@@ -14,8 +14,8 @@ successEmbed = new MessageEmbed({
 
 module.exports = {
     userPerms: [`MANAGE_GUILD`],
-    botPerms: [],
-    category: "Administración",
+    botPerms: ["MANAGE_GUILD"],
+    category: "premium",
     isPremium: true,
     data: new SlashCommandBuilder()
     .setName(`configcaptcha`)

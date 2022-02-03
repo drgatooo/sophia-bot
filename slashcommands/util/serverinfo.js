@@ -2,14 +2,14 @@ const { SlashCommandBuilder } = require("@discordjs/builders");
 const { Client, CommandInteraction, MessageEmbed, MessageActionRow, MessageButton } = require("discord.js");
 
 /**
-* @type {import('../../types/typeslasg').Command}
+* @type {import('../../types/typeslash').Command}
 */
 
 const command = {
 
     userPerms: ["SEND_MESSAGES"],
     botPerms: ["SEND_MESSAGES"],
-    category: "Información",
+    category: "Utilidad",
 
 
     data: new SlashCommandBuilder()

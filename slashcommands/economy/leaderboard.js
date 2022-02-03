@@ -4,7 +4,7 @@ const schema = require('../../models/economy-model.js');
 const bankschema = require('../../models/bank-model')
 
 /**
-* @type {import('../../types/typeslasg').Command}
+* @type {import('../../types/typeslash').Command}
 */
 
 const command = {
@@ -61,7 +61,7 @@ const command = {
         const leaderboardMap = leaderboard.map((v, i) => `\`#${i+1} - ${client.users.cache.get(v.id).username} / ${v.bal}$\``).slice(0, 10).join("\n")
 
         const embed = new MessageEmbed()
-        .setTitle(`Leaderboard on ${interaction.guild.name}`)
+        .setTitle(`Leaderboard de ${interaction.guild.name}`)
         .setDescription(leaderboardMap)
         .setColor("0x388CEC")
         .setFooter({ text: `${interaction.guild.name}`, iconURL: interaction.guild.iconURL({ dynamic: true }) })

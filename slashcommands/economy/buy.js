@@ -5,7 +5,7 @@ const schemaInv = require("../../models/inventory-model.js");
 const schemaShop = require("../../models/shop-model.js");
 
 /**
-* @type {import('../../types/typeslasg').Command}
+* @type {import('../../types/typeslash').Command}
 */
 
 const command = {

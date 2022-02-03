@@ -4,7 +4,7 @@ const nekoClient = require('nekos.life');
 const { sfw } = new nekoClient();
 
 /**
-* @type {import('../../types/typeslasg').Command}
+* @type {import('../../types/typeslash').Command}
 */
 
 const command = {

@@ -1,13 +1,27 @@
-const { SlashCommandBuilder } = require("@discordjs/builders")
-const { MessageEmbed, MessageActionRow, MessageButton, version } = require('discord.js')
-const info = require("../../package.json")
-require('moment').locale('es');
+const { SlashCommandBuilder } = require("@discordjs/builders");
+const { Client, CommandInteraction, MessageEmbed, MessageActionRow, MessageButton } = require("discord.js");
+const { name, owners, programadores } = require("../../package.json")
 
-module.exports = {
-    category: 'Utilidad',
+/**
+* @type {import('../../types/typeslash').Command}
+*/
+
+const command = {
+
+    userPerms: ["SEND_MESSAGES"],
+    botPerms: ["SEND_MESSAGES"],
+    category: "Utilidad",
+
+
     data: new SlashCommandBuilder()
     .setName("infobot")
-    .setDescription("Revisa información del bot."),
+    .setDescription("Revisa la información general de Sophia."),
+
+    /**
+     * 
+     * @param {Client} client 
+     * @param {CommandInteraction} interaction 
+     */
 
     async run(client, interaction){
 
@@ -15,23 +29,28 @@ module.exports = {
             new MessageButton()
             .setLabel("Invitación")
             .setStyle("LINK")
-            .setURL("https://discord.com/oauth2/authorize?client_id=864930156857786388&permissions=8&scope=bot"),
+            .setURL("https://invite.sophia-bot.com/"),
 
             new MessageButton()
             .setLabel("Support Server")
             .setStyle("LINK")
-            .setURL("https://discord.gg/QaY43QSDwK")
+            .setURL("https://discord.gg/QaY43QSDwK"),
+
+            new MessageButton()
+            .setLabel("Shield Hosting, Partners")
+            .setStyle("LINK")
+            .setURL("https://discord.gg/7DTA2PXjkb")
         )
         
         const embed = new MessageEmbed()
         .setTitle("Información Sophia.")
         .setDescription("Bienvenido al apartado de información sobre mi!, a continuación verás aspectos e información diversa de mi.")
-        .addField("<a:ArrowRightGlow:878324199171690518> Nombre:", `${info.name}`, true)
+        .addField("<a:ArrowRightGlow:878324199171690518> Nombre:", `${name}`, true)
         .addField("<a:check:878324190804070440> Discriminator:", `${client.user.discriminator}`, true)
-        .addField("<a:emoji_142:878324216242524190> Owners:", `${info.owners}`, true)
-        .addField("<a:emoji_142:878324216242524190> Developers:", `${info.programadores}`, true)
-        .addField("<a:puntos:878324208864722954> Fecha de creación:", require('moment')(client.user.createdAt).format('DD/MM/YYYY [a las] hh:ssa'), true)
-        .addField("<a:cora:925477856711180379> Uptime:", require('humanize-duration')(client.uptime, {language: "es", round: true}), true)
+        .addField("<a:emoji_142:878324216242524190> Owners:", `${owners}`, true)
+        .addField("<a:emoji_142:878324216242524190> Developers:", `${programadores}`, true)
+        .addField("<a:puntos:878324208864722954> Fecha de creación:", `<t:${parseInt(client.user.createdTimestamp / 1000)}:R>`, true)
+        .addField("<a:cora:925477856711180379> Uptime:", `<t:${parseInt(client.readyTimestamp / 1000)}:R>`, true)
         .addField("<:vyxter:904595485615087636> Host:", "[VyxterHost](https://vyxterhost.com)", true)
         .addField("<a:de07f1a598f3418bad40172ddc1aba3a:878324224140390400> Lenguaje de programación:", `Javascript`, true)
         .addField("<a:de07f1a598f3418bad40172ddc1aba3a:878324224140390400> Package:", `discord.js ${version}`, true)
@@ -44,3 +63,5 @@ module.exports = {
 
     }
 }
+
+module.exports = command;

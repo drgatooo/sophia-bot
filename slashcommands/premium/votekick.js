@@ -2,7 +2,7 @@ const { SlashCommandBuilder } = require("@discordjs/builders");
 const { Client, CommandInteraction, MessageEmbed } = require("discord.js");
 
 /**
-* @type {import('../../types/typeslasg').Command}
+* @type {import('../../types/typeslash').Command}
 */
 
 const command = {
@@ -10,7 +10,7 @@ const command = {
     userPerms: ["KICK_MEMBERS"],
     botPerms: ["KICK_MEMBERS"],
     isPremium: true,
-    category: "Moderación",
+    category: "premium",
 
 
     data: new SlashCommandBuilder()

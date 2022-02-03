@@ -4,7 +4,7 @@ emojisi = "<a:Stable:910938393968517180>"
 emojino = "<a:Down:910938393993699350>"
 
 /**
-* @type {import('../../types/typeslasg').Command}
+* @type {import('../../types/typeslash').Command}
 */
 
 const command = {

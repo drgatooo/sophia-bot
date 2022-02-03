@@ -3,7 +3,7 @@ const { Interaction, MessageEmbed } = require("discord.js");
 const ms = require("ms");
 
 /**
-* @type {import('../../types/typeslasg').Command}
+* @type {import('../../types/typeslash').Command}
 */
 
 const command = {

@@ -76,7 +76,7 @@ errorEmbed = new MessageEmbed({ //El embed que se mandar√° si el captcha termin√
 module.exports = {
     userPerms: [],
     botPerms: [],
-    category: 'Utilidad',
+    category: 'premium',
     data: new SlashCommandBuilder()
     .setName(`captcha`)
     .setDescription(`Usa el comando para verificarte en el servidor`),
