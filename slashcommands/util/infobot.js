@@ -49,7 +49,7 @@ const command = {
         .addField("<a:check:878324190804070440> Discriminator:", `${client.user.discriminator}`, true)
         .addField("<a:emoji_142:878324216242524190> Owners:", `${owners}`, true)
         .addField("<a:emoji_142:878324216242524190> Developers:", `${programadores}`, true)
-        .addField("<a:puntos:878324208864722954> Fecha de creación:", `<t:${parseInt(client.user.createdTimestamp / 1000)}:R>`, true)
+        .addField("<a:puntos:878324208864722954> Fecha de creación:", `<t:${parseInt(client.user.createdTimestamp / 1000)}:d>`, true)
         .addField("<a:cora:925477856711180379> Uptime:", `<t:${parseInt(client.readyTimestamp / 1000)}:R>`, true)
         .addField("<:vyxter:904595485615087636> Host:", "[VyxterHost](https://vyxterhost.com)", true)
         .addField("<a:de07f1a598f3418bad40172ddc1aba3a:878324224140390400> Lenguaje de programación:", `Javascript`, true)
