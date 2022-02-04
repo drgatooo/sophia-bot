@@ -6,7 +6,8 @@ const config = toml.parse(fs.readFileSync("./config/config.toml", "utf-8"));
 const premiumguild = require("../models/premiumGuild")
 
 client.on("interactionCreate", async (interaction) => {
-   if(!interaction.isCommand()) return;
+    if(!interaction.isCommand()) return;
+    if(!interaction.guild) return interaction.reply({embeds: [new MessageEmbed().setTitle(":x: Error").setDescription("¿Que intentas hacer?\nMis comandos no se pueden usar en mi privado!").setColor("RED")]})
 
     const slashcmds = client.slashcommands.get(interaction.commandName)
     if(!slashcmds) return;
