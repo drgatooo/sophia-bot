@@ -1,15 +1,16 @@
 {
   "name": "sophia.",
-  "version": "3.0",
+  "version": "3.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
     "uploadChanges": "git pull https://github.com/DomingoDeveloper/sophia-bot.git",
-    "test": "nodemon node index.js"
+    "dev": "nodemon node index.js",
+    "build": "node slashcommands.js"
   },
   "keywords": [],
-  "owners": "Domingo, ElShyrux",
-  "programadores": "Domingo, ElShyrux, Mateo, Risto",
+  "owners": "Domingo, ElShyrux, Xnayx",
+  "programadores": "Domingo, ElShyrux, Mateo, Risto, Xnayx",
   "license": "ISC",
   "dependencies": {
     "@androz2091/discord-invites-tracker": "^1.1.0",

@@ -9,9 +9,6 @@ const schemaShop = require("../../models/shop-model.js");
 */
 
 const command = {
-
-    userPerms: ["SEND_MESSAGES"],
-    botPerms: ["SEND_MESSAGES"],
     category: "Economía",
 
 
@@ -37,7 +34,7 @@ const command = {
     .setColor("GREEN")
 
     const numero = interaction.options.getInteger("numero-item")
-    if(!Number.isInteger(numero)) return interaction.reply({embeds: [err.setDescription("Debes poner un número positivo!")], ephemeral: true})
+    if(!Number.isInteger(numero)) return interaction.reply({embeds: [err.setDescription("Debes poner un número entero!")], ephemeral: true})
 
     const results = await schema.findOne({
         guildid: interaction.guild.id, 
@@ -51,9 +48,9 @@ const command = {
         guildid: interaction.guild.id
     });
     const item = parseInt(numero) - 1;
-    let mny = 0;
-    if(results) mny = results.money;
-    if(mny < resultsShop.store[item].price) {
+    let money = 0;
+    if(results) money = results.money;
+    if(money < resultsShop.store[item].price) {
         err.setDescription("No tienes dinero suficiente")
         return interaction.reply({embeds: [err], ephemeral: true});
     }
@@ -108,7 +105,7 @@ const command = {
         await schema.updateOne({
             guildid: interaction.guild.id, 
             userid: interaction.user.id, 
-            money: mny - resultsShop.store[item].price});
+            money: money - resultsShop.store[item].price});
         exi.setDescription("Item agregado! para ver tu inventario escribe: `/inv`")
         interaction.reply({embeds: [exi]});
       }

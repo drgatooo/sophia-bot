@@ -9,7 +9,7 @@ const command = {
 
     userPerms: ["SEND_MESSAGES"],
     botPerms: ["SEND_MESSAGES"],
-    category: "categoria en español y sin faltas ortograficas",
+    category: "Diversión",
 
 
     data: new SlashCommandBuilder()
