@@ -9,7 +9,7 @@
     "build": "node slashcommands.js"
   },
   "keywords": [],
-  "owners": "Domingo, ElShyrux, Xnayx",
+  "owners": "Domingo, ElShyrux",
   "programadores": "Domingo, ElShyrux, Mateo, Risto, Xnayx",
   "license": "ISC",
   "dependencies": {
