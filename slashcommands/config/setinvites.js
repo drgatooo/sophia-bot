@@ -57,17 +57,19 @@ const command = {
 
       const channel = await schema.findOne({ ServerID: interaction.guild.id});
 
-      if (!channel) await interaction.reply({embeds: [success]});
-        else if (channel && channel.ChannelID !== chid.id) await interaction.reply({embeds: [successUpdate]});
+      if (!channel) {
+        const ch = new schema({
+          ServerID: interaction.guild.id,
+          ChannelID: chid.id
+      });
+        await ch.save();
+        return await interaction.reply({ embeds: [success] });
+      } else if (channel && channel.ChannelID !== chid.id){
+        await schema.updateOne({ ServerID: interaction.guild.id}, { $set: { ChannelID: chid.id }});
+        return await interaction.reply({ embeds: [successUpdate] });
+      }
 
       if (channel && channel.ChannelID === chid.id) return await interaction.reply({embeds: [sameID], ephemeral: true });
-
-          let ch = new schema({
-              ServerID: interaction.guild.id,
-              ChannelID: chid.id
-          })
-
-          channel ? await schema.updateOne({serverID: interaction.guild.id}, {ChannelID: chid.id}) : await ch.save();
 
       }
     }

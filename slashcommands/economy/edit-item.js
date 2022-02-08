@@ -1,6 +1,7 @@
 const { SlashCommandBuilder } = require("@discordjs/builders");
 const { Client, CommandInteraction, MessageEmbed } = require("discord.js");
 const schema = require("../../models/shop-model.js");
+const bigInt = require("big-integer");
 
 /**
 * @type {import('../../types/typeslash').Command}
@@ -72,11 +73,11 @@ const command = {
    */
 
   async run(_, interaction) {
-    return interaction.reply({embeds: [
-      new MessageEmbed()
-        .setTitle("⚠️ comando en mantenimiento")
-        .setColor("YELLOW")
-    ], ephemeral: true});
+    // return interaction.reply({embeds: [
+    //   new MessageEmbed()
+    //     .setTitle("⚠️ comando en mantenimiento")
+    //     .setColor("YELLOW")
+    // ], ephemeral: true});
     function err(text = 'hubo un error') {
       return interaction.reply({embeds: [
         new MessageEmbed()
@@ -119,11 +120,12 @@ const command = {
                   .setTitle(':white_check_mark: producto editado correctamente')
                   .setColor('GREEN')
                   .addField('producto', results.store[numero].product)
-                  .addField('precio', results.store[numero].price.toString())
+                  .addField('precio', Intl.NumberFormat().format(bigInt(results.store[numero].price)))
                   .addField('descripción', results.store[numero].description)
                 ]});
-                await results.save();
-      });
+                results.markModified('store');
+              results.save();
+      });                   
   },
 };
 

@@ -38,7 +38,6 @@ if(antispamR){
   } else {
     const msgsResults = await schemaAntispamMsgs.findOne({user: message.author.id});
     if(!msgsResults) {
-      // porque lo guardas en una base de datos?
         const schemaCreate = new schemaAntispamMsgs({user: message.author.id,msgs: 0});await schemaCreate.save();
     } else {
         await schemaAntispamMsgs.updateOne({user:message.author.id}, {msgs: parseInt(msgsResults.msgs) + 1});

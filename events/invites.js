@@ -21,7 +21,7 @@ inv.on('guildMemberAdd', async (member, type, invite) => {
 
     if(type === 'normal'){
         canal.send({embeds: [
-            embed.setDescription(`Bienvenido/a ${member}, has sido invitado/a por **${invite.inviter.username}**, quien ahora tiene ***${invite.uses}*** invitaciónes.`)
+            embed.setDescription(`Bienvenido/a ${member}, has sido invitado/a por **${invite.inviter.username}**, quien ahora tiene ***${invite.uses}*** invitaciónes con el link que te ha invitado.`)
         ]})
         canal.send({content: `${member}`}).then((msg) => { setTimeout(() => { msg.delete() }, 1000) })
     } else 
@@ -34,6 +34,9 @@ inv.on('guildMemberAdd', async (member, type, invite) => {
     } else 
     
     if(type === 'permissions'){
+        if(member.user.bot) return canal.send({embeds: [
+            embed.setDescription(`${member} se ha unido a traves del OAuth.`)
+        ]})
         canal.send({embeds: [
             embed.setDescription(`Bienvenido/a ${member}, no puedo ver quien te invitó por falta de permisos!`)
         ]})
@@ -41,6 +44,9 @@ inv.on('guildMemberAdd', async (member, type, invite) => {
     } else 
     
     if(type === 'unknown'){
+        if(member.user.bot) return canal.send({embeds: [
+            embed.setDescription(`${member} se ha unido a traves del OAuth.`)
+        ]})
         canal.send({embeds: [
             embed.setDescription(`Bienvenido/a ${member}, no tengo claro quien te ha invitado, lo siento!`)
         ]})

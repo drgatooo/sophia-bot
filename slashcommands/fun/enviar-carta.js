@@ -48,12 +48,9 @@ const command = {
         if(usuario == interaction.user.id) return interaction.reply({embeds: [new MessageEmbed().setTitle(":x: Error").setDescription("No puedes enviarte una carta a ti mismo!").setColor("RED")], ephemeral: true})
 
         if(anonimo == "true"){
-            carta.setTitle(`Carta de Anonimo${interaction.user.discriminator}`)
-        }
-        if(anonimo == "false"){
-            carta.setTitle(`Carta de ${interaction.user.tag}`)
+            carta.setTitle(`Carta de Anonimo`)
         } else {
-            return;
+            carta.setTitle(`Carta de ${interaction.user.tag}`)
         }
 
         usuario.send({embeds: [carta]}).then(() => {
