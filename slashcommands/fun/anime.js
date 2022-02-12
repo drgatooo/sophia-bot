@@ -1,10 +1,9 @@
 const { SlashCommandBuilder } = require("@discordjs/builders");
 const { MessageEmbed } = require('discord.js'); 
-// como quitas de comentario varias lineas junta
 require('moment').locale('es');
-const { translate } = require('free-translate');
 
 module.exports = {
+    isMaintenance: true,
     category: "Diversión",
     data: new SlashCommandBuilder()
     .setName("anime")

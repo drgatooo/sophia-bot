@@ -9,6 +9,8 @@ const command = {
 
     userPerms: [],
     botPerms: [],
+    isMaintenance: true || false,
+    isPremium: true || false,
     category: "categoria en español y sin faltas ortograficas",
 
 

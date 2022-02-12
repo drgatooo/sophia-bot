@@ -57,13 +57,16 @@ if(antispamR){
   }
 }
  
-    let mentionRegex = new RegExp(`^<@!?${client.user.id}>( |)$`)
+    const mentionRegex = new RegExp(`^<@!?${client.user.id}>( |)$`)
         
-    if(message.content.match(mentionRegex) && !message.author.bot) {
-    
+    if(message.content.match(mentionRegex)){
+
+      if(message.author.bot) return
+
       let embedMention = new MessageEmbed()
       .setTitle('ℹ Sophia llegando!')
       .setDescription(`👋 Hola <@${message.author.id}> , Acá tienes información acerca de mí en este servidor!\n✏ Mi prefix es : **/** \n💡 Si tienes alguna duda sobre algún comando, puedes usar **/help**`)
+      .addField(`<a:warns:941916493657026622> Recuerda!`, `Desde mi versión 3.0 comenze a usar comandos de barra, si aún no los tienes, sácame y me vuelves a invitar!`)
       .setColor('WHITE')
       message.reply({embeds: [embedMention]});
         

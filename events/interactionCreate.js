@@ -49,6 +49,14 @@ client.on("interactionCreate", async (interaction) => {
             .setTimestamp()
         ], ephemeral: true});
     }
+    if(slashcmds.isMaintenance === true){
+        return interaction.reply({embeds: [
+            new MessageEmbed()
+            .setTitle("⚠ Comando en mantenimiento....")
+            .setTimestamp(new Date())
+            .setColor("YELLOW")
+        ], ephemeral: true})
+    }
 
     try{
         const blackuser = require("../models/blacklist-user");
