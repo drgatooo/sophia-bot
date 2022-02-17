@@ -13,7 +13,7 @@ const command = {
 
 
     data: new SlashCommandBuilder()
-    .setName("set-welcome") // te lo dejo a ti //sis
+    .setName("setwelcome")
     .setDescription("Establece el canal de bienvenidas del servidor.")
     .addChannelOption(o =>
       o.setName("canal")
@@ -48,11 +48,13 @@ const command = {
       const successUpdate = new MessageEmbed()
       .setTitle('✅ Exito')
       .setColor('GREEN')
+      .setFooter({text: "Recuerda que puedes usar /componentswelcome help"})
       .setDescription(`El canal de bienvenidas fue actualizado a <#${chid.id}>`);
 
       const success = new MessageEmbed()
       .setTitle('✅ Exito')
       .setColor('GREEN')
+      .setFooter({text: "Recuerda que puedes usar /componentswelcome help"})
       .setDescription(`El canal de bienvenidas fue establecido a <#${chid.id}>`);
 
       const channel = await schema.findOne({ ServerID: interaction.guild.id});

@@ -13,7 +13,7 @@ const command = {
 
 
     data: new SlashCommandBuilder()
-    .setName("remove-hardmute")
+    .setName("unmute")
     .setDescription("Quita el aislamiento a un usuario.")
     .addUserOption(o => o.setName("usuario").setDescription("El usuario al cual aislaras.").setRequired(true)),
     

@@ -13,7 +13,7 @@ const command = {
 
 
     data: new SlashCommandBuilder()
-    .setName("hard-mute")
+    .setName("mute")
     .setDescription("Aisla temporalmente a un usuario.")
     .addUserOption(o => o.setName("usuario").setDescription("El usuario al cual aislaras.").setRequired(true))
     .addIntegerOption(o => o.setName("minutos").setDescription("Minutos a aislar.").setRequired(true))
