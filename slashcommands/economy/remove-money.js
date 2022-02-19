@@ -1,5 +1,5 @@
 const { SlashCommandBuilder } = require("@discordjs/builders");
-const { Client, CommandInteraction, MessageEmbed } = require("discord.js");
+const { CommandInteraction, MessageEmbed } = require("discord.js");
 const remove = require("../../helpers/comando-remove-money");
 
 /**
@@ -13,7 +13,7 @@ const command = {
 
 
     data: new SlashCommandBuilder()
-    .setName("remove-movey")
+    .setName("remove-money")
     .setDescription("quita dinero a un usuario.")
     .addUserOption(o =>
         o.setName('usuario')

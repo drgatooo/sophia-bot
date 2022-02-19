@@ -15,10 +15,18 @@ const command = {
     data: new SlashCommandBuilder()
     .setName("setwelcome")
     .setDescription("Establece el canal de bienvenidas del servidor.")
-    .addChannelOption(o =>
-      o.setName("canal")
-      .setDescription('Canal de bienvenidas')
-      .setRequired(true)
+    .addSubcommand( o =>
+      o.setName("enable")
+      .setDescription("Activa el sistema")
+      .addChannelOption(o =>
+        o.setName("canal")
+        .setDescription('Canal de bienvenidas')
+        .setRequired(true)
+      )
+    )
+    .addSubcommand( o => 
+      o.setName("disable")
+      .setDescription("Desactiva el sistema")
     ),
 
     /**
@@ -29,6 +37,9 @@ const command = {
 
     async run(_, interaction){
       const args = interaction.options;
+      const subcmd = args.getSubcommand();
+      
+      if(subcmd === "enable"){
       let chid = args.getChannel("canal");
       if (chid.type !== 'GUILD_TEXT' || !chid.viewable) {
           const noValid = new MessageEmbed()
@@ -72,8 +83,19 @@ const command = {
       }
 
       if (channel && channel.ChannelID === chid.id) return await interaction.reply({embeds: [sameID], ephemeral: true });
-
-      }
     }
+    if(subcmd === "disable"){
+      await schema.deleteOne({ServerID: interaction.guild.id})
+
+      const embed = new MessageEmbed()
+      .setTitle("Okay! ♦")
+      .setDescription("He desactivado el sistema!")
+      .setColor("GREEN")
+
+      interaction.reply({embeds: [embed]})
+    }
+
+  }
+}
 
 module.exports = command;

@@ -40,8 +40,8 @@ const command = {
         const anti = await antispamModel.findOne({ ServerID: interaction.guild.id });
 
       spamEmoji = "🚫";
-      checked = "<:Check:886685653746720788>";
-      unchecked = "<:notcheck:886685696100818994>";
+      checked = '<a:Stable:910938393968517180>'
+      unchecked = '<a:Down:910938393993699350>'
   
       if (!anti) {
 
@@ -81,8 +81,8 @@ const command = {
       const anti = await antispamModel.findOne({ ServerID: interaction.guild.id });
 
       spamEmoji = "🚫";
-      checked = "<:Check:886685653746720788>";
-      unchecked = "<:notcheck:886685696100818994>";
+      checked = '<a:Stable:910938393968517180>'
+      unchecked = '<a:Down:910938393993699350>'
 
       if (!anti) {
 
