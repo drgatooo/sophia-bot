@@ -1,6 +1,6 @@
 const { SlashCommandBuilder } = require("@discordjs/builders");
 const { Client, CommandInteraction, MessageEmbed } = require("discord.js");
-const schema = require("../../models/components-welcome")
+const schema = require("../../models/components-leave")
 /**
 * @type {import('../../types/typeslash').Command}
 */
@@ -13,8 +13,8 @@ const command = {
 
 
     data: new SlashCommandBuilder()
-    .setName("componentswelcome")
-    .setDescription("Establece el embed personalizado para el sistema de bienvenidas.")
+    .setName("componentsleave")
+    .setDescription("Establece el embed personalizado para el sistema de despedidas.")
     .addSubcommand(o => 
         o.setName("set")
         .setDescription("Ingresa los datos.")
@@ -31,11 +31,6 @@ const command = {
             .addStringOption(o =>
               o.setName("footer")
               .setDescription("Footer que llevará el embed")
-              .setRequired(true)
-            )
-            .addStringOption(o =>
-              o.setName("imagen")
-              .setDescription("Imagen de fondo que llevará el embed")
               .setRequired(true)
             )
     )
@@ -57,7 +52,6 @@ const command = {
       const title = args.getString("titulo")
       const description = args.getString("descripcion")
       const footer = args.getString("footer")
-      const imagen = args.getString("imagen")
       const subcmd = args.getSubcommand()
 
       const components = await schema.findOne({ServerID: interaction.guild.id})
@@ -70,8 +64,7 @@ const command = {
           ServerID: interaction.guild.id,
           Description: description,
           Title: title,
-          Footer: footer,
-          Imagen: imagen
+          Footer: footer
         })
         compo.save()
 
@@ -85,11 +78,10 @@ const command = {
         .setTitle(title)
         .setDescription(description)
         .setFooter({text: footer})
-        .setImage(`https://api.popcat.xyz/welcomecard?background=${imagen}&text1=${interaction.user.username}&text2=Bienvenido+a+${interaction.guild.name}&text3=Pasalo+bien!&avatar=${interaction.user.displayAvatarURL({format: "png", dinamyc: false})}`.trim().split(/ +/).join("+"))
-        
+
         interaction.reply({embeds: [embed]})
-        setTimeout(async () => {
-          await interaction.editReply({embeds: [final]})
+        setTimeout(() => {
+          interaction.editReply({embeds: [final]})
         }, 5000)
 
       } else {
@@ -98,8 +90,7 @@ const command = {
           ServerID: interaction.guild.id,
           Description: description,
           Title: title,
-          Footer: footer,
-          Imagen: imagen
+          Footer: footer
         })
 
         let embed2 = new MessageEmbed()
@@ -113,11 +104,10 @@ const command = {
         .setTitle(title)
         .setDescription(description)
         .setFooter({text: footer})
-        .setImage(`https://api.popcat.xyz/welcomecard?background=${imagen}&text1=${interaction.user.username}&text2=Bienvenido+a+${interaction.guild.name}&text3=Pasalo+bien!&avatar=${interaction.user.displayAvatarURL({format: "png", dinamyc: false})}`.trim().split(/ +/).join("+"))
 
         interaction.reply({embeds: [embed2]})
-        setTimeout(async () => {
-          await interaction.editReply({embeds: [final]})
+        setTimeout(() => {
+          interaction.editReply({embeds: [final]})
         }, 5000)
 
       }
@@ -144,8 +134,8 @@ const command = {
       
       const embed = new MessageEmbed()
       .setColor("GREEN")
-      .setTitle("Apartado de ayuda para Sistema de bienvenidas.")
-      .setDescription("A continuación te daremos una mini guía por el sistema de bienvenidas...")
+      .setTitle("Apartado de ayuda para Sistema de despedidas.")
+      .setDescription("A continuación te daremos una mini guía por el sistema de despedidas...")
       .addField("TITULO:", titulo)
       .addField("DESCRIPCIÓN:", descripcion)
       .addField("FOOTER:", footer)
