@@ -14,7 +14,7 @@ module.exports = {
         const args = interaction.options;
         const member = interaction.guild.members.cache.get(args.getUser('usuario').id);
         let reason = args.getString('razón');
-        if(reason === null) reason = 'sin especificar';
+        if(!reason) reason = 'sin especificar';
         
         if(member.user.id === interaction.member.id) return interaction.reply({embeds: [new MessageEmbed().setTitle(':x: Error').setDescription('no puedes autobanearte!').setColor('RED')], ephemeral: true});
         
@@ -31,6 +31,9 @@ module.exports = {
       		.addField('👤 Miembro: ',`${member}`,true)
       		.addField("👮‍♂️ Staff: ", `<@${interaction.member.id}>`,true)
       		.setTimestamp();
+        if(reason !== 'sin especificar'){
+            success.addField("💥 Razón: ", reason, true)
+        }
         
        await member.ban({reason}).then(() => interaction.reply({embeds: [success]}))
         .catch(err => {

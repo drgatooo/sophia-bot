@@ -28,8 +28,8 @@ const command = {
     const embedError = new MessageEmbed({ title: ":x: Error", color: "RED"})
     var kickuser = interaction.options.getUser("usuario")
     var kickMember = interaction.guild.members.cache.get(kickuser.id)
-    var kickear = "👍"//"<a:Stable:910938393968517180>"
-    var noKickear = ":x:"//"<a:Down:910938393993699350>"
+    var kickear = "💹"
+    var noKickear = "❎"
 
     const embed = new MessageEmbed()
     .setColor("#00FFFF")

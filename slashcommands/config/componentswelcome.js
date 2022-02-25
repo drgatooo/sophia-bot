@@ -19,11 +19,6 @@ const command = {
         o.setName("set")
         .setDescription("Ingresa los datos.")
             .addStringOption(o =>
-              o.setName("titulo")
-              .setDescription("Titulo que llevará el embed.")
-              .setRequired(true)
-            )
-            .addStringOption(o =>
               o.setName("descripcion")
               .setDescription("Descripción que llevará el embed.")
               .setRequired(true)
@@ -31,12 +26,17 @@ const command = {
             .addStringOption(o =>
               o.setName("footer")
               .setDescription("Footer que llevará el embed")
-              .setRequired(true)
+              .setRequired(false)
+            )
+            .addStringOption(o =>
+              o.setName("titulo")
+              .setDescription("Titulo que llevará el embed.")
+              .setRequired(false)
             )
             .addStringOption(o =>
               o.setName("imagen")
               .setDescription("Imagen de fondo que llevará el embed")
-              .setRequired(true)
+              .setRequired(false)
             )
     )
     .addSubcommand(o =>
@@ -58,6 +58,17 @@ const command = {
       const description = args.getString("descripcion")
       const footer = args.getString("footer")
       const imagen = args.getString("imagen")
+
+      if(!imagen){
+        imagen = interaction.guild.iconURL({dynamic: false, format: "png"})
+      }
+      if(!title){
+        title = ""
+      }
+      if(!footer){
+        footer = ""
+      }
+
       const subcmd = args.getSubcommand()
 
       const components = await schema.findOne({ServerID: interaction.guild.id})

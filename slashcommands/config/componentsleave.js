@@ -19,19 +19,19 @@ const command = {
         o.setName("set")
         .setDescription("Ingresa los datos.")
             .addStringOption(o =>
-              o.setName("titulo")
-              .setDescription("Titulo que llevará el embed.")
-              .setRequired(true)
-            )
-            .addStringOption(o =>
               o.setName("descripcion")
               .setDescription("Descripción que llevará el embed.")
               .setRequired(true)
             )
             .addStringOption(o =>
+              o.setName("titulo")
+              .setDescription("Titulo que llevará el embed.")
+              .setRequired(false)
+            )
+            .addStringOption(o =>
               o.setName("footer")
               .setDescription("Footer que llevará el embed")
-              .setRequired(true)
+              .setRequired(false)
             )
     )
     .addSubcommand(o =>
@@ -53,6 +53,13 @@ const command = {
       const description = args.getString("descripcion")
       const footer = args.getString("footer")
       const subcmd = args.getSubcommand()
+
+      if(!title){
+        title = ""
+      }
+      if(!footer){
+        footer = ""
+      }
 
       const components = await schema.findOne({ServerID: interaction.guild.id})
 
