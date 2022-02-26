@@ -76,7 +76,7 @@ const command = {
             [
                 new MessageButton()
                 .setCustomId("skip")
-                .setEmoji("⏮")
+                .setEmoji("⏯")
                 .setStyle("PRIMARY")
             ],
             [
@@ -106,7 +106,7 @@ const command = {
             [
                 new MessageButton()
                 .setCustomId("skip")
-                .setEmoji("⏮")
+                .setEmoji("⏯")
                 .setStyle("PRIMARY")
                 .setDisabled()
             ],

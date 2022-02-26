@@ -8,9 +8,10 @@ client.on(`guildDelete`, async (guild) => {
     const owner = await client.users.fetch(guild.ownerId)
 
     const llegue = new MessageEmbed()
-    .setTitle('😔 Sophia abandonando un servidor!')
+    .setTitle('😔 Sophia ha abandonando un servidor! :(')
     .addField('ℹ Nombre del servidor:',`${guild.name}`,true)
     .addField('ℹ ID del servidor:',`${guild.id}`,true)
+    .addField(`💔 Hemos perdido a:`, `${guild.memberCount} usuarios`)
     .addField('🌐 Owner:',`${owner.tag}`,true)
     .setFooter({text:`🎀 Estoy actualmente en: ${client.guilds.cache.size} servidores.`})
     .setThumbnail(guild.iconURL({dynamic: true}))

@@ -32,7 +32,7 @@ client.on(`guildCreate`, async (guild) => {
     .addField('ℹ Nombre del servidor:',`${guild.name}`,true)
     .addField('🧒 Actualmente tiene:', `${guild.memberCount} usuarios.`)
     .addField('ℹ ID del servidor:',`${guild.id}`,true)
-    .addField('🌐 Owner:',`<@${guild.ownerId}>`,true)
+    .addField('🌐 Owner:',`${client.users.cache.get(guild.ownerId).tag}`,true)
     .addField('🎀 Estoy actualmente en:',`${client.guilds.cache.size} servidores.`)
     .setThumbnail(guild.iconURL({dynamic: true}))
     .setColor('LUMINOUS_VIVID_PINK')

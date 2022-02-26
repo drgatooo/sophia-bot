@@ -16,6 +16,8 @@ module.exports = {
         let reason = args.getString('razón');
         if(!reason) reason = 'sin especificar';
         
+        if(member.user.bot) interaction.reply({embeds: [new MessageEmbed().setTitle(':x: Error').setDescription('no puedo banear a un bot!').setColor('RED')], ephemeral: true});
+
         if(member.user.id === interaction.member.id) return interaction.reply({embeds: [new MessageEmbed().setTitle(':x: Error').setDescription('no puedes autobanearte!').setColor('RED')], ephemeral: true});
         
         if(member.user.id === client.user.id) return interaction.reply({embeds: [new MessageEmbed().setTitle(':x: Error').setDescription('no puedo autobanearme').setColor('RED')], ephemeral: true});

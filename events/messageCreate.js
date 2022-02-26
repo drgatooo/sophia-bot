@@ -4,13 +4,7 @@ const fs = require("fs");
 const toml = require("toml");
 const schemaAntispamMsgs = require('../models/antispamMsgs.js');
 const ignore = require("../models/ignorerol")
-let sumcomm = 0
-
 const config = toml.parse(fs.readFileSync("./config/config.toml", "utf-8"))
-
-
-
-
 const owner = config.owner;
 const antilinksModel = require("../models/antilinks");
 const premium = require("../models/premiumGuild");
