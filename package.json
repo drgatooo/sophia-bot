@@ -1,5 +1,5 @@
 {
-  "name": "sophia.",
+  "name": "Sophia.",
   "version": "3.0.0",
   "description": "",
   "main": "index.js",
@@ -9,8 +9,8 @@
     "build": "node slashcommands.js"
   },
   "keywords": [],
-  "owners": "Domingo, ElShyrux",
-  "programadores": "Domingo, ElShyrux, Mateo, Risto, Xnayx",
+  "owners": "Domingo",
+  "programadores": "Domingo, Mateo, Risto, Xnayx",
   "license": "ISC",
   "dependencies": {
     "@androz2091/discord-invites-tracker": "^1.1.0",
@@ -22,6 +22,7 @@
     "colors": "^1.4.0",
     "discord-command-cooldown": "^1.0.61",
     "discord-memes": "^1.2.9",
+    "discord-modals": "^1.2.3",
     "discord-together": "^1.3.1",
     "discord.js": ">=13.5.0",
     "distube": "^3.0.3",

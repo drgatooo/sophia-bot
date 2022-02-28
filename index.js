@@ -1,5 +1,5 @@
 const { Collection, Client } = require("discord.js");
-const { red, yellow, blue} = require("colors")
+const { red, yellow, blue, green} = require("colors")
 const client = new Client({
   intents: [
     "GUILDS",
@@ -23,6 +23,8 @@ const config = toml.parse(fs.readFileSync("./config/config.toml", "utf-8"));
 const token = config.token;
 const { DiscordTogether } = require('discord-together');
 const Distube = require("distube");
+const discordModals = require('discord-modals');
+discordModals(client);
 
 client.discordTogether = new DiscordTogether(client);
 client.queue = new Map()
@@ -44,6 +46,7 @@ for(const folder of slashcommandsFiles){
         const slash = require(`./slashcommands/${folder}/${cmd}`)
         if(slash.data) {
 	        console.log(yellow(`Comando (/) - ${cmd} cargado.`))
+            console.log(green(`${client.slashcommands.size} comandos cargados en total.`))
             client.slashcommands.set(slash.data.name, slash)
         } else {
             console.log(blue(`Comando (/) - ${cmd} no fue cargado`))
@@ -63,5 +66,7 @@ require('./web/index.js');
 
 process.on('unhandledRejection', err => console.log(red('Al parecer hubo un error.\n' + err.stack)) );
 client.on("shardError", err => console.log(red('Al parecer hubo un error.\n' + err.stack)) );
+client.on("Error", err => console.log(red('Al parecer hubo un error.\n' + err.stack)) );
+client.on("Warn", err => console.log(red('Al parecer hubo un error.\n' + err.stack)) );
 
 client.login(token);

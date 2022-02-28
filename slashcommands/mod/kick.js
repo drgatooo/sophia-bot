@@ -85,7 +85,7 @@ const command = {
       return;
     }
 
-    if (!reason) reason = "Sin Razón";
+    if (!reason) reason = 'sin especificar';
 
     // var firstembed = new MessageEmbed()
     //   .setTitle("Kick")
@@ -103,7 +103,11 @@ const command = {
       .addField("👮‍♂️ Staff: ", `<@${interaction.user.id}>`,true)
       .setTimestamp();
 
-      user.kick(user).then(async () => {
+    if(reason !== 'sin especificar'){
+      success.addField("💥 Razón: ", reason, true)
+    }
+
+      user.kick({reason}).then(async () => {
         await interaction.reply({ embeds: [success] });
       }).catch(async err => {
           await interaction.reply({ embeds: [
