@@ -40,17 +40,30 @@ client.distube = new Distube.default(client);
     require(`./handlers/${handler}`)(client);
 });
 
+const { GiveawaysManager } = require('discord-giveaways');
+const manager = new GiveawaysManager(client, {
+    storage: './config/giveaways.json',
+    default: {
+        botsCanWin: false,
+        embedColor: '#00FFFF',
+        embedColorEnd: 'RED',
+        reaction: '🎉'
+    }
+});
+
+client.giveawaysManager = manager
+
 const slashcommandsFiles = fs.readdirSync("./slashcommands");
 for(const folder of slashcommandsFiles){
     for(const cmd of fs.readdirSync(`./slashcommands/${folder}/`).filter(f => f.endsWith('.js'))){
         const slash = require(`./slashcommands/${folder}/${cmd}`)
         if(slash.data) {
 	        console.log(yellow(`Comando (/) - ${cmd} cargado.`))
-            console.log(green(`${client.slashcommands.size} comandos cargados en total.`))
             client.slashcommands.set(slash.data.name, slash)
         } else {
             console.log(blue(`Comando (/) - ${cmd} no fue cargado`))
         }
+        console.log(green(`${client.slashcommands.size} comandos cargados en total.`))
     }
 }
 

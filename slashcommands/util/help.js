@@ -14,6 +14,7 @@ module.exports = {
             Configuración: "🔩",
             Información: "ℹ",
             Diversión: "🎡",
+            Giveaways: "🎊",
             Utilidad: "🛠️",
             Música: "🎵", 
             NSFW: "🔞",
