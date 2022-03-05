@@ -54,8 +54,15 @@ if(subcmd === "start"){
     const ms = require('ms');
     const duration = interaction.options.getString('duracion');
     const winnerCount = interaction.options.getInteger('ganadores');
-    const prize = interaction.options.getString('premio');
+    const prize = `🎉 ${interaction.options.getString('premio')}`
     
+    if(isNaN(ms(duration))) return interaction.reply({embeds: [
+        new MessageEmbed()
+        .setTitle(":x: Error")
+        .setDescription("Ingresa un tiempo valido.")
+        .setColor("RED")
+    ], ephemeral: true });
+
     if(duration > ms("26d")) return interaction.reply({embeds: [
         new MessageEmbed()
         .setTitle(":x: Error")
@@ -81,17 +88,20 @@ if(subcmd === "start"){
         duration: ms(duration),
         winnerCount,
         prize,
+        hostedBy: interaction.user,
         messages: {
         giveaway: '🎉🎉 **GIVEAWAY** 🎉🎉',
         giveawayEnded: '🎉🎉 **GIVEAWAY FINALIZADO** 🎉🎉',
         inviteToParticipate: 'Reacciona a 🎉 para participar!',
-        winMessage: 'Felicidades, {winners}! has ganado **{this.prize}**!\n{this.messageURL}',
+        winMessage: 'Felicidades, {winners}! has ganado **{this.prize}**!',
+        hostedBy: 'Creado por: **{this.hostedBy}**',
         drawing:"Tiempo restante: {timestamp}",
         embedFooter: '{this.winnerCount} ganador(es)',
         noWinner: 'Giveaway cancelado, sin participantes validos.',
+        winners: "Ganador(es):",
         endedAt:"Finalizado",
         }
-    }).then(() => {
+    }).then((msg) => {
         interaction.reply({embeds: [
             new MessageEmbed()
             .setTitle("Vale! 💟")
@@ -99,6 +109,7 @@ if(subcmd === "start"){
             .addField("Tiempo:", `${duration}`, true)
             .addField("Ganador(es):", `${winnerCount}`, true)
             .addField("Premio:", `${prize}`, true)
+            .addField("ID:", `${msg.messageId}`)
             .setColor("GOLD")
         ], ephemeral: true})
     })
@@ -117,7 +128,12 @@ if(subcmd === "reroll"){
 
     const messageId = interaction.options.getString('id-sorteo');
 
-    client.giveawaysManager.reroll(messageId).then(() => {
+    client.giveawaysManager.reroll(messageId, {
+        messages: {
+            congrat: ':tada: Nuevo(s) ganador(es): {winners}! Felicidades, Has ganado **{this.prize}**!',
+            error: 'Sin participantes validos!'
+        }
+    }).then(() => {
         interaction.reply({embeds: [new MessageEmbed().setColor("GREEN").setDescription('Hecho! Giveaway reroll!')] });
     }).catch(() => {
         return
