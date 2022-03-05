@@ -149,12 +149,21 @@ const command = {
                 })
         
                 collector.on("end", i => {
-                    modal.editReply({embeds: [
-                        new MessageEmbed()
-                        .setTitle("Error 💔")
-                        .setDescription("Al parecer no seleccionaste una opción.")
-                        .setColor("RED")            
-                    ]})
+
+                    const row2 = new MessageActionRow().addComponents(
+                        new MessageButton()
+                        .setLabel("Con everyone")
+                        .setStyle("DANGER")
+                        .setCustomId("everyone")
+                        .setDisabled(true),
+            
+                        new MessageButton()
+                        .setLabel("Sin everyone")
+                        .setStyle("PRIMARY")
+                        .setCustomId("sineveryone")
+                        .setDisabled(true)
+                    )
+                    modal.editReply({embeds: [], components: [row2]})
                 })
             }
         })

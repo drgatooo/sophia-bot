@@ -70,10 +70,10 @@ if(subcmd === "start"){
         .setColor("RED")
     ], ephemeral: true });
 
-    if(winnerCount > 6) return interaction.reply({embeds: [
+    if(winnerCount > 10) return interaction.reply({embeds: [
         new MessageEmbed()
         .setTitle(":x: Error")
-        .setDescription("No puedo crear un sorteo con mas de 6 ganadores.")
+        .setDescription("No puedo crear un sorteo con mas de 10 ganadores.")
         .setColor("RED")
     ], ephemeral: true });
 
@@ -90,7 +90,6 @@ if(subcmd === "start"){
         embedFooter: '{this.winnerCount} ganador(es)',
         noWinner: 'Giveaway cancelado, sin participantes validos.',
         endedAt:"Finalizado",
-        hostedBy: 'Creado por: {this.hostedBy}',
         }
     }).then(() => {
         interaction.reply({embeds: [
@@ -112,7 +111,7 @@ if(subcmd === "reroll"){
     if(!giveaway) return interaction.reply({embeds: [
         new MessageEmbed()
         .setTitle(":x: Error")
-        .setDescription("Al parecer el ID: "+interaction.options.getString('id-sorteo')+" del sorteo no lo he encontrado en este servidor!")
+        .setDescription("No existe un sorteo con el ID: "+interaction.options.getString('id-sorteo'))
         .setColor("RED")
     ], ephemeral: true });
 
@@ -133,7 +132,7 @@ if(subcmd === "delete"){
     if(!giveaway) return interaction.reply({embeds: [
         new MessageEmbed()
         .setTitle(":x: Error")
-        .setDescription("Al parecer el ID: "+interaction.options.getString('id-sorteo')+" del sorteo no lo he encontrado en este servidor!")
+        .setDescription("No existe un sorteo con el ID: "+interaction.options.getString('id-sorteo'))
         .setColor("RED")
     ], ephemeral: true });
 
@@ -153,7 +152,7 @@ if(subcmd === "end"){
     if(!giveaway) return interaction.reply({embeds: [
         new MessageEmbed()
         .setTitle(":x: Error")
-        .setDescription("Al parecer el ID: "+interaction.options.getString('id-sorteo')+" del sorteo no lo he encontrado en este servidor!")
+        .setDescription("No existe un sorteo con el ID: "+interaction.options.getString('id-sorteo'))
         .setColor("RED")
     ], ephemeral: true });
 

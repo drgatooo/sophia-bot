@@ -18,7 +18,8 @@ module.exports = {
             Utilidad: "🛠️",
             Música: "🎵", 
             NSFW: "🔞",
-            premium: "♥"
+            premium: "♥", 
+            Economía: "💸"
         };
 
             data = client.slashcommands;
