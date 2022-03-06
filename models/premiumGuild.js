@@ -1,7 +1,10 @@
 const { Schema, model } = require('mongoose')
 
 const schema = new Schema({
-    ServerID : String
+    ServerID : String,
+    time: String,
+    expire: String
+
 })
 
 module.exports = model('PremiumGuilds',schema)

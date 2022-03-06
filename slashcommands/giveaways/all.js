@@ -30,12 +30,22 @@ const command = {
     .addSubcommand(o =>
         o.setName("delete")
         .setDescription("Elimina un sorteo activo!")
-            .addStringOption(o => o.setName("id-sorteo").setDescription("¿Que ganara el ganador?").setRequired(true))
+            .addStringOption(o => o.setName("id-sorteo").setDescription("Sorteo a eliminar.").setRequired(true))
     )
     .addSubcommand(o =>
         o.setName("end")
         .setDescription("Termina un sorteo activo!")
-            .addStringOption(o => o.setName("id-sorteo").setDescription("¿Que ganara el ganador?").setRequired(true))
+            .addStringOption(o => o.setName("id-sorteo").setDescription("Sorteo a terminar.").setRequired(true))
+    )
+    .addSubcommand(o =>
+        o.setName("pause")
+        .setDescription("Pon en pausa un sorteo activo!")
+            .addStringOption(o => o.setName("id-sorteo").setDescription("Sorteo a pausar.").setRequired(true))
+    )
+    .addSubcommand(o =>
+        o.setName("unpause")
+        .setDescription("Quita la pausa a un sorteo activo!")
+            .addStringOption(o => o.setName("id-sorteo").setDescription("Sorteo a reanudar.").setRequired(true))
     ),
 
     /**
@@ -175,6 +185,51 @@ if(subcmd === "end"){
     const messageId = interaction.options.getString('id-sorteo');
         client.giveawaysManager.end(messageId).then(() => {
             interaction.reply({embeds: [new MessageEmbed().setColor("GREEN").setDescription('Hecho! Giveaway finalizado!')], ephemeral: true });
+        }).catch(() => {
+            return
+        });
+}
+
+if(subcmd === "pause"){
+
+    const giveaway = client.giveawaysManager.giveaways.find((g) => g.guildId === interaction.guildId && g.messageId === interaction.options.getString('id-sorteo'));
+
+    if(!giveaway) return interaction.reply({embeds: [
+        new MessageEmbed()
+        .setTitle(":x: Error")
+        .setDescription("No existe un sorteo con el ID: "+interaction.options.getString('id-sorteo'))
+        .setColor("RED")
+    ], ephemeral: true });
+
+    const messageId = interaction.options.getString('id-sorteo');
+    client.giveawaysManager.pause(messageId, {
+            isPaused: true,
+            content: '⚠️ **SORTEO EN PAUSA !** ⚠️',
+            unPauseAfter: null,
+            embedColor: '#FFFF00',
+            infiniteDurationText: '**∞**'
+    }).then(() => {
+        interaction.reply({embeds: [new MessageEmbed().setColor("GREEN").setDescription('Hecho! Giveaway pausado!')], ephemeral: true });
+    }).catch(() => {
+        return
+    });
+
+}
+
+if(subcmd === "unpause"){
+
+    const giveaway = client.giveawaysManager.giveaways.find((g) => g.guildId === interaction.guildId && g.messageId === interaction.options.getString('id-sorteo'));
+
+    if(!giveaway) return interaction.reply({embeds: [
+        new MessageEmbed()
+        .setTitle(":x: Error")
+        .setDescription("No existe un sorteo con el ID: "+interaction.options.getString('id-sorteo'))
+        .setColor("RED")
+    ], ephemeral: true });
+
+    const messageId = interaction.options.getString('id-sorteo');
+        client.giveawaysManager.unpause(messageId).then(() => {
+            interaction.reply({embeds: [new MessageEmbed().setColor("GREEN").setDescription('Hecho! Giveaway reanudado!')], ephemeral: true });
         }).catch(() => {
             return
         });
