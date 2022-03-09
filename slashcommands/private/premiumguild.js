@@ -57,28 +57,32 @@ const command = {
 
         if(!premium) {
             let tiempo = ms(interaction.options.getString("tiempo"))
+            let now = Math.floor(Date.now()/1000)
+            let year = now + 31536000
+            let month = now + 2592000
 
-            /*if(isNaN(ms(tiempo))) return interaction.reply({embeds: [
+
+            if(isNaN(tiempo)) return interaction.reply({embeds: [
                 new MessageEmbed()
                 .setTitle(":x: Error")
                 .setDescription("Ingresa un tiempo valido.")
                 .setColor("RED")
             ], ephemeral: true });
         
-            if(tiempo > ms("365d")) return interaction.reply({embeds: [
+            if(tiempo / 1000 + now > year) return interaction.reply({embeds: [
                 new MessageEmbed()
                 .setTitle(":x: Error")
                 .setDescription("No puedo agregarlo mas de 365 dias.")
                 .setColor("RED")
             ], ephemeral: true });
         
-            if(duration < ms("30d")) return interaction.reply({embeds: [
+            if(tiempo / 1000 + now < month) return interaction.reply({embeds: [
                 new MessageEmbed()
                 .setTitle(":x: Error")
                 .setDescription("El minimo de dias son 30.")
                 .setColor("RED")
             ], ephemeral: true });
-*/
+
             let pg = new premiumGuild({
                 ServerID: interaction.options.getString("id-server"),
                 time: Math.floor(Date.now() / 1000),
