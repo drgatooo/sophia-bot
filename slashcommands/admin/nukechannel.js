@@ -15,7 +15,7 @@ const command = {
     data: new SlashCommandBuilder()
     .setName("nukechannel")
     .setDescription("Nukea un canal de tu servidor!")
-    .addChannelOption(o => o.setName("canal").setDescription("Menciona el canal a nukear").setRequired(true)),
+    .addChannelOption(o => o.setName("canal").setDescription("Menciona el canal a nukear").setRequired(false)),
 
     /**
      * 
@@ -25,7 +25,7 @@ const command = {
 
     async run(client, interaction){
 
-        let canal = interaction.options.getChannel("canal");
+        let canal = interaction.options.getChannel("canal") || interaction.channel;
         let posicion = canal.position;
         
         
@@ -57,14 +57,14 @@ const command = {
                     .setTitle(':x: Error')
                     .setDescription('No puedo borrar o modificar ese canal actualmente, verifica que siga teniendo permisos!')
                     .setColor('RED')
-                ], components: []});
+                ], components: [], ephemeral: true});
 
                 if(!canal.isText()) return interaction.editReply({ embeds: [
                     new MessageEmbed()
                     .setTitle(':x: Error')
                     .setDescription(`No puedo borrar ${canal} ya que es un canal de voz, menciona un canal valido.`)
                     .setColor('RED')
-                ], components: []});
+                ], components: [], ephemeral: true});
 
                 let canalClonado = await canal.clone();
                 canalClonado.setPosition(posicion);

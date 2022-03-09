@@ -17,7 +17,6 @@ module.exports = {
             Giveaways: "🎊",
             Utilidad: "🛠️",
             Música: "🎵", 
-            NSFW: "🔞",
             premium: "♥", 
             Economía: "💸"
         };

@@ -4,7 +4,8 @@ const schema = new Schema({
     ServerID : String,
     Reason: String,
     ModeratorID: String,
-    Date: Date
+    Date: Date,
+    expire: Number
 })
 
 module.exports = model('blacklist-guild', schema)
