@@ -23,7 +23,7 @@ client.once("ready", () => {
 ██████╔╝╚█████╔╝██║░░░░░██║░░██║██║██║░░██║
 ╚═════╝░░╚════╝░╚═╝░░░░░╚═╝░░╚═╝╚═╝╚═╝░░╚═╝`));
 
-const status = { activities: [`/help`, `/invite`, `¡SOPHIA 3.0.4!`, `${client.guilds.cache.size} servidores.`, `${client.guilds.cache.reduce((prev, guild) => prev + guild.memberCount, 0)} Usuarios.`, `Sophia Company & Shield Hosting LLC.`], activity_types: [`WATCHING`, `PLAYING`, `LISTENING`, `COMPETING`] }
+const status = { activities: [`/help`, `/invite`, `¡SOPHIA 3.0.6!`, `${client.guilds.cache.size} servidores.`, `${client.guilds.cache.reduce((prev, guild) => prev + guild.memberCount, 0)} Usuarios.`, `Sophia Company & Shield Hosting LLC.`], activity_types: [`WATCHING`, `PLAYING`, `LISTENING`, `COMPETING`] }
 const AutoPresence = () => {
     let aleanum = Math.floor(Math.random() * status.activities.length);
     client.user.setPresence({

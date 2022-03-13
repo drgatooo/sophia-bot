@@ -22,12 +22,13 @@ module.exports = {
         const cantidad = +args.getInteger('cantidad');
         if(!Number.isInteger(cantidad)) return error('Debes escribir un numero entero!');
         if(cantidad > 100 || cantidad < 1) return error('Escribe un numero valido! (menor a 100 y mayor a 1)');
-        interaction.channel.bulkDelete((await interaction.channel.messages.fetch({ limit: cantidad }))).then(async c => {
+        interaction.channel.bulkDelete((await interaction.channel.messages.fetch({ limit: cantidad })), true).then(async c => {
             if(c.size < 1) return error('No hay ningún mensaje para borrar.');
             interaction.reply({embeds: [
                 new MessageEmbed()
                 .setTitle('<a:TPato_Check:911378912775397436> Exito!')
                 .setDescription('se han borrado `'+c.size+'/'+cantidad.toString()+'` mensajes.')
+                .setFooter({ text: 'Los mensajes de 14 días de antigüedad, no podrán ser borrados.' })
                 .setColor('GREEN')
             ]});
             setTimeout(async () => await interaction.deleteReply(), 5000);
