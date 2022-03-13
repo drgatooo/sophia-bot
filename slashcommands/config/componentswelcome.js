@@ -88,6 +88,17 @@ const command = {
           const description = modal.getTextInputValue("welcome_description");
           const footer = modal.getTextInputValue("welcome_footer");
           const imagen = modal.getTextInputValue("welcome_image");
+          
+          const error = new MessageEmbed()
+          .setTitle('❌ Error')
+          .setColor('RED')
+          
+          if(imagen){
+            if(!/(ftp|http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\/]))?/.test(imagen)){
+              error.setDescription('La URL de la imagen no es válida.')
+              return modal.reply({ embeds: [error] })
+            }
+          }
 
           if (!imagen) {
             imagen = interaction.guild.iconURL({
@@ -95,6 +106,7 @@ const command = {
               format: "png",
             });
           }
+          
           if (!title) {
             title = "";
           }
