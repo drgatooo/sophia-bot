@@ -30,6 +30,11 @@ const command = {
                 .setRequired(true)
             )
             .addStringOption(o =>
+                o.setName("imagen")
+                .setDescription("Imagen del blacklist")
+                .setRequired(true)
+            )
+            .addStringOption(o =>
                 o.setName("razon")
                 .setDescription("Razon del porque añades este servidor a la blacklist.")
             )
@@ -43,7 +48,7 @@ const command = {
             .setDescription("Sin descripcion.")
             .addStringOption(o =>
                 o.setName("id")
-                .setDescription("El id del servidor a añadir.")
+                .setDescription("El id del servidor a quitar.")
                 .setRequired(true)
             )
         )
@@ -57,6 +62,11 @@ const command = {
             .addStringOption(o =>
                 o.setName("id")
                 .setDescription("El id del usuario a añadir.")
+                .setRequired(true)
+            )
+            .addStringOption(o =>
+                o.setName("imagen")
+                .setDescription("Imagen del blacklist")
                 .setRequired(true)
             )
             .addStringOption(o =>
@@ -77,10 +87,6 @@ const command = {
                 .setDescription("El id del usuario a remover.")
                 .setRequired(true)
             )
-            .addStringOption(o =>
-                o.setName("razon")
-                .setDescription("Razon del porque añades este usuario a la blacklist.")
-            )
         )
     ),
 
@@ -99,6 +105,7 @@ const command = {
         if (subgroup === "user"){
             if(subcmd === "add"){
                 const user = await client.users.fetch(args.getString("id"))
+                const imagen = args.getString("imagen")
                 const reason = args.getString("razon") || "Razon no especificada"
                 const tiempo = args.getString("tiempo")
 
@@ -112,6 +119,18 @@ const command = {
                     ], ephemeral: true });
                 }
 
+                if(imagen){
+                    if(!/(ftp|http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\/]))?/.test(imagen)){
+                      error.setDescription('La URL de la imagen no es válida.')
+                      return interaction.reply({embeds: [
+                        new MessageEmbed()
+                        .setTitle(":x: Error")
+                        .setDescription("Ingresa una imagen valida.")
+                        .setColor("RED")
+                    ], ephemeral: true });
+                    }
+                }
+
                 let hasBlacklist = await blackuser.findOne({
                         UserID: user.id
                     })
@@ -122,8 +141,8 @@ const command = {
                         Reason: reason,
                         ModeratorID: interaction.user.id,
                         Date: Date(Date.now()).toLocaleString(),
-                        expire: tiempo ? Math.floor((Date.now() + ms(tiempo)) / 1000) : 0
-                        
+                        expire: tiempo ? Math.floor((Date.now() + ms(tiempo)) / 1000) : 0,
+                        Image: imagen
                     })
                     await newBlacklist.save()
 
@@ -139,6 +158,7 @@ const command = {
                     .addField("`📆` | Fecha", `<t:${Math.floor(Date.now() / 1000)}:R>`,true)
                     .addField("`🗑` | Expira", `${expireUser}`, true)
                     .addField('`👮‍♂️` | Moderador', `${interaction.user.tag}`,true)
+                    .setImage(imagen)
                     .setColor("#ff0000")
 
                     interaction.reply({embeds: [embed]})
@@ -152,7 +172,8 @@ const command = {
                     .addField("`📑` | Razon", `\`${Reason}\``,true)
                     .addField("`📆` | Fecha", `<t:${Math.floor(hasBlacklist.Date / 1000)}:R>`, true)
                     .addField("`🗑` | Expira", `${expireUser}`, true)
-                    .addField('`👮‍♂️` | Moderador', `${moderator}`,true)
+                    .addField('`👮‍♂️` | Moderador', `${moderator.tag}`,true)
+                    .setImage(blackuser.Image)
                     .setColor("#ff0000")
 
                     interaction.reply({embeds: [error]})
@@ -187,6 +208,7 @@ const command = {
             if(subcmd === "add"){
                 const server = await client.guilds.fetch(args.getString("id"))
                 const reason = args.getString("razon") || "Razon no especificada"
+                const imagen = args.getString("imagen")
                 const tiempo = args.getString("tiempo")
 
 
@@ -198,6 +220,17 @@ const command = {
                         .setColor("RED")
                     ], ephemeral: true });
                 }
+                if(imagen){
+                    if(!/(ftp|http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\/]))?/.test(imagen)){
+                      error.setDescription('La URL de la imagen no es válida.')
+                      return interaction.reply({embeds: [
+                        new MessageEmbed()
+                        .setTitle(":x: Error")
+                        .setDescription("Ingresa una imagen valida.")
+                        .setColor("RED")
+                    ], ephemeral: true });
+                    }
+                  }
 
                 let hasBlacklist = await blackguild.findOne({
                         ServerID: args.getString("id")
@@ -209,7 +242,8 @@ const command = {
                         Reason: reason,
                         ModeratorID: interaction.user.id,
                         Date: Date(Date.now()).toLocaleString(),
-                        expire: tiempo ? Math.floor((Date.now() + ms(tiempo)) / 1000) : 0
+                        expire: tiempo ? Math.floor((Date.now() + ms(tiempo)) / 1000) : 0,
+                        Image: imagen
                         
                     })
                     await newBlacklist.save()
@@ -226,6 +260,7 @@ const command = {
                     .addField("`📆` | Fecha", `<t:${Math.floor(Date.now() / 1000)}:R>`,true)
                     .addField("`🗑` | Expira", `${expireUser}`, true)
                     .addField('`👮‍♂️` | Moderador', `${interaction.user.tag}`,true)
+                    .setImage(imagen)
                     .setColor("#ff0000")
 
                     interaction.reply({embeds: [embed]})
@@ -240,6 +275,7 @@ const command = {
                     .addField("`📆` | Fecha", `<t:${Math.floor(hasBlacklist.Date / 1000)}:R>`,true)
                     .addField("`🗑` | Expira", `${expireUser}`, true)
                     .addField('`👮‍♂️` | Moderador', `${moderator}`,true)
+                    .setImage(hasBlacklist.Image)
                     .setColor("#ff0000")
 
                     interaction.reply({embeds: [error]})
