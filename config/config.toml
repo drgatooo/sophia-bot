@@ -5,7 +5,7 @@ route = '/'
 token = 'ODgzMDQ1NjgzNjA1Njc2MTQy.YTEOYQ.MoAXmQi7oO5bQf5kctc5qLy4V_s'
 
 # Mi ID
-owner = ["795127511204888596", "401845716991082496", "342382341185994757", "910543706489237544", "795360779237851167", "892492008269168641"]
+owner = ["795127511204888596", "342382341185994757", "910543706489237544", "795360779237851167", "892492008269168641"]
 
 # Coneccion a mongo
 MongoDB_URL = "mongodb+srv://sophiauser:otFJOnzjCP0lSgVy@cluster0.p0yum.mongodb.net/myFirstDatabase?retryWrites=true&w=majority"

@@ -76,14 +76,16 @@ const command = {
 
         const modal = new Modal()
         .setTitle('Embed')
-        .setCustomId('embed_modal')
+        .setCustomId(`${channel.id}_modalembed`)
         .addComponents(titleComponent, descriptionComponent, footerComponent, imageComponent)
 
         showModal(modal, { client: client, interaction: interaction })
 
         client.on("modalSubmit", async (modal) => {
-            if(modal.customId === 'embed_modal'){
+            if(modal.customId.includes('_modalembed')){
                 await modal.deferReply({ ephemeral: true })
+                const canalId = modal.customId.replace('_modalembed', '')
+                const canal = client.channels.cache.get(canalId)
                 const title = modal.getTextInputValue('title_embed')
                 const description = modal.getTextInputValue('description_embed')
                 const footer = modal.getTextInputValue('footer_embed')
@@ -134,8 +136,8 @@ const command = {
                     i.deferUpdate();
         
                     if(i.customId === "everyone"){
-                        channel.send({embeds: [embed]})
-                        channel.send("@everyone").then(msg => {
+                        canal.send({embeds: [embed]})
+                        canal.send("@everyone").then(msg => {
                             setTimeout(() => {
                                 msg.delete()
                             }, 2000)
@@ -143,7 +145,7 @@ const command = {
                         modal.editReply({embeds: [enviado], components: [], ephemeral: true})
                     }
                     if(i.customId === "sineveryone"){ 
-                        channel.send({embeds: [embed]})
+                        canal.send({embeds: [embed]})
                         modal.editReply({embeds: [enviado], components: [], ephemeral: true})
                     }
                 })

@@ -87,7 +87,7 @@ const command = {
           const title = modal.getTextInputValue("welcome_title");
           const description = modal.getTextInputValue("welcome_description");
           const footer = modal.getTextInputValue("welcome_footer");
-          const imagen = modal.getTextInputValue("welcome_image");
+          let imagen = modal.getTextInputValue("welcome_image");
           
           const error = new MessageEmbed()
           .setTitle('❌ Error')
