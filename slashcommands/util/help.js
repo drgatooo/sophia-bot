@@ -51,7 +51,7 @@ module.exports = {
             .setDescription('🎀 Hola <@'+interaction.user.id+'>, Tengo un total de `'+client.slashcommands.size+'` comandos para que puedas usar! para verlos selecciona la categoria que quieras!\n\n*Espero que los disfrutes y te sean utiles!*')
             .setThumbnail(client.user.avatarURL({format: 'png'}))
             .setTimestamp()
-            .setFooter({text: "Sophia Company & Shield Hosting LLC.", iconURL: interaction.user.avatarURL({dynamic: true, format: 'png'})});
+            .setFooter({text: "Sophia Company 2021-2022.", iconURL: interaction.user.avatarURL({dynamic: true, format: 'png'})});
             // categories.forEach(async (item, i) => embed.addField((emojis[Object.keys(obj)[i].toString()]||'➖')+' '+Object.keys(obj)[i].toString()+' ['+obj[item].length+']', `\`${!interaction.channel.nsfw && Object.keys(obj)[i].toLowerCase() === 'nsfw' ? 'Debes estar en un canal nsfw para ver o usar estos comandos' : obj[item].map(cmd => cmd.name).join('` `')}\``));
             const menu = new MessageSelectMenu()
 	            .setCustomId('menu')

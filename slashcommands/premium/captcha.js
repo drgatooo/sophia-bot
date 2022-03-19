@@ -123,7 +123,7 @@ module.exports = {
         var collectorEnd = false //Una variable para saber si el captcha finalizó por que quisimos, esto sirve para averiguar si el collector finalizó por tiempo
 
         collector.on("collect", async(i) => { //Cuando se prenda el collector
-            if(!i.member.id === interaction.user.id) return i.reply({ content: `¡Esta interacción no es para ti!`, ephemeral: true}) //Si el id no es el mismo de la persona que creó la interacción retornará
+            if(!i.user.id === interaction.user.id) return i.reply({ content: `¡Esta interacción no es para ti!`, ephemeral: true}) //Si el id no es el mismo de la persona que creó la interacción retornará
             i.deferUpdate(); //agregamos una especie de cooldown entre boton, para que no lanze interaccion fallida
 
             var choice = i.customId.substring(i.customId.length - 1) //Agarramos el id del boton y sustraemos el número

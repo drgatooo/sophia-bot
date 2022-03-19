@@ -40,7 +40,7 @@ module.exports = {
                 .setColor("GREEN")
 
                 await modal.channel.send(`${text}`)
-                modal.followUp({embeds: [enviado], ephemeral: true})
+                modal.reply({embeds: [enviado], ephemeral: true})
                 
             }
         })

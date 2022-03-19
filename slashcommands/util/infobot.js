@@ -34,12 +34,7 @@ const command = {
             new MessageButton()
             .setLabel("Support Server")
             .setStyle("LINK")
-            .setURL("https://discord.gg/QaY43QSDwK"),
-
-            new MessageButton()
-            .setLabel("Shield Hosting, Partners")
-            .setStyle("LINK")
-            .setURL("https://discord.gg/7DTA2PXjkb")
+            .setURL("https://discord.gg/QaY43QSDwK")
         )
         
         const embed = new MessageEmbed()
