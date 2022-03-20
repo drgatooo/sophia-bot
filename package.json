@@ -9,8 +9,8 @@
     "build": "node slashcommands.js"
   },
   "keywords": [],
-  "owners": "Domingo",
-  "programadores": "Domingo, Mateo, Risto, Xnayx",
+  "owners": "Domingo, Mateo",
+  "programadores": "Domingo, Mateo, Risto, Xnayx, Mr.Pauk",
   "license": "ISC",
   "dependencies": {
     "@androz2091/discord-invites-tracker": "^1.1.0",

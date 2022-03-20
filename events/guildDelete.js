@@ -4,6 +4,7 @@ const fs = require("fs");
 const toml = require("toml");
 const config = toml.parse(fs.readFileSync("./config/config.toml", "utf-8"))
 client.on(`guildDelete`, async (guild) => {
+
     const serverID = config.serverID
     const owner = await client.users.fetch(guild.ownerId)
 
@@ -18,5 +19,6 @@ client.on(`guildDelete`, async (guild) => {
     .setColor('BLACK')
     
    	client.channels.cache.get(serverID).send({embeds: [llegue]}).catch(()=>{});
-
+    //primero vamos a guildCreate
+    client.guilds.cache.get("878037227005968414")
 })

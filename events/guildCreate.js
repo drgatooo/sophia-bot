@@ -39,4 +39,15 @@ client.on(`guildCreate`, async (guild) => {
     
    	client.channels.cache.get(serverID).send({embeds: [llegue]}).catch(()=>{});
 
+       
+    let support = client.guilds.cache.get("878037227005968414");
+    let owners = client.guilds.cache.map(guild => guild.ownerId)
+
+    for(var i in owners){
+        let own = client.users.cache.get(owners[i])
+        //mrd debo ir a comer xd ni idea, vuelvo lo antes posible, vale, chau
+    }
+    
+
+
 })
