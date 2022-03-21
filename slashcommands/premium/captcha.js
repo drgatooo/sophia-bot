@@ -118,8 +118,8 @@ module.exports = {
         })
 
         interaction.reply({ embeds: [embedCaptcha], components: [firstLineNumbers, secondLineNumbers]}) //Mandamos el mensaje con el embed y los botones del 0 al 9
-
-        const collector = interaction.channel.createMessageComponentCollector({ time: 60000 }) //Creamos un collector de 60 segundos
+        const filtro = i => i.user.id === interaction.user.id
+        const collector = interaction.channel.createMessageComponentCollector({filter: filtro, time: 60000 }) //Creamos un collector de 60 segundos
         var collectorEnd = false //Una variable para saber si el captcha finalizó por que quisimos, esto sirve para averiguar si el collector finalizó por tiempo
 
         collector.on("collect", async(i) => { //Cuando se prenda el collector

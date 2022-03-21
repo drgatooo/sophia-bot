@@ -25,6 +25,14 @@ const command = {
 
     async run(client, interaction){
 
+    const promesas = [
+        client.shard.fetchClientValues(`guilds.cache.size`),
+        client.shard.broadcastEval(c => c.guilds.cache.reduce((acc, guild) => acc + guild.memberCount, 0))
+    ]
+    Promise.all(promesas).then(results => {
+        const guildNum = results[0].reduce((acc, guildCount) => acc + guildCount, 0)
+        const memberNum = results[1].reduce((acc, memberCount) => acc + memberCount, 0)
+
         const row = new MessageActionRow().addComponents(
             new MessageButton()
             .setLabel("Invitación")
@@ -49,12 +57,14 @@ const command = {
         .addField("<:vyxter:904595485615087636> Host:", "[VyxterHost](https://vyxterhost.com)", true)
         .addField("<a:de07f1a598f3418bad40172ddc1aba3a:878324224140390400> Lenguaje de programación:", `Javascript`, true)
         .addField("<a:de07f1a598f3418bad40172ddc1aba3a:878324224140390400> Package:", `discord.js ${version}`, true)
-        .addField("<a:palomita_YELLOW:881940973721116763> Servidores:", client.guilds.cache.size.toString(), true)
-        .addField("<a:palo:883588606290194432> Usuarios:", `${client.guilds.cache.reduce((prev, guild) => prev + guild.memberCount, 0)}`, true)
+        .addField("<a:palomita_YELLOW:881940973721116763> Servidores:", `${guildNum}`, true)
+        .addField("<a:palo:883588606290194432> Usuarios:", `${memberNum}`, true)
 		.addField("<a:Giveaways:878324188753068072> Comandos totales:", client.slashcommands.filter(cmd => cmd.category !== "Owner").size.toString(), true)
         .setColor('00FFFF');
 
         interaction.reply({ embeds: [embed], components: [row] })
+
+    })
 
     }
 }

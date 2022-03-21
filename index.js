@@ -16,7 +16,9 @@ const client = new Client({
     "DIRECT_MESSAGES",
     "DIRECT_MESSAGE_REACTIONS",
     "DIRECT_MESSAGE_TYPING",
-  ]});
+  ],
+  shards: `auto`,
+});
 const fs = require("fs");
 const toml = require("toml");
 const config = toml.parse(fs.readFileSync("./config/config.toml", "utf-8"));
@@ -58,13 +60,12 @@ for(const folder of slashcommandsFiles){
     for(const cmd of fs.readdirSync(`./slashcommands/${folder}/`).filter(f => f.endsWith('.js'))){
         const slash = require(`./slashcommands/${folder}/${cmd}`)
         if(slash.data) {
-	        console.log(yellow(`Comando (/) - ${cmd} cargado.`))
             client.slashcommands.set(slash.data.name, slash)
         } else {
             console.log(blue(`Comando (/) - ${cmd} no fue cargado`))
         }
-        console.log(green(`${client.slashcommands.size} comandos cargados en total.`))
     }
+    console.log(green(`${client.slashcommands.size} comandos cargados en total.`))
 }
 
 for(const file of fs.readdirSync(`./eventos_distube/`)){

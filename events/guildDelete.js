@@ -19,6 +19,9 @@ client.on(`guildDelete`, async (guild) => {
     .setColor('BLACK')
     
    	client.channels.cache.get(serverID).send({embeds: [llegue]}).catch(()=>{});
-    //primero vamos a guildCreate
-    client.guilds.cache.get("878037227005968414")
+    
+    let server = client.guilds.cache.get(config.supportID)
+    let usu = await server.members.fetch(owner.id)
+
+    usu?.roles.remove("955218246372577390").catch(console.log)
 })

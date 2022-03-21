@@ -21,3 +21,9 @@ botId = '883045683605676142'
 
 # channels Report
 report_channel = '900017404443263036' # la id se puede cambiar
+
+# Servidor de soporte 
+supportID = '848053120852688917'
+
+# Rol usa sophia
+rolID = '955218246372577390'

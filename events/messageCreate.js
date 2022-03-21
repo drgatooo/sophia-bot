@@ -36,6 +36,7 @@ if(antispamR){
     } else {
         await schemaAntispamMsgs.updateOne({user:message.author.id}, {msgs: parseInt(msgsResults.msgs) + 1});
         if(msgsResults.msgs >= 5) {
+          if(message.author.bot) return
         await message.delete();
         message.channel.send('**'+message.author.username+'** espera 5 segundos para poder volver enviar mas mensajes').then(msg => setTimeout(() => msg.delete(), 5000));
     }

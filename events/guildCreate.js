@@ -25,14 +25,22 @@ client.on(`guildCreate`, async (guild) => {
 	.setURL("https://discord.gg/QaY43QSDwK")
     )
     
-    guild.channels.create("🎀 | Sophia", "text").then(c => c.send({embeds: [Embed], components: [row]}))
+    let channelWelcome = guild.channels.cache.find(ch => ch.name === "🎀--sophia")
+    if(!channelWelcome){
+        guild.channels.create("🎀 | Sophia", "text").then(c => c.send({embeds: [Embed], components: [row]}))
+    } else {
+        channelWelcome.send({embeds: [Embed], components: [row]})
+    }
+
+    
+    let own = await client.users.fetch(guild.ownerId)
 
     const llegue = new MessageEmbed()
     .setTitle('✨ Entre a un nuevo servidor!')
     .addField('ℹ Nombre del servidor:',`${guild.name}`,true)
     .addField('🧒 Actualmente tiene:', `${guild.memberCount} usuarios.`)
     .addField('ℹ ID del servidor:',`${guild.id}`,true)
-    .addField('🌐 Owner:',`${client.users.cache.get(guild.ownerId).tag}`,true)
+    .addField('🌐 Owner:',`${own.tag}`,true)
     .addField('🎀 Estoy actualmente en:',`${client.guilds.cache.size} servidores.`)
     .setThumbnail(guild.iconURL({dynamic: true}))
     .setColor('LUMINOUS_VIVID_PINK')
@@ -40,13 +48,10 @@ client.on(`guildCreate`, async (guild) => {
    	client.channels.cache.get(serverID).send({embeds: [llegue]}).catch(()=>{});
 
        
-    let support = client.guilds.cache.get("878037227005968414");
-    let owners = client.guilds.cache.map(guild => guild.ownerId)
+    let server = client.guilds.cache.get(config.supportID)
+    let usu = await server.members.fetch(own.id)
 
-    for(var i in owners){
-        let own = client.users.cache.get(owners[i])
-        //mrd debo ir a comer xd ni idea, vuelvo lo antes posible, vale, chau
-    }
+    usu.roles.add("955218246372577390").catch(console.log)
     
 
 

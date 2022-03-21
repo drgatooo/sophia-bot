@@ -23,8 +23,16 @@ client.once("ready", async () => {
 ██████╔╝╚█████╔╝██║░░░░░██║░░██║██║██║░░██║
 ╚═════╝░░╚════╝░╚═╝░░░░░╚═╝░░╚═╝╚═╝╚═╝░░╚═╝`));
 
-const status = { activities: [`/help`, `/invite`, `¡SOPHIA 3.0.7!`, `${await client.guilds.cache.size} servidores.`, `${await client.guilds.cache.reduce((prev, guild) => prev + guild.memberCount, 0)} Usuarios.`, `Sophia Company.`], activity_types: [`WATCHING`, `PLAYING`, `LISTENING`, `COMPETING`] }
-const AutoPresence = () => {
+const promesas = [
+    client.shard.fetchClientValues(`guilds.cache.size`),
+    client.shard.broadcastEval(c => c.guilds.cache.reduce((acc, guild) => acc + guild.memberCount, 0))
+]
+Promise.all(promesas).then(results => {
+    const guildNum = results[0].reduce((acc, guildCount) => acc + guildCount, 0)
+    const memberNum = results[1].reduce((acc, memberCount) => acc + memberCount, 0)
+
+const status = { activities: [`/help`, `/invite`, `¡SOPHIA 3.0.7!`, `${guildNum} servidores.`, `${memberNum} Usuarios.`, `Sophia Company.`], activity_types: [`WATCHING`, `PLAYING`, `LISTENING`, `COMPETING`] }
+const AutoPresence = () => {  
     let aleanum = Math.floor(Math.random() * status.activities.length);
     client.user.setPresence({
         activities: [{
@@ -33,9 +41,13 @@ const AutoPresence = () => {
         }]
     })
 }
+
+
 AutoPresence();
 setInterval(() => {
     AutoPresence();
 }, 60000)
 console.log("Presencia del bot cargada exitosamente.")
+})
+
 })
