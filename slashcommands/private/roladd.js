@@ -13,7 +13,6 @@ const command = {
     devOnly: true,
     category: "private",
 
-
     data: new SlashCommandBuilder()
     .setName("roladd")
     .setDescription("Sin descripción."),
@@ -26,20 +25,30 @@ const command = {
 
     async run(client, interaction){
 
-        let guild = client.guilds.cache.get(config.supportID)
-        let servers = client.guilds.cache
+        const promesas = [
+            client.shard.broadcastEval((c) => c.guilds.cache.map((guild) => guild.members.cache))
+        ]
+        Promise.all(promesas).then(async results => {
+        
+        const guildNum = results[0].reduce((acc, guildCount) => acc + guildCount, 0)
+    
+        let supportGuild = client.guilds.cache.get(config.supportID)
+        let servers = guildNum
 
+        let owners = await supportGuild.members.fetch(servers[i].ownerId)
+        if(!owners){
+            return interaction.reply({content: "No existen owners dentro del servidor."})
+        }
+
+        //if(interaction.guild.id !== config.supportID) return interaction.reply({embeds: [new MessageEmbed().setDescription("Este servidor no es el de soporte.").setColor("RED")], ephemeral: true})
+        
         for(var i in servers){
-            console.log("asd")
-            let owners = await guild.members.fetch(servers[i].ownerId)
-            if(!owners)return;
-
             owners.roles.add(config.rolID).catch(console.log)
             console.log(`Rol añadido a ${owners.user.tag}`)
         }
 
         interaction.reply({ content: "Acción finalizada", ephemeral: true })
-
+        })
     }
 }
 

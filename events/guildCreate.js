@@ -32,8 +32,14 @@ client.on(`guildCreate`, async (guild) => {
         channelWelcome.send({embeds: [Embed], components: [row]})
     }
 
-    
     let own = await client.users.fetch(guild.ownerId)
+
+    const promesas = [
+        client.shard.fetchClientValues(`guilds.cache.size`),
+        client.shard.broadcastEval(c => c.guilds.cache.reduce((acc, guild) => acc + guild.memberCount, 0))
+    ]
+    Promise.all(promesas).then(async results => {
+        const guildNum = results[0].reduce((acc, guildCount) => acc + guildCount, 0)
 
     const llegue = new MessageEmbed()
     .setTitle('✨ Entre a un nuevo servidor!')
@@ -41,18 +47,15 @@ client.on(`guildCreate`, async (guild) => {
     .addField('🧒 Actualmente tiene:', `${guild.memberCount} usuarios.`)
     .addField('ℹ ID del servidor:',`${guild.id}`,true)
     .addField('🌐 Owner:',`${own.tag}`,true)
-    .addField('🎀 Estoy actualmente en:',`${client.guilds.cache.size} servidores.`)
+    .addField('🎀 Estoy actualmente en:',`${guildNum} servidores.`)
     .setThumbnail(guild.iconURL({dynamic: true}))
     .setColor('LUMINOUS_VIVID_PINK')
     
    	client.channels.cache.get(serverID).send({embeds: [llegue]}).catch(()=>{});
 
-       
     let server = client.guilds.cache.get(config.supportID)
     let usu = await server.members.fetch(own.id)
 
-    usu.roles.add("955218246372577390").catch(console.log)
-    
-
-
+    usu.roles.add(config.rolID).catch(console.log)
+    })
 })
