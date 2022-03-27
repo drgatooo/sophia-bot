@@ -1,1 +1,30 @@
-[{"messageId":"949870909194383360","channelId":"948807764736634930","guildId":"848053120852688917","startAt":1646537272316,"endAt":null,"ended":true,"winnerCount":1,"prize":"🎉 Discord Nitro!","messages":{"giveaway":"🎉🎉 **GIVEAWAY** 🎉🎉","giveawayEnded":"🎉🎉 **GIVEAWAY FINALIZADO** 🎉🎉","inviteToParticipate":"Reacciona a 🎉 para participar!","winMessage":"Felicidades, {winners}! has ganado **{this.prize}**!","drawing":"Tiempo restante: {timestamp}","dropMessage":"Be the first to react with 🎉 !","embedFooter":"{this.winnerCount} ganador(es)","noWinner":"Giveaway cancelado, sin participantes validos.","winners":"Ganador(es):","endedAt":"Finalizado","hostedBy":"Creado por: **{this.hostedBy}**"},"hostedBy":"<@795127511204888596>","pauseOptions":{"durationAfterPause":521722,"isPaused":true}}]
+[
+    {
+        "messageId": "949870909194383360",
+        "channelId": "948807764736634930",
+        "guildId": "848053120852688917",
+        "startAt": 1646537272316,
+        "endAt": null,
+        "ended": true,
+        "winnerCount": 1,
+        "prize": "🎉 Discord Nitro!",
+        "messages": {
+            "giveaway": "🎉🎉 **GIVEAWAY** 🎉🎉",
+            "giveawayEnded": "🎉🎉 **GIVEAWAY FINALIZADO** 🎉🎉",
+            "inviteToParticipate": "Reacciona a 🎉 para participar!",
+            "winMessage": "Felicidades, {winners}! has ganado **{this.prize}**!",
+            "drawing": "Tiempo restante: {timestamp}",
+            "dropMessage": "Be the first to react with 🎉 !",
+            "embedFooter": "{this.winnerCount} ganador(es)",
+            "noWinner": "Giveaway cancelado, sin participantes validos.",
+            "winners": "Ganador(es):",
+            "endedAt": "Finalizado",
+            "hostedBy": "Creado por: **{this.hostedBy}**"
+        },
+        "hostedBy": "<@795127511204888596>",
+        "pauseOptions": {
+            "durationAfterPause": 521722,
+            "isPaused": true
+        }
+    }
+]

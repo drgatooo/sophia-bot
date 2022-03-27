@@ -12,6 +12,7 @@ const command = {
 
     devOnly: true,
     category: "private",
+    isMaintenance: true,
 
     data: new SlashCommandBuilder()
     .setName("roladd")

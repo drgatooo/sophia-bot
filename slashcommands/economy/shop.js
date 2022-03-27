@@ -41,7 +41,7 @@ const command = {
             .setTitle(`🛒 Tienda de ${interaction.guild.name}`)
             .setDescription("☹ No hay productos en la tienda, agregalos!")
             .setColor("RED")
-            .setFooter(interaction.user.username, interaction.user.displayAvatarURL({ dynamic: true }))
+            .setFooter({text: interaction.user.username, iconURL: interaction.user.displayAvatarURL({ dynamic: true })})
             .setTimestamp();
             return await interaction.reply({ embeds: [embedFail]});
         }

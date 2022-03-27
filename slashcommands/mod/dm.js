@@ -16,8 +16,8 @@ const command = {
     data: new SlashCommandBuilder()
     .setName("dm")
     .setDescription("Envía un mensaje a un usuario a través de Sophia")
-    .addUserOption(o => o.setName("usuario").setDescription("Usuario a e|nviar mensaje").setRequired(true)),
-    //.addStringOption(o => o.setName("mensaje").setDescription("QUe dirá el mensaje").setRequired(true)),
+    .addUserOption(o => o.setName("usuario").setDescription("Usuario a e|nviar mensaje").setRequired(true))
+    .addStringOption(o => o.setName("mensaje").setDescription("QUe dirá el mensaje").setRequired(true)),
 
     /**
      * 
@@ -37,51 +37,27 @@ const command = {
         
         if(usuario.id === client.user.id) return interaction.reply({embeds: [new MessageEmbed().setTitle(':x: Error').setDescription('No puedo enviarme un mensaje a mi misma.').setColor('RED')], ephemeral: true});
 
-        const textoComponent = new TextInputComponent()
-        .setCustomId('dm_texto')
-        .setLabel('Mensaje')
-        .setMinLength(1)
-        .setMaxLength(1024)
-        .setStyle('LONG')
-        .setRequired(true)
-        .setPlaceholder('Escribe aquí el Mensaje que quieres enviar al Usuario.')
+        const mensaje = args.getString("mensaje")
 
-        const modal = new Modal()
-        .setTitle('DM')
-        .setCustomId('dm')
-        .addComponents(textoComponent)
+        const embed = new MessageEmbed()
+            .setTitle("💝 Mensaje Privado!")
+            .setDescription(`He enviado un mensaje a ${usuario} diciendo lo siguiente.`)
+            .addField("Mensaje:", mensaje, true)
+            .setColor("GREEN")
 
-        showModal(modal, { client: client, interaction: interaction });
-
-        client.on('modalSubmit', async(modal) => {
-            if(modal.customId === 'dm'){
-
-                await modal.deferReply({ ephemeral: true })
-                const mensaje = modal.getTextInputValue('dm_texto')
-
-                const embed = new MessageEmbed()
-                .setTitle("💝 Mensaje Privado!")
-                .setDescription(`He enviado un mensaje a ${usuario} diciendo lo siguiente.`)
-                .addField("Mensaje:", mensaje, true)
-                .setColor("GREEN")
-
-                usuario.send({ content: mensaje }).then(() => {
-                    modal.followUp({ embeds: [embed], ephemeral: true });
-                }).catch(() => {
-                    modal.followUp({
-                      embeds: [
-                        new MessageEmbed()
-                          .setTitle("💔 Mensaje No Enviado.")
-                          .setDescription("Vaya, al parecer el usuario tiene los mensajes bloqueados.")
-                          .setColor("RED"),
-                      ],
-                      ephemeral: true,
-                    });
-                });
-                
-            }
-        })
-
+        usuario.send({ content: mensaje }).then(() => {
+            interaction.reply({ embeds: [embed], ephemeral: true });
+        }).catch(() => {
+            interaction.reply({
+                embeds: [
+                    new MessageEmbed()
+                        .setTitle("💔 Mensaje No Enviado.")
+                        .setDescription("Vaya, al parecer el usuario tiene los mensajes bloqueados.")
+                        .setColor("RED"),
+                ],
+                ephemeral: true,
+            });
+        });
     }
 }
 

@@ -73,11 +73,7 @@ const command = {
    */
 
   async run(_, interaction) {
-    // return interaction.reply({embeds: [
-    //   new MessageEmbed()
-    //     .setTitle("⚠️ comando en mantenimiento")
-    //     .setColor("YELLOW")
-    // ], ephemeral: true});
+    
     function err(text = 'hubo un error') {
       return interaction.reply({embeds: [
         new MessageEmbed()
@@ -114,7 +110,6 @@ const command = {
               item.description = value;
               break;
           }
-          console.log(results);
           await interaction.reply({embeds: [
                   new MessageEmbed()
                   .setTitle(':white_check_mark: producto editado correctamente')
