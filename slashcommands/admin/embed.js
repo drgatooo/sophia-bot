@@ -18,7 +18,7 @@ const command = {
     .addStringOption(o => o.setName("descripcion").setDescription("Descripción del embed.").setRequired(true))
     .addStringOption(o => o.setName("titulo").setDescription("Titulo del embed.").setRequired(false))
     .addStringOption(o => o.setName("footer").setDescription("Footer del embed.").setRequired(false))
-    .addStringOption(o => o.setName("imagen").setDescription("Imagen que llevará el embed.").setRequired(true))
+    .addStringOption(o => o.setName("imagen").setDescription("Imagen que llevará el embed.").setRequired(false))
     .addChannelOption(o => o.setName("canal").setDescription("Canal a enviar el embed.").setRequired(false)),
 
     /**
@@ -40,7 +40,7 @@ const command = {
                 .setColor('RED')
             ], ephemeral: true});
         }
-            const canal = args.getChannel("canal")
+            const canal = args.getChannel("canal") || interaction.channel
             const title = args.getString("titulo")
             const description = args.getString("descripcion")
             const footer = args.getString("footer")
@@ -83,7 +83,7 @@ const command = {
                 .setDescription("Tu mensaje fue enviado!")
                 .setColor("GREEN")
         
-                await interaction.editReply({embeds: [pregunta], components: [row], ephemeral: true})
+                await interaction.reply({embeds: [pregunta], components: [row], ephemeral: true})
                 const filtro = i => i.user.id === interaction.user.id
                 const collector = interaction.channel.createMessageComponentCollector({filter: filtro, time: 15000})
         

@@ -10,6 +10,7 @@ const bigInt = require("big-integer");
 const command = {
 
     category: "Economía",
+    isMaintenance: true,
 
 
     data: new SlashCommandBuilder()
