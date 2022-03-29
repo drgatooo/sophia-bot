@@ -192,7 +192,7 @@ const command = {
       const bugFile = interaction.options.getString("imagen") || image;
       const id = interaction.options.getString("id");
 
-      let reportChannel = client.channels.cache.get("940695048339734600");
+      let reportChannel = client.channels.cache.get(report_channel);
 
       const row = new MessageActionRow().addComponents(
         new MessageButton()
