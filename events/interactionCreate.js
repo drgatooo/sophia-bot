@@ -58,6 +58,17 @@ client.on("interactionCreate", async (interaction) => {
         ], ephemeral: true})
     }
 
+    const limit = require("../models/limitusecommands")
+    const com = await limit.findOne({ServerID: interaction.guild.id})
+    
+    if(com && interaction.channel.id !== com.ChannelID){
+        return interaction.reply({embeds: [new MessageEmbed()
+        .setTitle("Hey, espera! 💔")
+        .setDescription(`En este servidor mi uso de comandos esta limitado a el canal <#${com.ChannelID}> ve allí y reintenta.`)
+        .setColor("RED")
+        ], ephemeral: true})
+    }
+
     try{
         const blackuser = require("../models/blacklist-user");
         const blackguild = require("../models/blacklist-guild");
