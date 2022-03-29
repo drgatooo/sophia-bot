@@ -3,7 +3,6 @@ const { Client, CommandInteraction, MessageEmbed } = require("discord.js");
 const blackuser = require("../../models/blacklist-user");
 const blackguild = require("../../models/blacklist-guild");
 const ms = require("ms")
-const { black } = require("colors"); //hazlo en los embeds que manda de respuesta
 
 /**
 * @type {import('../../types/typeslash').Command}

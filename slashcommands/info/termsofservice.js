@@ -1,5 +1,5 @@
 const { SlashCommandBuilder } = require("@discordjs/builders");
-const { Client, CommandInteraction, MessageEmbed } = require("discord.js");
+const { Client, CommandInteraction, MessageEmbed, MessageActionRow, MessageButton } = require("discord.js");
 
 /**
 * @type {import('../../types/typeslash').Command}
@@ -39,17 +39,43 @@ const command = {
 
         const embed = new MessageEmbed()
         .setTitle("Términos de privacidad y condiciones.")
-        .setDescription(tos)
-        .setFooter("Sophia company 2021-2022 © Todos los derechos reservados. | este mensaje se eliminará en 2 minutos.")
+        .setDescription("Elije una de las opciónes.")
+        .setFooter({text: "Sophia company 2021-2022 © Todos los derechos reservados."})
         .setColor("#00FFFF")
         .setThumbnail(client.user.displayAvatarURL({dynamic: true, size: 512}))
 
-        interaction.reply({embeds: [embed]}).then(() => {
-            setTimeout(() => {
-                interaction.deleteReply()
-            }, 120000)
-        })
+        const row = new MessageActionRow().addComponents(
+            new MessageButton()
+            .setLabel("web")
+            .setStyle("DANGER")
+            .setCustomId("web"),
 
+            new MessageButton()
+            .setLabel("embed")
+            .setStyle("DANGER")
+            .setCustomId("text")
+        )
+
+        await interaction.reply({embeds: [embed], components: [row]})
+        const filtro = i => i.user.id === interaction.user.id
+        const collector = interaction.channel.createMessageComponentCollector({filter: filtro, time: 180000})
+
+        collector.on("collect", async i => {
+            await i.deferUpdate();
+
+            if(i.customId === "web"){
+                interaction.editReply({ embeds: [embed.setDescription("[TERMS OF SERVICE](https://sophia-bot.com/termsofservices)")] })
+            }
+
+            if(i.customId === "text"){
+                interaction.editReply({embeds: [embed.setDescription("Okay 🧡,\nprocedo a borrar el mensaje en 30 segundos.")], components: []}).then(() => {
+                    setTimeout(() => {
+                        interaction.deleteReply()
+                    }, 30000)
+                })
+                interaction.followUp({embeds: [embed.setDescription(tos)], ephemeral: true})
+            }
+        })
     }
 }
 
