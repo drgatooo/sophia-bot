@@ -1,6 +1,9 @@
 # ruta main (web)
 route = '/'
 
+# api token
+api_token = 'Fcxzq1cgyXka8EdiEAshjtw,L3fWMntBfcl9SxBgobYCXOyW4S'
+
 # Mi token
 token = 'ODgzMDQ1NjgzNjA1Njc2MTQy.YTEOYQ.MoAXmQi7oO5bQf5kctc5qLy4V_s'
 

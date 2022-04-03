@@ -49,7 +49,7 @@ client.on("interactionCreate", async (interaction) => {
             .setTimestamp()
         ], ephemeral: true});
     }
-    if(slashcmds.isMaintenance === true){
+    if(slashcmds.isMaintenance === true && !config.owner.includes(interaction.user.id)){
         return interaction.reply({embeds: [
             new MessageEmbed()
             .setTitle("⚠ Comando en mantenimiento....")

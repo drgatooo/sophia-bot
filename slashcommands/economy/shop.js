@@ -10,8 +10,6 @@ const bigInt = require("big-integer");
 const command = {
 
     category: "Economía",
-    isMaintenance: true,
-
 
     data: new SlashCommandBuilder()
     .setName("shop")
@@ -34,7 +32,7 @@ const command = {
                 `Para ver la información detallada de un producto escribe: \`/item-info \``+results.store.map((p, i) => `\n\n\`#${i+1}\`** ${new Intl.NumberFormat().format(bigInt(parseInt(p.price)))}$ - ${!p.product.toUpperCase().startsWith("<@") ? p.product.toUpperCase() : "ROL "+p.product.toUpperCase()}**\n${p.description}`
             ).toString().replace(/,/g, " "))
             .setColor("WHITE")
-            .setFooter(interaction.user.username, interaction.user.displayAvatarURL({ dynamic: true }))
+            .setFooter({text: interaction.user.username, iconURL: interaction.user.displayAvatarURL({ dynamic: true })})
             .setTimestamp();
             return await interaction.reply({ embeds: [embedSuccess]});
         } else {

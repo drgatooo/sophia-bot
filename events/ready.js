@@ -1,12 +1,17 @@
-const client = require(`../index`)
+const client = require(`../index`);
 const { cyan, green, red } = require("colors"),
 mongoose = require(`mongoose`),
 fs = require("fs"),
 toml = require("toml"),
 config = toml.parse(fs.readFileSync("./config/config.toml", "utf-8")),
 mongoURl = config.MongoDB_URL;
+const apiContent = new Object();
 
 client.once("ready", async () => {
+    apiContent.guildsSize = client.guilds.cache.size;
+    apiContent.usersSize = client.users.cache.size;
+    apiContent.guilds = client.guilds;
+
     mongoose.connect(mongoURl,{
         useNewUrlParser: true,
         useUnifiedTopology: true,
@@ -23,10 +28,25 @@ client.once("ready", async () => {
 ██████╔╝╚█████╔╝██║░░░░░██║░░██║██║██║░░██║
 ╚═════╝░░╚════╝░╚═╝░░░░░╚═╝░░╚═╝╚═╝╚═╝░░╚═╝`));
 
+fs.writeFileSync("./api/api.json", JSON.stringify(apiContent, null, 4));
+setInterval(() => {
+    if(apiContent.guildsSize !== client.guilds.cache.size ||
+        apiContent.usersSize !== client.users.cache.size ||
+        apiContent.guilds !== client.guilds) {
+            apiContent.guildsSize = client.guilds.cache.size;
+            apiContent.usersSize = client.users.cache.size;
+            apiContent.guilds = client.guilds;
+            console.log(`${green("[")}${cyan("API")}${green("]")} ${green("Actualizando API...")}`);
+            fs.writeFileSync("./api/api.json", JSON.stringify(apiContent, null, 4));
+        }
+}, 60000);
+
 const promesas = [
     client.shard.fetchClientValues(`guilds.cache.size`),
     client.shard.broadcastEval(c => c.guilds.cache.reduce((acc, guild) => acc + guild.memberCount, 0))
 ]
+
+
 Promise.all(promesas).then(results => {
     const guildNum = results[0].reduce((acc, guildCount) => acc + guildCount, 0)
     const memberNum = results[1].reduce((acc, memberCount) => acc + memberCount, 0)
@@ -48,6 +68,6 @@ setInterval(() => {
     AutoPresence();
 }, 60000)
 console.log("Presencia del bot cargada exitosamente.")
-})
+    })
 
 })
