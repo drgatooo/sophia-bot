@@ -2,7 +2,7 @@
   "name": "Sophia.",
   "version": "3.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "bot.js",
   "scripts": {
     "uploadChanges": "git pull https://github.com/DomingoDeveloper/sophia-bot.git",
     "dev": "nodemon node index.js",
