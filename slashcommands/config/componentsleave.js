@@ -49,10 +49,10 @@ const command = {
     async run(client, interaction){
 
       const args = interaction.options
-      const title = args.getString("titulo")
-      const description = args.getString("descripcion")
-      const footer = args.getString("footer")
-      const subcmd = args.getSubcommand()
+      let title = args.getString("titulo")
+      let description = args.getString("descripcion")
+      let footer = args.getString("footer")
+      let subcmd = args.getSubcommand()
 
       if(!title){
         title = ""
