@@ -44,7 +44,7 @@ const command = {
         const username = mention.nickname || mention.user.username; //--define username
         let result = `https://some-random-api.ml/canvas/youtube-comment?avatar=${mention.user.displayAvatarURL({format: "png"})}&comment=${url}&username=${username.replace(/ /g, "%20")}`; //--define result
         result = new MessageAttachment(result, 'comment.png');
-        await interaction.reply({embeds: [new MessageEmbed().setDescription("Listo! ❤").setColor("GREEN")]})
+        await interaction.reply({embeds: [new MessageEmbed().setDescription("Listo! ❤").setColor("GREEN")], ephemeral: true})
         await interaction.channel.send({files: [result]}).catch(() => {
             return;
         }); //--send result
