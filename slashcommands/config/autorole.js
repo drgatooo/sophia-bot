@@ -142,7 +142,8 @@ const command = {
     if(subcmd === "help") {
         const embed = new MessageEmbed()
         .setTitle("¿Cómo setear los autoroles?")
-        .setDescription("Para setear los autoroles, debes ejecutar el comando `/autorole set` en el valor channel poner el canal donde se enviarán los autoroles y en el valor roles deberas poner un JSON con la información.\n\nEjemplo:\n```json\n[{\n    \"nombreBoton\": \"Texto que mostrara el boton\",\n    \"rol\": \"@rol\"\n},\n{\n    \"nombreBoton\": \"Texto que mostrara el boton\",\n    \"rol\": \"@rol\"\n}]```\n\nEl rol no puede repetirse, **RESPETAR CADA SIGNO PARA QUE FUNCIONE BIEN**")
+        .setDescription("Para setear los autoroles, debes ejecutar el comando `/autorole set` en el valor channel poner el canal donde se enviarán los autoroles y en el valor roles deberas poner un JSON con la información.\n\nEjemplo:\n```json\n[{\n    \"nombreBoton\": \"Texto que mostrara el boton\",\n    \"rol\": \"@rol\"\n},\n{\n    \"nombreBoton\": \"Texto que mostrara el boton\",\n    \"rol\": \"@rol\"\n}]```\n\nEl rol no puede repetirse\n**RESPETAR CADA SIGNO PARA QUE FUNCIONE BIEN**\n\nejemplo del comando entero:")
+        .setImage('https://cdn.discordapp.com/attachments/894970556632403979/962770758784909312/unknown.png')
         .setColor("GREEN")
         .setFooter({text: "Disfruta del bot!", iconURL: interaction.user.displayAvatarURL({ dynamic: true})})
         .setTimestamp();
