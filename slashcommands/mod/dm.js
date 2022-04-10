@@ -16,8 +16,8 @@ const command = {
     data: new SlashCommandBuilder()
     .setName("dm")
     .setDescription("Envía un mensaje a un usuario a través de Sophia")
-    .addUserOption(o => o.setName("usuario").setDescription("Usuario a e|nviar mensaje").setRequired(true))
-    .addStringOption(o => o.setName("mensaje").setDescription("QUe dirá el mensaje").setRequired(true)),
+    .addUserOption(o => o.setName("usuario").setDescription("Usuario a enviar mensaje").setRequired(true))
+    .addStringOption(o => o.setName("mensaje").setDescription("Qué dirá el mensaje").setRequired(true)),
 
     /**
      * 

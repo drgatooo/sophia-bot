@@ -6,7 +6,7 @@ module.exports = {
     category: "Diversión",
     data: new SlashCommandBuilder()
     .setName("activity")
-    .setDescription("inicia una actividad de discord-together.")
+    .setDescription("Inicia una actividad de discord-together.")
     .addStringOption(o =>
       o.setName('actividad')
       .setRequired(true)

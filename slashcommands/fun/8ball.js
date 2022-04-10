@@ -7,7 +7,7 @@ module.exports = {
     category: "Diversión",
     data: new SlashCommandBuilder()
     .setName("8ball")
-    .setDescription("preguntale algo de si o no al bot.")
+    .setDescription("Pregúntale algo de si o no al bot.")
     .addStringOption(o => o.setName('pregunta').setDescription('dime tu pregunta.').setRequired(true)),
 
     async run(client, interaction){

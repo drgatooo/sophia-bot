@@ -47,7 +47,7 @@ Promise.all(promesas).then(results => {
                 readApiJson.guilds !== client.guilds) {
                 apiContent.guildsSize = guildNum;
                 apiContent.usersSize = memberNum;
-                apiContent.guilds = client.guilds;
+                apiContent.gulds = client.guilds;
                 console.log(`${green("[")}${cyan("API")}${green("]")} ${green("Actualizando API...")}`);
                 fs.writeFileSync("./api/api.json", JSON.stringify(apiContent, null, 4));
     }

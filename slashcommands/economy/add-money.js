@@ -16,7 +16,7 @@ const command = {
 
     data: new SlashCommandBuilder()
     .setName("add-money")
-    .setDescription("agrega dinero a un usuario.")
+    .setDescription("Agrega dinero a un usuario.")
     .addUserOption(o =>
         o.setName('usuario')
         .setDescription('Usuario al que se le agregará dinero')

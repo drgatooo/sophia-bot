@@ -7,7 +7,7 @@ module.exports = {
     category: "Diversión",
     data: new SlashCommandBuilder()
     .setName("anime")
-    .setDescription("revisa la información de un anime")
+    .setDescription("Revisa la información de un anime")
     .addStringOption(o => o.setName('anime').setDescription('nombre del anime').setRequired(true)),
     async run(_, interaction){
         const name = interaction.options.getString('anime').split(/ +/).join('%20');

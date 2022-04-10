@@ -77,7 +77,6 @@ for(const file of fs.readdirSync(`./eventos_distube/`)){
 }
 
 require('./api/index.js');
-
 process.on('unhandledRejection', err => console.log(red('Al parecer hubo un error.\n' + err.stack)) );
 client.on("shardError", err => console.log(red('Al parecer hubo un error.\n' + err.stack)) );
 client.on("Error", err => console.log(red('Al parecer hubo un error.\n' + err.stack)) );

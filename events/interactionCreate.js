@@ -3,10 +3,29 @@ const client = require('../index.js');
 const toml = require("toml");
 const fs = require('fs');
 const config = toml.parse(fs.readFileSync("./config/config.toml", "utf-8"));
-const premiumguild = require("../models/premiumGuild")
+const premiumguild = require("../models/premiumGuild");
+const autoroles = require('../models/autorole.js');
 
 client.on("interactionCreate", async (interaction) => {
-    if(!interaction.isCommand()) return;
+    if(interaction.isButton()) {
+        await interaction.deferUpdate();
+        await interaction.member.roles.add(interaction.customId).catch(async () => {
+            return await interaction.followUp({
+                embeds: [
+                    new MessageEmbed()
+                    .setTitle('❌ Error')
+                    .setDescription('No se te ha podido añadir el rol.\nEs posible que me falten permisos, contacta con un administrador para solucionarlo!')
+                    .setColor('RED')
+                ]});
+        });
+        await interaction.followUp({ embeds: [
+            new MessageEmbed()
+            .setTitle("Rol añadido")
+            .setDescription(`**${interaction.member.user.tag}** se te ha añadido el rol <@&${interaction.customId}> correctamente.`)
+            .setColor('GREEN')
+        ], ephemeral: true})
+    }
+    if(interaction.isCommand()) {
     if(!interaction.guild) return interaction.reply({embeds: [new MessageEmbed().setTitle(":x: Error").setDescription("¿Que intentas hacer?\nMis comandos no se pueden usar en mi privado!").setColor("RED")]})
 
     const slashcmds = client.slashcommands.get(interaction.commandName)
@@ -107,4 +126,5 @@ client.on("interactionCreate", async (interaction) => {
 
         interaction.reply({embeds: [embedError]}).catch(() => null)
     }
+};
 });

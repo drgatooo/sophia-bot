@@ -6,7 +6,7 @@ module.exports = {
     category: 'Moderación',
     data: new SlashCommandBuilder()
     .setName("clear")
-    .setDescription("borra una cantidad de mensajes")
+    .setDescription("Borra una cantidad de mensajes")
     .addIntegerOption(o => o.setName('cantidad').setDescription('Escribe la cantidad de mensajes a borrar - Máximo 100').setRequired(true))
     .addChannelOption(o => o.addChannelType(0).setName(`en`).setDescription(`Canal en el que se borrarán los mensajes`))
     .addUserOption(o => o.setName(`de`).setDescription(`Miembro del que se borrarán los mensajes`))
