@@ -16,7 +16,7 @@ const command = {
     data: new SlashCommandBuilder()
     .setName("use")
     .setDescription("Usa un objeto de tu inventario de economía.")
-    .addIntegerOption(o => o.setName("numero").setDescription("ID del objeto en el inventario.").setRequired(true)),
+    .addIntegerOption(o => o.setName("numero").setDescription("Número del objeto en el inventario.").setRequired(true)),
 
     /**
      * 
@@ -29,9 +29,7 @@ const command = {
         schemaInv.findOne({
             guildid: interaction.guild.id, 
             userid: interaction.user.id
-        }, (
-            err, results
-        ) => {
+        }, async (err, results) => {
             if(err) throw err;
             if(results) {
                 const args = interaction.options
@@ -44,32 +42,51 @@ const command = {
 
                 if(!Number.isInteger(numero)) {
                     err.setDescription("Debes ingresar un número positivo!")
-                    return interaction.reply({embeds: [err], ephemeral: true})
+                    return await interaction.reply({embeds: [err], ephemeral: true})
                 }
 
                 let number = parseInt(numero) - 1;
 
                 if(results.inventory.length < number) {
                     err.setDescription("Ese usuario no tiene ese producto")
-                    return interaction.reply({embeds: [err], ephemeral: true})
+                    return await interaction.reply({embeds: [err], ephemeral: true})
                 }
-
-                if(results.inventory[number].product.startsWith("<@")){
+                try {
+                if(results && results.inventory[number].rolId !== null){
                     const author = interaction.member;
-                    let result = results.inventory[number].product.replace("<@&", "");
-                    result = result.replace(">", "");
+                    let result = results.inventory[number].rolId;
                     
-                    author.roles.add(result);
-                    exi.setDescription("Rol "+results.inventory[number].product+" agregado correctamente!")
-                    interaction.reply({embeds: [exi]});
+                    author.roles.add(result).catch(async _ => {
+                        err.setDescription("No he podido agregarte el rol, [puede ser por falta de permisos]\nConsulta con un administrador para resolver el problema!");
+                        return await interaction.reply({embeds: [err], ephemeral: true})
+                    });
+                    if(!author.roles.cache.has(result)){
+                        exi.setDescription("Rol <@&"+results.inventory[number].rolId+"> agregado correctamente!")
+                    await interaction.reply({embeds: [exi]});
+                    } else {
+                        await interaction.reply({embeds: [
+                            new MessageEmbed()
+                            .setTitle(':x: Error')
+                            .setDescription('Ya tienes ese rol!')
+                            .setColor("RED")
+                        ], ephemeral: true});
+                    }
                     results.inventory.splice(number, 1);    
                     return results.save();
                 } else {
                     exi.setDescription("Producto **"+results.inventory[number].product+"** usado correctamente.")
-                    interaction.reply({embeds: [exi]})
+                    await interaction.reply({embeds: [exi]})
                     results.inventory.splice(number, 1);
                     return results.save();
                 }
+            } catch(err) {
+                return await interaction.reply({embeds: [
+                    new MessageEmbed()
+                    .setTitle(":x: Error")
+                    .setDescription("No se ha podido agregar el rol, revisa que el número que hayas puesto exista en tu inventario.")
+                    .setColor("RED")
+                ], ephemeral: true});
+            }
             }
         })        
 

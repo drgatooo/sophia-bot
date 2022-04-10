@@ -29,7 +29,7 @@ const command = {
             .setTitle(`🛒 Tienda de ${interaction.guild.name}`)
             .setThumbnail(interaction.user.displayAvatarURL({dynamic: true}))
             .setDescription(
-                `Para ver la información detallada de un producto escribe: \`/item-info \``+results.store.map((p, i) => `\n\n\`#${i+1}\`** ${new Intl.NumberFormat().format(bigInt(parseInt(p.price)))}$ - ${!p.product.toUpperCase().startsWith("<@") ? p.product.toUpperCase() : "ROL "+p.product.toUpperCase()}**\n${p.description}`
+                `Para ver la información detallada de un producto escribe: \`/item-info \``+results.store.map((p, i) => `\n\n\`#${i+1}\`** ${new Intl.NumberFormat().format(bigInt(parseInt(p.price)))}$ - ${p.product}**`
             ).toString().replace(/,/g, " "))
             .setColor("WHITE")
             .setFooter({text: interaction.user.username, iconURL: interaction.user.displayAvatarURL({ dynamic: true })})
