@@ -36,7 +36,7 @@ const command = {
             const embedSuccess = new MessageEmbed()
             .setTitle("Inventario")
             .setDescription(
-            "Para usar un producto escribe: `/use <numero-producto>`"+results.inventory.map((i, u) => `\n\n**#${u+1} ~ ${!i.product.toUpperCase().startsWith("<@") ? i.product.toUpperCase() : "ROL "+i.product.toUpperCase()}**\n${i.description}`
+            "Para usar un producto escribe: `/use <numero-producto>`"+results.inventory.map((i, u) => `\n\n**#${u+1} ~ ${i.product}**\n${i.description}`
             ).toString().replace(/,/g, " "))
             .setColor("GREEN")
             .setFooter({text: results.inventory.length+" productos"})

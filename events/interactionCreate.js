@@ -8,22 +8,25 @@ const autoroles = require('../models/autorole.js');
 
 client.on("interactionCreate", async (interaction) => {
     if(interaction.isButton()) {
-        await interaction.deferUpdate();
-        await interaction.member.roles.add(interaction.customId).catch(async () => {
-            return await interaction.followUp({
-                embeds: [
+        const results = await autoroles.findOne({guildId: interaction.guild.id});
+        if(results && interaction.channel.id === results.channelId && interaction.guild.roles.cache.get(interaction.customId)) {
+                await interaction.deferUpdate();
+                await interaction.member.roles.add(interaction.customId).catch(async () => {
+                    return await interaction.followUp({
+                        embeds: [
+                            new MessageEmbed()
+                            .setTitle('❌ Error')
+                            .setDescription('No se te ha podido añadir el rol.\nEs posible que me falten permisos, contacta con un administrador para solucionarlo!')
+                            .setColor('RED')
+                        ]});
+                });
+                await interaction.followUp({ embeds: [
                     new MessageEmbed()
-                    .setTitle('❌ Error')
-                    .setDescription('No se te ha podido añadir el rol.\nEs posible que me falten permisos, contacta con un administrador para solucionarlo!')
-                    .setColor('RED')
-                ]});
-        });
-        await interaction.followUp({ embeds: [
-            new MessageEmbed()
-            .setTitle("Rol añadido")
-            .setDescription(`**${interaction.member.user.tag}** se te ha añadido el rol <@&${interaction.customId}> correctamente.`)
-            .setColor('GREEN')
-        ], ephemeral: true})
+                    .setTitle("Rol añadido")
+                    .setDescription(`**${interaction.member.user.tag}** se te ha añadido el rol <@&${interaction.customId}> correctamente.`)
+                    .setColor('GREEN')
+                ], ephemeral: true});
+        }
     }
     if(interaction.isCommand()) {
     if(!interaction.guild) return interaction.reply({embeds: [new MessageEmbed().setTitle(":x: Error").setDescription("¿Que intentas hacer?\nMis comandos no se pueden usar en mi privado!").setColor("RED")]})

@@ -80,7 +80,8 @@ const command = {
           product: resultsShop.store[item].product,
           id: resultsShop.store[item].id,
           description: resultsShop.store[item].description,
-          amount: 1,
+          rolId: resultsShop.store[item].rolId,
+          amount: 1
         };
 
         if(resultsInv){

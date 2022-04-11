@@ -18,7 +18,8 @@ const command = {
     .setDescription("Crea un item para la tienda!")
     .addStringOption(o => o.setName("producto").setDescription("Nombre del producto.").setRequired(true))
     .addIntegerOption(o => o.setName("precio").setDescription("Precio del producto.").setRequired(true))
-    .addStringOption(o => o.setName("descripcion").setDescription("Descripcion del producto, ¿Para que sirve?, ¿Para que es?")),
+    .addStringOption(o => o.setName("descripcion").setDescription("Descripcion del producto, ¿Para que sirve?, ¿Para que es?"))
+    .addRoleOption(o => o.setName("rol").setDescription("Rol que se le otorga al comprador.")),
 
     /**
      * 
@@ -38,16 +39,15 @@ const command = {
 
     const results = await schema.findOne({ guildid: interaction.guild.id });
     const args = interaction.options;
-    const regex = /<@([0-9]*)>|<@&([0-9]*)/g;
     let productName = args.getString("producto")
     let productPrice = args.getInteger("precio")
     let productDescription = args.getString("descripcion")
+    let productRole = args.getRole("rol")
 
     //-- conditions
 
     if(!Number.isInteger(productPrice)) return interaction.reply({embeds: [err.setDescription("Debes poner un número positivo!")], ephemeral: true})
-    if(regex.test(productName)) productName = productName.replace(/<@>/g, "");
-    if(regex.test(productName) && !interaction.guild.roles.cache.get(productName.match(regex)[1])) {
+    if(productRole && !productRole.editable) {
         err.setDescription("Debes poner un rol inferior al mio!")
         return interaction.reply({embeds: [err], ephemeral: true});
     }
@@ -71,6 +71,7 @@ const command = {
                         product: productName,
                         price: productPrice,
                         description: productDescription,
+                        rolId: productRole ? productRole.id : null
                     },
                 ],
             },
@@ -86,6 +87,7 @@ const command = {
                     product: productName,
                     price: productPrice,
                     description: productDescription,
+                    rolId: productRole ? productRole.id : null
                 },
             ],
         });
