@@ -18,6 +18,16 @@ const command = {
     .addSubcommand(s => 
         s.setName('set')
         .setDescription("Establece los datos para el autorole")
+        .addStringOption(o =>
+            o.setName("titulo")
+            .setDescription("Qué titulo llevará el embed?")
+            .setRequired(true)    
+        )
+        .addStringOption(o =>
+            o.setName("descripcion")
+            .setDescription("Qué descripción llevará el embed?")
+            .setRequired(true)    
+        )
         .addChannelOption(o =>
             o.setName("channel")
             .setDescription("El canal donde se creará el autorole")
@@ -99,8 +109,8 @@ const command = {
             .addComponents(...componentsArr);
 
             const embed = new MessageEmbed()
-            .setTitle("¿Qué rol quieres que te asigne?")
-            .setDescription("Selecciona un rol para que te asigne automáticamente")
+            .setTitle(args.getString("titulo"))
+            .setDescription(args.getString("descripcion"))
             .setColor("GREEN");
 
             // save data
@@ -126,7 +136,7 @@ const command = {
                 .setTitle("¡Listo!")
                 .setDescription("El autorol se ha establecido correctamente")
                 .setColor("GREEN")
-            ]});
+            ], ephemeral: true});
 
     } catch(er){
         console.log(er);
@@ -147,7 +157,7 @@ const command = {
         .setColor("GREEN")
         .setFooter({text: "Disfruta del bot!", iconURL: interaction.user.displayAvatarURL({ dynamic: true})})
         .setTimestamp();
-        await interaction.reply({ embeds: [embed] });
+        await interaction.reply({ embeds: [embed], ephemeral: true });
     }
     }
 }
