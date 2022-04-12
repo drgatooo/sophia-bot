@@ -9,7 +9,7 @@
     "build": "node slashcommands.js"
   },
   "keywords": [],
-  "owners": "Domingo",
+  "owners": "Domingo, Mateo",
   "programadores": "Domingo, Mateo, Risto, Xnayx",
   "license": "ISC",
   "dependencies": {
@@ -46,9 +46,7 @@
     "simply-djs": "^2.1.3",
     "slash-calculator": "^1.0.1",
     "toml": "^3.0.0",
-    "uuid": "^8.3.2",
-    "virustotal-api": "^1.1.7",
-    "wikijs": "^6.3.2"
+    "uuid": "^8.3.2"
   },
   "devDependencies": {
     "nodemon": "^2.0.15"
