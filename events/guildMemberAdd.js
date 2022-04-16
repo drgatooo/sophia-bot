@@ -42,7 +42,7 @@ client.on('guildMemberAdd', async (member) => {
                 Ahora en total somos: **${member.guild.memberCount}** Miembros! Que felicidad.`)
                 welcome.setImage(await `https://api.popcat.xyz/welcomecard?background=${member.guild.iconURL({dynamic: false, format: "png"})}&text1=${member.user.username}&text2=Bienvenido+a+${member.guild.name}&text3=Pasalo+bien!&avatar=${member.user.displayAvatarURL({format: "png", dinamyc: false})}`.trim().split(/ +/).join("+"))
             }
-            channel.send({ embeds: [welcome]})
+            channel.send({content: `${member.user}`, embeds: [welcome]})
         } catch (err) {
             console.log(err)
         }
