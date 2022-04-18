@@ -52,6 +52,9 @@ client.on("interactionCreate", async (interaction) => {
 
     const slashcmds = client.slashcommands.get(interaction.commandName)
     if(!slashcmds) return;
+    const deletedates = await data_deletedate.findOne({UserID: interaction.user.id})    
+    if(deletedates) return;
+
 	if(slashcmds.userPerms) {
             if(!interaction.member.permissions.has(slashcmds.userPerms || [])) return interaction.reply({embeds: [
           		new MessageEmbed()
