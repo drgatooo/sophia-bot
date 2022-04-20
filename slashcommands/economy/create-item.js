@@ -65,7 +65,7 @@ const command = {
         },
         {
             $push: {
-                store: [
+                store: //[
                     {
                         id: uuid(),
                         product: productName,
@@ -73,7 +73,7 @@ const command = {
                         description: productDescription,
                         rolId: productRole ? productRole.id : null
                     },
-                ],
+                // ],
             },
         });
         exi.setDescription("Producto agregado correctamente.")
@@ -81,7 +81,7 @@ const command = {
     } else {
         const newShop = new schema({
             guildid: interaction.guild.id,
-            store: [
+            store:
                 {
                     id: uuid(),
                     product: productName,
@@ -89,7 +89,7 @@ const command = {
                     description: productDescription,
                     rolId: productRole ? productRole.id : null
                 },
-            ],
+
         });
         await newShop.save();
         exi.setDescription("Producto agregado correctamente.")

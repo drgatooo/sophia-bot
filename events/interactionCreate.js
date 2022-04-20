@@ -5,7 +5,7 @@ const fs = require('fs');
 const config = toml.parse(fs.readFileSync("./config/config.toml", "utf-8"));
 const premiumguild = require("../models/premiumGuild");
 const autoroles = require('../models/autorole.js');
-
+const data_deletedate = require('../models/deletedates-sophia.js');
 client.on("interactionCreate", async (interaction) => {
     if(interaction.isButton()) {
         const results = await autoroles.findOne({guildId: interaction.guild.id});
