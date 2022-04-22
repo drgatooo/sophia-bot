@@ -44,7 +44,48 @@ client.on("interactionCreate", async (interaction) => {
                         .setColor('GREEN')
                     ], ephemeral: true});
                 }
-                
+        }
+        if(interaction.customId === "verificationsystem"){
+            const systemschema = require("../models/verificacion-boton");
+            const composystem = await systemschema.findOne({ServerID: interaction.guild.id})
+
+            if(composystem && interaction.channel.id === composystem.ChannelID && interaction.guild.roles.cache.get(composystem.RolID)) {
+                await interaction.deferUpdate();
+                if(interaction.member.roles.cache.has(composystem.RolID)){
+                    await interaction.member.roles.remove(composystem.RolID).catch(async () => {
+                        return await interaction.followUp({
+                            embeds: [
+                                new MessageEmbed()
+                                .setTitle('❌ Error')
+                                .setDescription('No se te ha podido remover el rol.\nEs posible que me falten permisos, contacta con un administrador para solucionarlo!')
+                                .setColor('RED')
+                            ], ephemeral: true});
+                    });
+                    await interaction.followUp({ embeds: [
+                        new MessageEmbed()
+                        .setTitle("Rol Removido")
+                        .setDescription(`**${interaction.member.user.tag}** se te ha removido el rol <@&${interaction.customId}> correctamente.`)
+                        .setColor('GREEN')
+                    ], ephemeral: true});
+                } else {
+                    await interaction.member.roles.add(composystem.RolID).catch(async () => {
+                        return await interaction.followUp({
+                            embeds: [
+                                new MessageEmbed()
+                                .setTitle('❌ Error')
+                                .setDescription('No se te ha podido añadir el rol.\nEs posible que me falten permisos, contacta con un administrador para solucionarlo!')
+                                .setColor('RED')
+                            ], ephemeral: true});
+                    });
+                    await interaction.followUp({ embeds: [
+                        new MessageEmbed()
+                        .setTitle("Rol añadido")
+                        .setDescription(`**${interaction.member.user.tag}** se te ha añadido el rol <@&${interaction.customId}> correctamente.`)
+                        .setColor('GREEN')
+                    ], ephemeral: true});
+                }
+            }
+            
         }
     }
     if(interaction.isCommand()) {
