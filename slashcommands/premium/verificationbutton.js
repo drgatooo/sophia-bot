@@ -1,7 +1,7 @@
 const { SlashCommandBuilder } = require("@discordjs/builders");
 const { Client, CommandInteraction, MessageEmbed, MessageActionRow, MessageButton } = require("discord.js");
-const schema = require("../../models/verificacion-boton")
-
+const schema = require("../../models/verificacion-boton.js")
+ 
 /**
 * @type {import('../../types/typeslash').Command}
 */
@@ -70,7 +70,7 @@ const command = {
 
     if(subcmd === "enable"){
         if(existe){
-            interaction.reply({embeds: [
+            await interaction.reply({embeds: [
                 new MessageEmbed()
                 .setTitle(":x: Error")
                 .setDescription(`El sistema ya se encuentra activo en <#${existe.ChannelID}>`)
@@ -98,7 +98,7 @@ const command = {
                 const err = new MessageEmbed()
                 .setTitle(":x: Error")
                 .setColor("RED")
-                if(rol.tags) return interaction.reply({embeds: [err.setDescription("No puede ser el rol de un bot!")], ephemeral: true })
+                if(rol.tags) return await interaction.reply({embeds: [err.setDescription("No puede ser el rol de un bot!")], ephemeral: true })
             }
 
             const sc = new schema({
@@ -126,14 +126,14 @@ const command = {
             .setColor("GREEN")
 
             interaction.reply({embeds: [respuesta], ephemeral: true}).then(() => {
-                channel.send({embeds: [embed], components: [row]}).then(() => {
-                    interaction.followUp({embeds: [
+                channel.send({embeds: [embed], components: [row]}).then(async () => {
+                    await interaction.followUp({embeds: [
                         new MessageEmbed()
                         .setTitle("Enviado")
                         .setColor("#00FFFF")
                     ], ephemeral: true})
-                }).catch(() => {
-                    interaction.followUp({embeds: [
+                }).catch(async () => {
+                    await interaction.followUp({embeds: [
                         new MessageEmbed()
                         .setTitle("No enviado")
                         .setColor("RED")
@@ -151,7 +151,7 @@ const command = {
         .setDescription("He desactivado el sistema!")
         .setColor("GREEN")
   
-        interaction.reply({embeds: [embed]})
+        await interaction.reply({embeds: [embed]})
       }
 
     }

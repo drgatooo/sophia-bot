@@ -2,8 +2,8 @@ const { Schema, model } = require('mongoose')
 
 const schema = new Schema({
     ServerID : String,
-    ChannelID: String,
-    RolID: String
+    ChannelID : String,
+    Panels: Array
 })
 
-module.exports = model('VerificationButton', schema)
+module.exports = model('tickets',schema)

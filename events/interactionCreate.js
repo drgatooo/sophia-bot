@@ -1,4 +1,4 @@
-const { MessageEmbed } = require('discord.js');
+const { MessageEmbed, MessageActionRow, MessageButton } = require('discord.js');
 const client = require('../index.js');
 const toml = require("toml");
 const fs = require('fs');
@@ -6,8 +6,69 @@ const config = toml.parse(fs.readFileSync("./config/config.toml", "utf-8"));
 const premiumguild = require("../models/premiumGuild");
 const autoroles = require('../models/autorole.js');
 const data_deletedate = require('../models/deletedates-sophia.js');
+const ticketsSchema = require('../models/tickets.js');
 client.on("interactionCreate", async (interaction) => {
     if(interaction.isButton()) {
+        await interaction.deferUpdate();
+        if(interaction.customId === "closeTicket") {
+            if(!interaction.channel.deletable) return await interaction.reply({
+                embeds: [
+                    new MessageEmbed()
+                    .setTitle(':x: Error')
+                    .setDescription('No pude borrar el canal para cerrar el ticket. Puede ser por falta de permisos, avisale a un administrador!')
+                    .setColor('RED')
+                    .setFooter({ text: "Suerte!"})
+                ], ephemeral: true
+            })
+            await interaction.channel.send({ content: 'El ticket se borrará en 5 segundos.'});
+            setTimeout(async () => await interaction.channel.delete(), 5000);
+            
+        }
+        const resultsT = await ticketsSchema.findOne({ ServerID: interaction.message.guild.id });
+        if(resultsT && resultsT.Panels.find(p => p.id === interaction.message.id)) {
+            const r = resultsT.Panels.find(p => p.id === interaction.message.id);
+            
+            interaction.guild.channels.create(`ticket-${interaction.member.user.tag}`, {
+                type: "GUILD_TEXT",
+                permissionOverwrites: [
+                    {
+                        id: interaction.guild.roles.everyone,
+                        deny: ["VIEW_CHANNEL"]
+                    },
+                    {
+                        id: interaction.member.id,
+                        allow: ["VIEW_CHANNEL"]
+                    },
+                    {
+                        id: r.Message.RoleID,
+                        allow: ["VIEW_CHANNEL", "MANAGE_CHANNELS"]
+                    }
+                ]
+        }).then(async c => {
+            await interaction.followUp({
+                embeds: [
+                    new MessageEmbed()
+                    .setTitle('Ticket creado')
+                    .setColor('GREEN')
+                ], ephemeral: true
+
+            });
+            const btn = new MessageButton()
+            .setLabel(`Cerrar`)
+            .setCustomId("closeTicket")
+            .setStyle("DANGER");
+            const row = new MessageActionRow()
+            .addComponents(btn);
+
+         c.send({embeds: [
+             new MessageEmbed()
+                .setTitle(`Ticket de ${interaction.member.user.tag}`)
+                .setDescription(`Para cerrar el ticket presiona el botón`)
+                .setColor('GREEN')
+                .setFooter({ text: `Ticket creado por ${interaction.member.user.tag}`})
+         ], components: [row]});   
+        })
+    }
         const results = await autoroles.findOne({guildId: interaction.guild.id});
         if(results && interaction.channel.id === results.channelId && interaction.guild.roles.cache.get(interaction.customId)) {
                 await interaction.deferUpdate();
@@ -46,7 +107,7 @@ client.on("interactionCreate", async (interaction) => {
                 }
         }
         if(interaction.customId === "verificationsystem"){
-            const systemschema = require("../models/verificacion-boton");
+            const systemschema = require("../models/verificacion-boton.js");
             const composystem = await systemschema.findOne({ServerID: interaction.guild.id})
 
             if(composystem && interaction.channel.id === composystem.ChannelID && interaction.guild.roles.cache.get(composystem.RolID)) {

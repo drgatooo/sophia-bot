@@ -5,7 +5,7 @@
   "main": "bot.js",
   "scripts": {
     "uploadChanges": "git pull https://github.com/DomingoDeveloper/sophia-bot.git",
-    "dev": "nodemon node index.js",
+    "dev": "nodemon node .",
     "build": "node slashcommands.js"
   },
   "keywords": [],
