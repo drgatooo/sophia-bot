@@ -87,7 +87,7 @@ const command = {
         .addSubcommand(re =>
             re.setName("remove")
             .setDescription("Elimina un panel de los tickets.")
-            .addNumberOption(n =>
+            .addStringOption(n =>
                 n.setName("id")
                 .setDescription("id que aparece en el footer de un panel de ticket.")
                 .setRequired(true)
@@ -379,6 +379,11 @@ const command = {
                     ], ephemeral: true });
                   }
              })
+        /*interaction.reply({embeds: [
+            new MessageEmbed()
+                .setTitle("⚠ Comando en Mantenimiento")
+                .setColor("YELLOW")
+                ], ephemeral: true})*/
             }
 
             if(options.getSubcommand() === "help") {
@@ -424,7 +429,8 @@ const command = {
                 new MessageEmbed()
                 .setTitle(":x: Error")
                 .setDescription(`Haz puesto algo mal! para hacerlo correctamente revisa el tutorial: \`/ticket help\``)
-            ]
+                .setColor("RED")
+            ], ephemeral: true
         });
     }
 }
