@@ -111,7 +111,6 @@ client.on("interactionCreate", async (interaction) => {
             const composystem = await systemschema.findOne({ServerID: interaction.guild.id})
 
             if(composystem && interaction.channel.id === composystem.ChannelID && interaction.guild.roles.cache.get(composystem.RolID)) {
-                await interaction.deferUpdate();
                 if(interaction.member.roles.cache.has(composystem.RolID)){
                     await interaction.member.roles.remove(composystem.RolID).catch(async () => {
                         return await interaction.followUp({
@@ -125,7 +124,7 @@ client.on("interactionCreate", async (interaction) => {
                     await interaction.followUp({ embeds: [
                         new MessageEmbed()
                         .setTitle("Rol Removido")
-                        .setDescription(`**${interaction.member.user.tag}** se te ha removido el rol <@&${interaction.customId}> correctamente.`)
+                        .setDescription(`**${interaction.member.user.tag}** se te ha removido el rol <@&${composystem.RolID}> correctamente.`)
                         .setColor('GREEN')
                     ], ephemeral: true});
                 } else {
@@ -141,7 +140,7 @@ client.on("interactionCreate", async (interaction) => {
                     await interaction.followUp({ embeds: [
                         new MessageEmbed()
                         .setTitle("Rol añadido")
-                        .setDescription(`**${interaction.member.user.tag}** se te ha añadido el rol <@&${interaction.customId}> correctamente.`)
+                        .setDescription(`**${interaction.member.user.tag}** se te ha añadido el rol <@&${composystem.RolID}> correctamente.`)
                         .setColor('GREEN')
                     ], ephemeral: true});
                 }
