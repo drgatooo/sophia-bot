@@ -314,7 +314,8 @@ const command = {
         if(options.getSubcommand() === "send") {
             if(
                 results &&
-                results.Panels.find(p => p.ended === false ) && results.Panels.find(p => p.ended === false).Message.embed &&
+                results.Panels.find(p => p.ended === false) &&
+                results.Panels.find(p => p.ended === false).Message.embed &&
                 results.Panels.find(p => p.ended === false).Message.button &&
                 results.Panels.find(p => p.ended === false).Message.RoleID
             ) {
@@ -328,9 +329,7 @@ const command = {
             ], ephemeral: true });
             const msg = await channel.send({ embeds: [results.Panels.find(p => p.ended === false).Message.embed], components: [results.Panels.find(p => p.ended === false).Message.button] });
 
-            await interaction.reply({ content: "✅ Panel del ticket enviado!", ephemeral: true });
-
-            return await schema.updateOne({
+            await schema.updateOne({
                 ServerID: interaction.guild.id,
                 "Panels.ended": false
             },
@@ -340,7 +339,8 @@ const command = {
                     "Panels.$.id": msg.id
                 },
                 ChannelID: channel.id,
-            })  
+            }).then(async () => await interaction.reply({ content: "✅ Panel del ticket enviado!", ephemeral: true }));
+
             } else {
                 return await interaction.reply({ embeds: [
                     new MessageEmbed()
@@ -353,15 +353,31 @@ const command = {
 
         if(options.getSubcommand() === "remove") {
             const Uid = options.getString("id");
-            // busca un objeto dentro de results.Panels que tenga la uid de la variable Uid y después eliminalo de results.Panels
-            schema.findOne({ ServerID: interaction.guild.id }, async (results, err) => {
+            schema.findOne({ ServerID: interaction.guild.id }, async (err, results) => {
                 if(err) throw new Error(err);
                 if(results) {
                     const panel = results.Panels.find(p => p.uid === Uid);
                     if(panel) {
+                        interaction.guild.channels.cache.filter(c => c.type === "GUILD_TEXT" && c.messages.cache.get(panel.id)).forEach(async c => {
+                            await c.messages.fetch(panel.id).then(async m => {
+                                m ? await m.delete() : null;
+                            })
+                        })
+                        if(results.Panels.length <= 1) {
+                            await schema.deleteOne({ ServerID: interaction.guild.id }).then(async () =>
+                                await interaction.reply({ embeds: [
+                                    new MessageEmbed()
+                                    .setTitle("✅ panel eliminado!")
+                                    .setDescription("El panel fue eliminado exitosamente.")
+                                    .setColor("AQUA")
+                                ], ephemeral: true })
+                            );
+                            
+                        } else {
                         const index = results.Panels.indexOf(panel);
                         results.Panels.splice(index, 1);
                         results.save();
+                        }
                     } else {
                         return await interaction.reply({ embeds: [
                             new MessageEmbed()
@@ -371,7 +387,7 @@ const command = {
                         ], ephemeral: true });
                     }
                 } else {
-                    return await interaction.reply({ embeds: [
+                    await interaction.reply({ embeds: [
                         new MessageEmbed()
                         .setTitle(":x: Error")
                         .setDescription("No hay ningún panel creado!")

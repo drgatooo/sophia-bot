@@ -35,7 +35,7 @@ const command = {
         .setTitle("✅ Todo ha salido bien!").setColor("GREEN")
 
         const mention = interaction.options.getUser("usuario");
-        if(mention === mention.bot) return interaction.reply({embeds: [new MessageEmbed().setTitle(":x: Error").setDescription("Los bots no son parte de la economía.").setColor("RED")], ephemeral: true})
+        if(mention.bot) return interaction.reply({embeds: [new MessageEmbed().setTitle(":x: Error").setDescription("Los bots no son parte de la economía.").setColor("RED")], ephemeral: true})
         if(mention === interaction.user.id) return interaction.reply({embeds: [new MessageEmbed().setTitle(":x: Error").setDescription("no te puedes auto pagar, es absurdo :).").setColor("RED")], ephemeral: true})
         
         const amount = interaction.options.getInteger("cantidad");

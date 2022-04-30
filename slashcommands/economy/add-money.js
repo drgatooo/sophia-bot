@@ -51,6 +51,12 @@ const command = {
         .setColor("GREEN")
     
         const mention = interaction.guild.members.cache.get(args.getUser('usuario').id);
+        if(mention.user.bot) return interaction.reply({ embeds: [
+            new MessageEmbed()
+            .setTitle(":x: Error")
+            .setDescription("Los bots no son parte de la economía.")
+            .setColor("RED")
+        ]});
         const canti = args.getInteger('cantidad');
         if(!Number.isInteger(canti)) return interaction.reply({embeds: [new MessageEmbed().setTitle(":x: Error").setDescription("Ingresa un numero valido.").setColor("RED")]})
         const cantidad = bigInt(canti);
