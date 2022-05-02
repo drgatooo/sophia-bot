@@ -16,6 +16,12 @@ module.exports = {
 
 		const respuesta = ["Si.", "No.", "Tal vez.", "Puede ser.", "No en absoluto.", "Mejor pregunta otra cosa.", "Mmmmm... no sé.", "Eso no se pregunta...", "No lo sé, dímelo tú."];
         const pregunta = interaction.options.getString('pregunta');
+	if (pregunta.length > 40) return await interaction.reply({ embeds: [
+	    	new MessageEmbed()
+		.setTitle(":x: Error")
+		.setDescription("No puedes poner textos de más de 40 caracteres!")
+		.setColor("RED")
+	    ], ephemeral: true});
         if (linkRegex.test(pregunta) || discordInvite.test(pregunta)) return await interaction.reply({ embeds: [
                 new MessageEmbed()
                 .setTitle(":x: Error")
