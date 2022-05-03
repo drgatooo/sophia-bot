@@ -1,23 +1,9 @@
 const { Collection, Client } = require("discord.js");
 const { red, yellow, blue, green} = require("colors")
 const client = new Client({
-  intents: [
-    "GUILDS",
-    "GUILD_VOICE_STATES",
-    "GUILD_MEMBERS",
-    "GUILD_BANS",
-    "GUILD_INTEGRATIONS",
-    "GUILD_WEBHOOKS",
-    "GUILD_INVITES",
-    // "GUILD_PRESENCES",
-    "GUILD_MESSAGES",
-    "GUILD_MESSAGE_REACTIONS",
-    "GUILD_MESSAGE_TYPING",
-    "DIRECT_MESSAGES",
-    "DIRECT_MESSAGE_REACTIONS",
-    "DIRECT_MESSAGE_TYPING",
-  ],
+  intents: 130815,
   shards: `auto`,
+  shardCount: "auto"
 });
 const fs = require("fs");
 const toml = require("toml");
