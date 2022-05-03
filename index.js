@@ -2,8 +2,7 @@ const { Collection, Client } = require("discord.js");
 const { red, yellow, blue, green} = require("colors")
 const client = new Client({
   intents: 130815,
-  shards: `auto`,
-  shardCount: "auto"
+  shards: `auto`
 });
 const fs = require("fs");
 const toml = require("toml");
