@@ -6,7 +6,7 @@ const config = toml.parse(fs.readFileSync("./config/config.toml", "utf-8"))
 const port = process.env.PORT || 3000;
 
 app.get('/', (req, res) => {
-    if(req.query.token !== config.api_token || ! req.query.token) return res.send({ error: "Token no especificado o inválido.", code: "401 unauthorized" });
+    if(req.query.token !== config.api_token || !req.query.token) return res.send({ error: "Token no especificado o inválido.", code: "401 unauthorized" });
     res.send(fs.readFileSync("./api/api.json", "utf-8"));
 });
 
