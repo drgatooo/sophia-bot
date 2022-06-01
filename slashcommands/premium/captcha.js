@@ -138,7 +138,11 @@ module.exports = {
 
             if(captcha.length == 0) { //Si al array captcha no le quedan más elementos
                 interaction.member.roles.add(role) //Damos el rol
-                interaction.editReply({ embeds: [completedCaptcha], components: []}) //Repetimos la interacción y decimos que ha completado el captcha
+                interaction.editReply({ embeds: [completedCaptcha], components: []}).then(() => {
+                    setTimeout(() => {
+                        interaction.deleteReply()
+                    }, 5000)
+                }) //Repetimos la interacción y decimos que ha completado el captcha
                 collectorEnd = true //Decimos que cerramos el collector
                 collector.stop() //Paramos el collector
             } else {

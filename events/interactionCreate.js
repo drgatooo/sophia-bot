@@ -107,6 +107,18 @@ client.on("interactionCreate", async (interaction) => {
                 }
         }
         if(interaction.customId === "verificationsystem"){
+
+            if(slashcmds.isPremium === true){
+                const espremium = await premiumguild.findOne({ServerID: interaction.guildId})
+                if(!espremium) return interaction.reply({embeds: [
+                    new MessageEmbed()
+                    .setTitle(':x: Error')
+                    .setDescription('Esta reacción es de un comando de categoria Premium, adquiere la membresía en el [Servidor de soporte.](https://discord.sophia-bot.com).')
+                    .setColor('RED')
+                    .setTimestamp()
+                ], ephemeral: true});
+            }
+
             const systemschema = require("../models/verificacion-boton.js");
             const composystem = await systemschema.findOne({ServerID: interaction.guild.id})
 
