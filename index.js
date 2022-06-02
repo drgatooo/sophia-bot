@@ -61,9 +61,12 @@ for(const file of fs.readdirSync(`./eventos_distube/`)){
     }
 }
 
-process.on('unhandledRejection', err => console.log(red('Al parecer hubo un error.\n' + err.stack)) );
+
 client.on("shardError", err => console.log(red('Al parecer hubo un error.\n' + err.stack)) );
 client.on("Error", err => console.log(red('Al parecer hubo un error.\n' + err.stack)) );
 client.on("Warn", err => console.log(red('Al parecer hubo un error.\n' + err.stack)) );
 
+
 client.login(token);
+
+//lo estoy subiendo

@@ -8,5 +8,11 @@ const manager = new ShardingManager('./index.js', { token:  config.token });
 
 manager.on('shardCreate', (shard) => console.log(`Lanzando shard ${shard.id}`));
 manager.on('shardError', (err) => console.log(cyan(`Error \n ${err}`)))
+process.on("uncaughtException", (err) => {
+    console.log(err);
+});
+process.on("exit", (code) => {
+   console.log(code)
+});
 
 manager.spawn();
