@@ -3,10 +3,12 @@ const client = require('../index.js');
 const toml = require("toml");
 const fs = require('fs');
 const config = toml.parse(fs.readFileSync("./config/config.toml", "utf-8"));
+
 const premiumguild = require("../models/premiumGuild");
 const autoroles = require('../models/autorole.js');
 const data_deletedate = require('../models/deletedates-sophia.js');
 const ticketsSchema = require('../models/tickets.js');
+
 client.on("interactionCreate", async (interaction) => {
     if(interaction.isButton()) {
         await interaction.deferUpdate();
@@ -107,7 +109,7 @@ client.on("interactionCreate", async (interaction) => {
                 }
         }
         if(interaction.customId === "verificationsystem"){
-
+            
             if(slashcmds.isPremium === true){
                 const espremium = await premiumguild.findOne({ServerID: interaction.guildId})
                 if(!espremium) return interaction.reply({embeds: [

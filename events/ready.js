@@ -23,34 +23,36 @@ client.once("ready", async () => {
 ██████╔╝╚█████╔╝██║░░░░░██║░░██║██║██║░░██║
 ╚═════╝░░╚════╝░╚═╝░░░░░╚═╝░░╚═╝╚═╝╚═╝░░╚═╝`));
 
-
 const promesas = [
-    client.shard.fetchClientValues(`guilds.cache.size`),
+    client.shard.fetchClientValues("guilds.cache.size"),
     client.shard.broadcastEval(c => c.guilds.cache.reduce((acc, guild) => acc + guild.memberCount, 0))
 ]
 
+Promise.all(promesas).then(resultado => {
+    const totalGuilds = resultado[0].reduce((acc, guildCount) => acc + guildCount, 0);
+	const totalMembers = resultado[1].reduce((acc, memberCount) => acc + memberCount, 0);
 
-Promise.all(promesas).then(results => {
-    const guildNum = results[0].reduce((acc, guildCount) => acc + guildCount, 0)
-    const memberNum = results[1].reduce((acc, memberCount) => acc + memberCount, 0)
-
-const status = { activities: [`/help`, `/invite`, `¡SOPHIA 3.0.7!`, `${guildNum} servidores.`, `${memberNum} Usuarios.`, `Sophia Company.`], activity_types: [`WATCHING`, `PLAYING`, `LISTENING`, `COMPETING`] }
-const AutoPresence = () => {  
-    let aleanum = Math.floor(Math.random() * status.activities.length);
-    client.user.setPresence({
-        activities: [{
-            name: status.activities[aleanum],
-            type: status.activity_types[aleanum],
-        }]
-    })
-}
-
-
-AutoPresence();
-setInterval(() => {
+    const status = { activities: [`/help`, `/invite`, `¡SOPHIA 3.1.3!`, `${totalGuilds} servidores.`, `${totalMembers} Usuarios.`, `Unifyware Association.`], activity_types: [`WATCHING`, `PLAYING`, `LISTENING`, `COMPETING`] }
+    
+    const AutoPresence = () => {  
+        let aleanum = Math.floor(Math.random() * status.activities.length);
+        client.user.setPresence({
+            activities: [{
+                name: status.activities[aleanum],
+                type: status.activity_types[aleanum],
+            }]
+        })
+    }
+    
+    
     AutoPresence();
-}, 60000)
+    setInterval(() => {
+        AutoPresence();
+    }, 60000)
+}).catch((e) => {
+    console.log("ERROR EN LA PROMESA DE EVENTO READY: ", e)
+})
+    
 console.log("Presencia del bot cargada exitosamente.")
 
-    })
 })

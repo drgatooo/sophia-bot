@@ -1,8 +1,7 @@
 const { Collection, Client } = require("discord.js");
 const { red, yellow, blue, green} = require("colors")
 const client = new Client({
-  intents: 130815,
-  shards: `auto`
+  intents: 130815
 });
 const fs = require("fs");
 const toml = require("toml");
@@ -10,16 +9,12 @@ const config = toml.parse(fs.readFileSync("./config/config.toml", "utf-8"));
 const token = config.token;
 const { DiscordTogether } = require('discord-together');
 const Distube = require("distube");
-const discordModals = require('discord-modals');
-discordModals(client);
 
 client.discordTogether = new DiscordTogether(client);
 client.queue = new Map()
 module.exports = client;
 
-client.commands = new Collection();
 client.slashcommands = new Collection();
-client.aliases = new Collection();
 client.cooldowns = new Collection();
 client.distube = new Distube.default(client);
 
@@ -61,12 +56,8 @@ for(const file of fs.readdirSync(`./eventos_distube/`)){
     }
 }
 
-
-client.on("shardError", err => console.log(red('Al parecer hubo un error.\n' + err.stack)) );
+process.on('unhandledRejection', err => console.log(red('Al parecer hubo un error.\n' + err.stack)) );
 client.on("Error", err => console.log(red('Al parecer hubo un error.\n' + err.stack)) );
 client.on("Warn", err => console.log(red('Al parecer hubo un error.\n' + err.stack)) );
 
-
 client.login(token);
-
-//lo estoy subiendo
