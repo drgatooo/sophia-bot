@@ -1,4 +1,4 @@
-const { MessageEmbed, MessageActionRow, MessageButton } = require('discord.js');
+const { MessageEmbed, MessageActionRow, MessageButton } = require('discord.js-light');
 const client = require('../index.js');
 const toml = require("toml");
 const fs = require('fs');
@@ -165,7 +165,7 @@ client.on("interactionCreate", async (interaction) => {
     if(interaction.isCommand()) {
     if(!interaction.guild) return interaction.reply({embeds: [new MessageEmbed().setTitle(":x: Error").setDescription("¿Que intentas hacer?\nMis comandos no se pueden usar en mi privado!").setColor("RED")]})
 
-    const slashcmds = client.slashcommands.get(interaction.commandName)
+    const slashcmds = client.sc.get(interaction.commandName)
     if(!slashcmds) return;
     const deletedates = await data_deletedate.findOne({UserID: interaction.user.id})    
     if(deletedates) return;

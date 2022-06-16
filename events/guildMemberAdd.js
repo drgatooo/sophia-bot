@@ -1,5 +1,5 @@
 const client = require('../index.js')
-const { MessageEmbed } = require('discord.js')
+const { MessageEmbed } = require('discord.js-light')
 const schema = require('../models/setWelcome.js')
 const schema2 = require("../models/components-welcome")
 

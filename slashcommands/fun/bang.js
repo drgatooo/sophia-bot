@@ -4,7 +4,7 @@ const {
     MessageEmbed,
     MessageActionRow,
     MessageButton,
-  } = require("discord.js");
+  } = require("discord.js-light");
 /**
 * @type {import('../../types/typeslash').Command}
 */
@@ -198,7 +198,7 @@ const command = {
                 .setDescription('ℹ Se ve que nadie acciono el gatillo... todos pierden :)')
                 .setColor('WHITE');
 
-                m.edit({ embeds: [Nadie], components: [] });
+                interaction.editReply({ embeds: [Nadie], components: [] });
                 setTimeout(async () => await interaction.deleteReply(), 5000);
             }
         })

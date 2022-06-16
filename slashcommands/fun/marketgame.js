@@ -1,5 +1,5 @@
 const { SlashCommandBuilder } = require("@discordjs/builders");
-const { Client, CommandInteraction, MessageEmbed, MessageButton, MessageActionRow } = require('discord.js')
+const { Client, CommandInteraction, MessageEmbed, MessageButton, MessageActionRow } = require('discord.js-light')
 const marketGame = require('../../helpers/marketGame.js')
 
 

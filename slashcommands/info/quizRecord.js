@@ -1,4 +1,4 @@
-const { MessageEmbed, MessageActionRow, MessageButton } = require('discord.js');
+const { MessageEmbed, MessageActionRow, MessageButton } = require('discord.js-light');
 const { SlashCommandBuilder } = require("@discordjs/builders");
 let timeModel = require('../../models/quizTime');
 

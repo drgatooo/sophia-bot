@@ -2,7 +2,7 @@ const premiumGuild = require('../models/premiumGuild')
 const blackuser = require("../models/blacklist-user");
 const blackguild = require("../models/blacklist-guild");
 const client = require("../index");
-const { MessageEmbed } = require('discord.js');
+const { MessageEmbed } = require('discord.js-light');
 
 
 

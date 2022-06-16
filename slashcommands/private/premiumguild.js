@@ -1,5 +1,5 @@
 const { SlashCommandBuilder } = require("@discordjs/builders");
-const { Client, CommandInteraction, MessageEmbed } = require("discord.js");
+const { Client, CommandInteraction, MessageEmbed } = require("discord.js-light");
 const premiumGuild = require('../../models/premiumGuild')
 const ms = require('ms')
 
@@ -21,20 +21,22 @@ const command = {
         .setDescription("Sin descripción")
         .addStringOption(o => o.setName("id-server").setDescription("Sin descripción").setRequired(true))
         .addStringOption(o => o.setName("tiempo").setDescription("Tiempo de membresia.").setRequired(false)
-        .addChoice("1 Mes", "1mes")
-        .addChoice("2 Meses", "2meses")
-        .addChoice("3 Meses", "3meses")
-        .addChoice("4 Meses", "4meses")
-        .addChoice("5 Meses", "5meses")
-        .addChoice("6 Meses", "6meses")
-        .addChoice("7 Meses", "7meses")
-        .addChoice("8 Meses", "8meses")
-        .addChoice("9 Meses", "9meses")
-        .addChoice("10 Meses", "10meses")
-        .addChoice("11 Meses", "11meses")
-        .addChoice("12 Meses", "12meses")
+        .addChoices(
+        {name: "1 Mes", value: "1mes"},
+        {name: "2 Meses", value: "2meses"},
+        {name: "3 Meses", value: "3meses"},
+        {name: "4 Meses", value: "4meses"},
+        {name: "5 Meses", value: "5meses"},
+        {name: "6 Meses", value: "6meses"},
+        {name: "7 Meses", value: "7meses"},
+        {name: "8 Meses", value: "8meses"},
+        {name: "9 Meses", value: "9meses"},
+        {name: "10 Meses", value: "10meses"},
+        {name: "11 Meses", value: "11meses"},
+        {name: "12 Meses", value: "12meses"}
         )
     )
+)
     .addSubcommand( o =>
         o.setName("remove")
         .setDescription("Sin descripción")

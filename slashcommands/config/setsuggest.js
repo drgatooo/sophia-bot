@@ -1,5 +1,5 @@
 const { SlashCommandBuilder } = require("@discordjs/builders");
-const { Client, MessageEmbed, MessageActionRow, MessageButton } = require('discord.js');
+const { Client, MessageEmbed, MessageActionRow, MessageButton } = require('discord.js-light');
 const schema = require('../../models/suggestions-model.js');
 
 module.exports = {

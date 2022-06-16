@@ -1,5 +1,5 @@
 const { SlashCommandBuilder } = require("@discordjs/builders");
-const { Client, CommandInteraction, MessageEmbed } = require("discord.js");
+const { Client, CommandInteraction, MessageEmbed } = require("discord.js-light");
 
 /**
 * @type {import('../../types/typeslash').Command}
@@ -21,8 +21,10 @@ const command = {
         o.setName("anonimo")
         .setDescription("Si o no")
         .setRequired(true)
-        .addChoice("si", "true")
-        .addChoice("no", "false")
+        .addChoices(
+            {name: "si", value: "true"},
+            {name: "no", value: "false"}
+        )
     ),
 
     /**

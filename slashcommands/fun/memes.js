@@ -1,5 +1,5 @@
 const { SlashCommandBuilder } = require("@discordjs/builders");
-const { Client, CommandInteraction, MessageEmbed, MessageAttachment } = require("discord.js");
+const { Client, CommandInteraction, MessageEmbed, MessageAttachment } = require("discord.js-light");
 const { imagenesEspañol } = require('discord-memes');
 
 /**

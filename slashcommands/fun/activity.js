@@ -1,5 +1,5 @@
 const { SlashCommandBuilder } = require("@discordjs/builders")
-const { MessageEmbed } = require('discord.js')
+const { MessageEmbed } = require('discord.js-light')
 require('moment').locale('es');
 
 module.exports = {
@@ -11,12 +11,13 @@ module.exports = {
       o.setName('actividad')
       .setRequired(true)
       .setDescription('Elije una actividad')
-      .addChoice('youtube', 'youtube')
-      .addChoice('poker', 'poker')
-      .addChoice('chess', 'chess')
-      .addChoice('betrayal', 'betrayal')
-      .addChoice('lettertile', 'lettertile')
-    ),
+      .addChoices(
+          {name: 'youtube', value: 'youtube'},
+          {name: 'poker', value: 'poker'},
+          {name: 'chess', value: 'chess'},
+          {name: 'betrayal', value: 'betrayal'},
+          {name: 'lettertile', value: 'lettertile'}
+    )),
 
     async run(client, interaction){
         function error(msg){

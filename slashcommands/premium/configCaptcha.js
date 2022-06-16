@@ -1,6 +1,6 @@
 const { SlashCommandBuilder } = require(`@discordjs/builders`),
 captchaSchema = require(`../../models/captcha`),
-{ CommandInteraction, Client, MessageEmbed } = require(`discord.js`),
+{ CommandInteraction, Client, MessageEmbed } = require(`discord.js-light`),
 errorEmbed = new MessageEmbed({
     title: ":x: ¡Algo salió mal!",
     color: `DARK_RED`,

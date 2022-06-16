@@ -5,7 +5,7 @@ const {
   MessageEmbed,
   MessageActionRow,
   MessageButton,
-} = require("discord.js");
+} = require("discord.js-light");
 
 /**
 * @type {import('../../types/typeslash').Command}

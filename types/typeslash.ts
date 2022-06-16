@@ -1,4 +1,4 @@
-import { PermissionFlags, Client, Interaction } from 'discord.js'; // importamos la flags de permisos
+import { PermissionFlags, Client, Interaction } from 'discord.js-light'; // importamos la flags de permisos
 
 export interface Command {
   userPerms: Array<keyof PermissionFlags>; // los permisos serán un array de permisos

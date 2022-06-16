@@ -1,5 +1,5 @@
 const { SlashCommandBuilder } = require("@discordjs/builders");
-const { Client, CommandInteraction, MessageEmbed } = require("discord.js");
+const { Client, CommandInteraction, MessageEmbed } = require("discord.js-light");
 const blackuser = require("../../models/blacklist-user");
 const blackguild = require("../../models/blacklist-guild");
 const ms = require("ms")

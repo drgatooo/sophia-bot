@@ -1,5 +1,5 @@
 const { SlashCommandBuilder } = require("@discordjs/builders")
-const { MessageEmbed, MessageActionRow, MessageButton, version } = require('discord.js')
+const { MessageEmbed, MessageActionRow, MessageButton, version } = require('discord.js-light')
 const info = require("../../package.json")
 require('moment').locale('es');
 

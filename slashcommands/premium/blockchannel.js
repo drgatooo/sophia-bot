@@ -4,7 +4,7 @@ const {
   CommandInteraction,
   MessageEmbed,
   Permissions,
-} = require("discord.js");
+} = require("discord.js-light");
 
 /**
  * @type {import('../../types/typeslash').Command}

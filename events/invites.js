@@ -1,6 +1,6 @@
 const client = require("../index");
 const cliente = require('@androz2091/discord-invites-tracker');
-const { MessageEmbed } = require("discord.js")
+const { MessageEmbed } = require("discord.js-light")
 const schema  = require("../models/setinvitechannel");
 const inv = cliente.init(client, {
     fetchGuilds: true,

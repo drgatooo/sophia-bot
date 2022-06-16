@@ -1,5 +1,5 @@
 const client = require("../index.js")
-const { MessageEmbed, MessageActionRow, MessageButton } = require("discord.js")
+const { MessageEmbed, MessageActionRow, MessageButton } = require("discord.js-light")
 const fs = require("fs");
 const toml = require("toml");
 const config = toml.parse(fs.readFileSync("./config/config.toml", "utf-8"))
@@ -10,7 +10,7 @@ client.on(`guildCreate`, async (guild) => {
     const Embed = new MessageEmbed()
     .setTitle("Gracias por agregarme!")
     .setDescription("Estoy contenta de poder estar aqui, espero ser de mucha ayuda para tu servidor y que puedas disfrútar todo lo que tengo para ofrecer.\n\nRecuerda que me puede apoyar dando click en los botones de abajo, donde esta la bot-list y el servidor de soporte!")
-    .setFooter("Disfruta!!!")
+    .setFooter({text: "Disfruta!!!"})
     .setColor("#00FFFF")
     
     const row = new MessageActionRow()
@@ -33,12 +33,6 @@ client.on(`guildCreate`, async (guild) => {
             channelWelcome.send({embeds: [Embed], components: [row]})
         }
 
-        const promesas = [
-            client.shard.fetchClientValues("guilds.cache.size"),
-        ]
-        
-        Promise.all(promesas).then(async resultado => {
-            const totalGuilds = resultado[0].reduce((acc, guildCount) => acc + guildCount, 0);
             
             let own = await client.users.fetch(guild.ownerId)
         
@@ -49,7 +43,7 @@ client.on(`guildCreate`, async (guild) => {
             .addField('🧒 Actualmente tiene:', `${guild.memberCount} usuarios.`)
             .addField('ℹ ID del servidor:',`${guild.id}`,true)
             .addField('🌐 Owner:',`${own.tag}`,true)
-            .addField('🎀 Estoy actualmente en:',`${totalGuilds} servidores.`)
+            .addField('🎀 Estoy actualmente en:',`${client.guilds.cache.size} servidores.`)
             .setThumbnail(guild.iconURL({dynamic: true}))
             .setColor('LUMINOUS_VIVID_PINK')
             
@@ -60,8 +54,5 @@ client.on(`guildCreate`, async (guild) => {
         
             usu.roles.add(config.rolID).catch(console.log)
 
-        }).catch((e) => {
-            console.log("ERROR EN LA PROMESA DE EVENTO guildCreate: ", e)
-        })
 
 })

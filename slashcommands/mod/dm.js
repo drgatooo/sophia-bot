@@ -1,5 +1,5 @@
 const { SlashCommandBuilder } = require("@discordjs/builders");
-const { Client, CommandInteraction, MessageEmbed } = require("discord.js");
+const { Client, CommandInteraction, MessageEmbed, MessageActionRow, MessageButton } = require("discord.js-light");
 const { Modal, TextInputComponent, showModal } = require('discord-modals')
 
 /**
@@ -45,7 +45,19 @@ const command = {
             .addField("Mensaje:", mensaje, true)
             .setColor("GREEN")
 
-        usuario.send({ content: mensaje }).then(() => {
+        const row = new MessageActionRow().addComponents(
+            new MessageButton()
+            .setLabel(`Enviado desde: ${interaction.guild.name}`)
+            .setStyle("SECONDARY")
+            .setDisabled(true),
+
+            new MessageButton()
+            .setLabel(`Enviado por: ${interaction.user.tag}`)
+            .setStyle("SECONDARY")
+            .setDisabled(true)
+        )
+
+        usuario.send({ content: mensaje, components: [row] }).then(() => {
             interaction.reply({ embeds: [embed], ephemeral: true });
         }).catch(() => {
             interaction.reply({

@@ -1,5 +1,5 @@
 const { SlashCommandBuilder } = require("@discordjs/builders");
-const { Client, CommandInteraction, MessageEmbed, MessageActionRow, MessageButton, version } = require("discord.js");
+const { Client, CommandInteraction, MessageEmbed, MessageActionRow, MessageButton, version } = require("discord.js-light");
 const { name, owners, programadores } = require("../../package.json")
 
 /**
@@ -25,15 +25,6 @@ const command = {
 
     async run(client, interaction){
 
-        const promesas = [
-            client.shard.fetchClientValues("guilds.cache.size"),
-            client.shard.broadcastEval(c => c.guilds.cache.reduce((acc, guild) => acc + guild.memberCount, 0))
-        ]
-        
-        Promise.all(promesas).then(resultado => {
-            const totalGuilds = resultado[0].reduce((acc, guildCount) => acc + guildCount, 0);
-            const totalMembers = resultado[1].reduce((acc, memberCount) => acc + memberCount, 0);
-        
             const row = new MessageActionRow().addComponents(
                 new MessageButton()
                 .setLabel("Invitación")
@@ -57,17 +48,13 @@ const command = {
             .addField("<a:cora:925477856711180379> Uptime:", `<t:${parseInt(client.readyTimestamp / 1000)}:R>`, true)
             .addField("<:vyxter:904595485615087636> Host:", "[VyxterHost](https://vyxterhost.com)", true)
             .addField("<a:de07f1a598f3418bad40172ddc1aba3a:878324224140390400> Lenguaje de programación:", `Javascript`, true)
-            .addField("<a:de07f1a598f3418bad40172ddc1aba3a:878324224140390400> Package:", `discord.js ${version}`, true)
-            .addField("<a:palomita_YELLOW:881940973721116763> Servidores:", `${totalGuilds}`, true)
-            .addField("<a:palo:883588606290194432> Usuarios:", `${totalMembers}`, true)
-            .addField("<a:Giveaways:878324188753068072> Comandos totales:", client.slashcommands.filter(cmd => cmd.category !== "Owner").size.toString(), true)
+            .addField("<a:de07f1a598f3418bad40172ddc1aba3a:878324224140390400> Package:", `discord.js-light ${version}`, true)
+            .addField("<a:palomita_YELLOW:881940973721116763> Servidores:", `${client.guilds.cache.size}`, true)
+            .addField("<a:palo:883588606290194432> Usuarios:", `${client.guilds.cache.reduce((prev, guild) => prev + guild.memberCount, 0)}`, true)
+            .addField("<a:Giveaways:878324188753068072> Comandos totales:", client.sc.filter(cmd => cmd.category !== "Owner").size.toString(), true)
             .setColor('00FFFF');
     
             interaction.reply({ embeds: [embed], components: [row] })
-
-        }).catch((e) => {
-            console.log("ERROR EN LA PROMESA DE COMANDO INFOBOT: ", e)
-        })
 
     }
 }

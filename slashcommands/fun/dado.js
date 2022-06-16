@@ -1,5 +1,5 @@
 const { SlashCommandBuilder } = require("@discordjs/builders");
-const { Client, CommandInteraction, MessageEmbed } = require("discord.js");
+const { Client, CommandInteraction, MessageEmbed } = require("discord.js-light");
 const { CommandCooldown, msToMinutes } = require("discord-command-cooldown");
 const a = new CommandCooldown("dado", 60000)
 

@@ -1,4 +1,4 @@
-const { MessageEmbed, MessageButton, MessageActionRow, Collection } = require("discord.js");
+const { MessageEmbed } = require("discord.js-light");
 const client = require("../index.js");
 const fs = require("fs");
 const toml = require("toml");

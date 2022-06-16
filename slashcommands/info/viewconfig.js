@@ -1,5 +1,5 @@
 const { SlashCommandBuilder } = require("@discordjs/builders");
-const { MessageEmbed } = require("discord.js");
+const { MessageEmbed } = require("discord.js-light");
 const welcomeModel = require('../../models/setWelcome');
 const leaveModel = require("../../models/setLeave")
 const componentslLeave = require("../../models/components-leave")

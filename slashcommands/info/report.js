@@ -5,7 +5,7 @@ const {
   MessageEmbed,
   MessageActionRow,
   MessageButton,
-} = require("discord.js");
+} = require("discord.js-light");
 const toml = require("toml");
 const fs = require("fs");
 const config = toml.parse(

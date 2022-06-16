@@ -1,5 +1,5 @@
 const client = require("../index.js")
-const { MessageEmbed } = require("discord.js")
+const { MessageEmbed } = require("discord.js-light")
 const fs = require("fs");
 const toml = require("toml");
 const config = toml.parse(fs.readFileSync("./config/config.toml", "utf-8"))
@@ -7,12 +7,6 @@ client.on(`guildDelete`, async (guild) => {
 
     const serverID = config.serverID
 
-    const promesas = [
-        client.shard.fetchClientValues("guilds.cache.size"),
-    ]
-    
-    Promise.all(promesas).then(async resultado => {
-        const totalGuilds = resultado[0].reduce((acc, guildCount) => acc + guildCount, 0);
         
         const owner = await client.users.fetch(guild.ownerId)
     
@@ -22,7 +16,7 @@ client.on(`guildDelete`, async (guild) => {
         .addField('ℹ ID del servidor:',`${guild.id}`,true)
         .addField(`💔 Hemos perdido a:`, `${guild.memberCount} usuarios`)
         .addField('🌐 Owner:',`${owner.tag}`,true)
-        .setFooter({text:`🎀 Estoy actualmente en: ${totalGuilds} servidores.`})
+        .setFooter({text:`🎀 Estoy actualmente en: ${client.guilds.cache.size} servidores.`})
         .setThumbnail(guild.iconURL({dynamic: true}))
         .setColor('BLACK')
         
@@ -32,9 +26,5 @@ client.on(`guildDelete`, async (guild) => {
         let usu = await server.members.fetch(owner.id)
     
         usu.roles.remove(config.rolID).catch(console.log)
-
-    }).catch((e) => {
-        console.log("ERROR EN LA PROMESA DE EVENTO guildDelete: ", e)
-    })
 
 })

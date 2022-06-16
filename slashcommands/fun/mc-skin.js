@@ -1,5 +1,5 @@
 const { SlashCommandBuilder } = require("@discordjs/builders");
-const { CommandInteraction, MessageEmbed, MessageAttachment } = require("discord.js");
+const { CommandInteraction, MessageEmbed, MessageAttachment } = require("discord.js-light");
 
 /**
 * @type {import('../../types/typeslash').Command}

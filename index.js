@@ -1,22 +1,53 @@
-const { Collection, Client } = require("discord.js");
-const { red, yellow, blue, green} = require("colors")
-const client = new Client({
-  intents: 130815
+const Discord = require("discord.js-light");
+const { red, blue, green} = require("colors")
+const client = new Discord.Client({
+    shards: 'auto',
+    makeCache: Discord.Options.cacheWithLimits({
+        ApplicationCommandManager: 100, // guild.commands
+        BaseGuildEmojiManager: 10, // guild.emojis
+        ChannelManager: 150, // client.channels
+        GuildChannelManager: 150, // guild.channels
+        GuildBanManager: 20, // guild.bans
+        GuildInviteManager: 10, // guild.invites
+        GuildManager: Infinity, // client.guilds
+        GuildMemberManager: 1000, // guild.members
+        GuildStickerManager: 0, // guild.stickers
+        GuildScheduledEventManager: 0, // guild.scheduledEvents
+        MessageManager: 100, // channel.messages
+        PermissionOverwriteManager: 30, // channel.permissionOverwrites
+        PresenceManager: 0, // guild.presences
+        ReactionManager: 12, // message.reactions
+        ReactionUserManager: 32, // reaction.users
+        RoleManager: 100, // guild.roles
+        StageInstanceManager: 0, // guild.stageInstances
+        ThreadManager: 0, // channel.threads
+        ThreadMemberManager: 0, // threadchannel.members
+        UserManager: 1000, // client.users
+        VoiceStateManager: 0 // guild.voiceStates
+    }),
+    intents: [130815]
 });
 const fs = require("fs");
 const toml = require("toml");
 const config = toml.parse(fs.readFileSync("./config/config.toml", "utf-8"));
 const token = config.token;
 const { DiscordTogether } = require('discord-together');
-const Distube = require("distube");
+
+const { cacheManager, cacheManagerDatabase } = require('./cacheManager');
+client.super = {
+    cache: new cacheManager() // Caché para datos útiles.
+}
+client.database = {
+    guilds: new cacheManagerDatabase(client, 'g'), // Caché para servidores.
+    users: new cacheManagerDatabase(client, 'u') // Caché para usuarios.
+}
 
 client.discordTogether = new DiscordTogether(client);
 client.queue = new Map()
 module.exports = client;
 
-client.slashcommands = new Collection();
-client.cooldowns = new Collection();
-client.distube = new Distube.default(client);
+client.sc = new Map();
+
 
 ["event"].forEach((handler) => {
     require(`./handlers/${handler}`)(client);
@@ -40,24 +71,48 @@ for(const folder of slashcommandsFiles){
     for(const cmd of fs.readdirSync(`./slashcommands/${folder}/`).filter(f => f.endsWith('.js'))){
         const slash = require(`./slashcommands/${folder}/${cmd}`)
         if(slash.data) {
-            client.slashcommands.set(slash.data.name, slash)
+            client.sc.set(slash.data.name, slash)
         } else {
             console.log(blue(`Comando (/) - ${cmd} no fue cargado`))
         }
     }
-    console.log(green(`${client.slashcommands.size} comandos cargados en total.`))
+    console.log(green(`${client.sc.size} comandos cargados en total.`))
 }
 
-for(const file of fs.readdirSync(`./eventos_distube/`)){
-    if(file.endsWith(".js")){
-        let fileName = file.substring(0, file.length - 3)
-        let fileContents = require(`./eventos_distube/${file}`)
-        client.distube.on(fileName, fileContents.bind(null, client))
-    }
-}
 
-process.on('unhandledRejection', err => console.log(red('Al parecer hubo un error.\n' + err.stack)) );
-client.on("Error", err => console.log(red('Al parecer hubo un error.\n' + err.stack)) );
-client.on("Warn", err => console.log(red('Al parecer hubo un error.\n' + err.stack)) );
+
+process.on('unhandledRejection', err => {
+    console.log(red('Al parecer hubo un unhandledRejection. \n' + err.stack)) 
+});
+process.on("uncaughtException", (err) => {
+    console.log("PROCESO uncaughtException: ", err);
+});
+process.on("exit", (code) => {
+    console.log("PROCESO EXIT: ", code)
+});
+client.on("Error", err => {
+    console.log(red('Al parecer hubo un error. \n' + err.stack)) 
+});
+client.on("Warn", err => {
+    console.log(red('Al parecer hubo una advertencia. \n' + err.stack)) 
+});
+client.on("shardConnect", async (shardId, guilds) => {
+    console.log('Shard num ' + shardId + ': LANZADO PARA ' + guilds.length + ' SERVIDORES.');
+});
+client.on("shardDisconnect", shard => {
+    console.log("Shard Desconectada: " + shard)
+})
+client.on("shardError", shard => {
+    console.log("Error en Shard: " + shard)
+})
+client.on("shardReady", shard => {
+    console.log("Shard Lista: " + shard)
+})
+client.on("shardReconnecting", shard => {
+    console.log("Shard Reconectada: " + shard)
+})
+client.on("shardResume", shard => {
+    console.log("Shard Restaurada: " + shard)
+})
 
 client.login(token);

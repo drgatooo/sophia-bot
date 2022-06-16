@@ -1,5 +1,5 @@
 const { SlashCommandBuilder } = require("@discordjs/builders")
-const { MessageEmbed, MessageActionRow, MessageSelectMenu } = require('discord.js')
+const { MessageEmbed, MessageActionRow, MessageSelectMenu } = require('discord.js-light')
 
 module.exports = {
     category: 'Utilidad',
@@ -21,7 +21,7 @@ module.exports = {
             Economía: "💸"
         };
 
-            data = client.slashcommands;
+            data = client.sc;
             $data = data.map(a=>a.category);
             const categories=$data.filter((a,t)=>data.map(a=>a.category).indexOf(a)===t).filter(c => c !== undefined).filter(c => c !== 'private');
             const obj = new Object();
@@ -43,12 +43,12 @@ module.exports = {
                 value: 'principal',
                 emoji: '❌'
             });
-            // const embed1 = new MessageEmbed().setColor('#00FFFF').setTitle('¿Ayuda , alguien necesita ayuda? Acá está Sophia para ayudarte!').setDescription('🎀 Hola <@'+interaction.user.id+'> ! aca tenes una lista de comandos que podes usar\n🌐 Tengo un total de ['+client.slashcommands.size+'] comandos para que puedas usar!\n💡 Recuerda que mis comandos se usan con slash commands (/)');
+            // const embed1 = new MessageEmbed().setColor('#00FFFF').setTitle('¿Ayuda , alguien necesita ayuda? Acá está Sophia para ayudarte!').setDescription('🎀 Hola <@'+interaction.user.id+'> ! aca tenes una lista de comandos que podes usar\n🌐 Tengo un total de ['+client.sc.size+'] comandos para que puedas usar!\n💡 Recuerda que mis comandos se usan con slash commands (/)');
 
             const embed = new MessageEmbed()
             .setColor('#00FFFF')
             .setTitle('Comandos de '+client.user.username.toLowerCase()+" 🛠")
-            .setDescription('🎀 Hola <@'+interaction.user.id+'>, Tengo un total de `'+client.slashcommands.size+'` comandos para que puedas usar! para verlos selecciona la categoria que quieras!\n\n*Espero que los disfrutes y te sean utiles!*')
+            .setDescription('🎀 Hola <@'+interaction.user.id+'>, Tengo un total de `'+client.sc.size+'` comandos para que puedas usar! para verlos selecciona la categoria que quieras!\n\n*Espero que los disfrutes y te sean utiles!*')
             .setThumbnail(client.user.avatarURL({format: 'png'}))
             .setTimestamp()
             .setFooter({text: "Unifyware Association 2022.", iconURL: interaction.user.avatarURL({dynamic: true, format: 'png'})});

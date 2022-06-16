@@ -1,5 +1,5 @@
 const { SlashCommandBuilder } = require("@discordjs/builders");
-const { Interaction, MessageEmbed } = require("discord.js");
+const { Interaction, MessageEmbed } = require("discord.js-light");
 const ms = require("ms");
 
 /**
