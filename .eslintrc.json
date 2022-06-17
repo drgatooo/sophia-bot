@@ -11,8 +11,8 @@
 	},
 	"rules": {
 		"indent": ["error", "tab"],
-		"quotes": ["error", "double"],
-		"semi": ["error", "never"],
+		"quotes": ["error", "single"],
+		"semi": ["error", "never", { "beforeStatementContinuationChars": "always" }],
 		"arrow-spacing": ["warn", { "before": true, "after": true }],
 		"comma-dangle": ["error", "always-multiline"],
 		"comma-spacing": "error",
