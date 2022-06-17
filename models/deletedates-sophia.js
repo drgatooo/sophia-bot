@@ -1,7 +1,7 @@
 const { Schema, model } = require('mongoose')
 
 const schema = new Schema({
-    UserID : String
+	UserID: String,
 })
 
 module.exports = model('eliminados-del-bot', schema)

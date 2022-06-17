@@ -1,102 +1,106 @@
-const { SlashCommandBuilder } = require("@discordjs/builders");
-const { Client, CommandInteraction, MessageEmbed } = require("discord.js-light");
-const schema = require('../../models/setLeave');
+const { SlashCommandBuilder } = require('@discordjs/builders')
+const { MessageEmbed } = require('discord.js-light')
+const schema = require('../../models/setLeave')
 /**
-* @type {import('../../types/typeslash').Command}
-*/
+ * @type {import('../../types/typeslash').Command}
+ */
 
 const command = {
+	userPerms: ['MANAGE_GUILD'],
+	botPerms: ['MANAGE_GUILD'],
+	category: 'Configuración',
 
-    userPerms: ['MANAGE_GUILD'],
-    botPerms: ['MANAGE_GUILD'],
-    category: "Configuración",
+	data: new SlashCommandBuilder()
+		.setName('setleave')
+		.setDescription('Establece el canal de despedidas del servidor.')
+		.addSubcommand((o) =>
+			o
+				.setName('enable')
+				.setDescription('Activa el sistema')
+				// eslint-disable-next-line no-shadow
+				.addChannelOption((o) =>
+					o
+						.setName('canal')
+						.setDescription('Canal de despedidas.')
+						.setRequired(true),
+				),
+		)
+		.addSubcommand((o) =>
+			o.setName('disable').setDescription('Desactiva el sistema'),
+		),
 
+	/**
+	 *
+	 * @param {Client} client
+	 * @param {CommandInteraction} interaction
+	 */
 
-    data: new SlashCommandBuilder()
-    .setName("setleave")
-    .setDescription("Establece el canal de despedidas del servidor.")
-    .addSubcommand( o =>
-      o.setName("enable")
-      .setDescription("Activa el sistema")
-      .addChannelOption(o =>
-        o.setName("canal")
-        .setDescription('Canal de despedidas.')
-        .setRequired(true)
-      )
-    )
-    .addSubcommand( o => 
-      o.setName("disable")
-      .setDescription("Desactiva el sistema")
-    ),
+	async run(_, interaction) {
+		const args = interaction.options
+		const subcmd = args.getSubcommand()
 
-    /**
-     * 
-     * @param {Client} client 
-     * @param {CommandInteraction} interaction 
-     */
+		if (subcmd === 'enable') {
+			const chid = args.getChannel('canal')
+			if (chid.type !== 'GUILD_TEXT' || !chid.viewable) {
+				const noValid = new MessageEmbed()
+					.setTitle('❌ Error')
+					.setDescription('¡Ese no es un canal valido!')
+					.setColor('RED')
 
-    async run(_, interaction){
-      const args = interaction.options;
-      const subcmd = args.getSubcommand();
-      
-      if(subcmd === "enable"){
-      let chid = args.getChannel("canal");
-      if (chid.type !== 'GUILD_TEXT' || !chid.viewable) {
-          const noValid = new MessageEmbed()
-          .setTitle('❌ Error')
-          .setDescription('¡Ese no es un canal valido!')
-          .setColor('RED')
-          
-          return await interaction.reply({ embeds: [noValid], ephemeral: true });
-      }
-      
+				return await interaction.reply({ embeds: [noValid], ephemeral: true })
+			}
 
-      const sameID = new MessageEmbed()
-      .setTitle('❌ Error')
-      .setColor('RED')
-      .setDescription("El canal establecido tiene el mismo ID de antes, establece otro!");
+			const sameID = new MessageEmbed()
+				.setTitle('❌ Error')
+				.setColor('RED')
+				.setDescription(
+					'El canal establecido tiene el mismo ID de antes, establece otro!',
+				)
 
-      const successUpdate = new MessageEmbed()
-      .setTitle('✅ Exito')
-      .setColor('GREEN')
-      .setFooter({text: "Recuerda que puedes usar /componentsleave help"})
-      .setDescription(`El canal de despedidas fue actualizado a <#${chid.id}>`);
+			const successUpdate = new MessageEmbed()
+				.setTitle('✅ Exito')
+				.setColor('GREEN')
+				.setFooter({ text: 'Recuerda que puedes usar /componentsleave help' })
+				.setDescription(`El canal de despedidas fue actualizado a <#${chid.id}>`)
 
-      const success = new MessageEmbed()
-      .setTitle('✅ Exito')
-      .setColor('GREEN')
-      .setFooter({text: "Recuerda que puedes usar /componentsleave help"})
-      .setDescription(`El canal de despedidas fue establecido a <#${chid.id}>`);
+			const success = new MessageEmbed()
+				.setTitle('✅ Exito')
+				.setColor('GREEN')
+				.setFooter({ text: 'Recuerda que puedes usar /componentsleave help' })
+				.setDescription(`El canal de despedidas fue establecido a <#${chid.id}>`)
 
-      const channel = await schema.findOne({ ServerID: interaction.guild.id});
+			const channel = await schema.findOne({ ServerID: interaction.guild.id })
 
-      if (!channel) {
-        const ch = new schema({
-          ServerID: interaction.guild.id,
-          ChannelID: chid.id
-      });
-        await ch.save();
-        return await interaction.reply({ embeds: [success] });
-      } else if (channel && channel.ChannelID !== chid.id){
-        await schema.updateOne({ ServerID: interaction.guild.id}, { $set: { ChannelID: chid.id }});
-        return await interaction.reply({ embeds: [successUpdate] });
-      }
+			if (!channel) {
+				const ch = new schema({
+					ServerID: interaction.guild.id,
+					ChannelID: chid.id,
+				})
+				await ch.save()
+				return await interaction.reply({ embeds: [success] })
+			} else if (channel && channel.ChannelID !== chid.id) {
+				await schema.updateOne(
+					{ ServerID: interaction.guild.id },
+					{ $set: { ChannelID: chid.id } },
+				)
+				return await interaction.reply({ embeds: [successUpdate] })
+			}
 
-      if (channel && channel.ChannelID === chid.id) return await interaction.reply({embeds: [sameID], ephemeral: true });
-    }
-    
-    if(subcmd === "disable"){
-      await schema.deleteOne({ServerID: interaction.guild.id})
+			if (channel && channel.ChannelID === chid.id)
+				return await interaction.reply({ embeds: [sameID], ephemeral: true })
+		}
 
-      const embed = new MessageEmbed()
-      .setTitle("Okay! ♦")
-      .setDescription("He desactivado el sistema!")
-      .setColor("GREEN")
+		if (subcmd === 'disable') {
+			await schema.deleteOne({ ServerID: interaction.guild.id })
 
-      interaction.reply({embeds: [embed]})
-    }
+			const embed = new MessageEmbed()
+				.setTitle('Okay! ♦')
+				.setDescription('He desactivado el sistema!')
+				.setColor('GREEN')
 
-  }
+			interaction.reply({ embeds: [embed] })
+		}
+	},
 }
 
-module.exports = command;
+module.exports = command

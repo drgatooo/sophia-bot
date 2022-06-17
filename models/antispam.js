@@ -1,7 +1,7 @@
 const { Schema, model } = require('mongoose')
 
 const schema = new Schema({
-    ServerID : String
+	ServerID: String,
 })
 
-module.exports = model('AntiSpam',schema)
+module.exports = model('AntiSpam', schema)

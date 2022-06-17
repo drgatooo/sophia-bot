@@ -1,8 +1,8 @@
 const { Schema, model } = require('mongoose')
 
 const schema = new Schema({
-    ServerID : String,
-    ChannelID : String
+	ServerID: String,
+	ChannelID: String,
 })
 
-module.exports = model('invites',schema)
+module.exports = model('invites', schema)
