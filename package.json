@@ -1,7 +1,7 @@
 {
-	"name": "sophia.",
-	"version": "3.0.0",
-	"description": "",
+	"name": "Sophia.",
+	"version": "3.1.4",
+	"description": "Multifunction bot for discord, made by Unifyware Association.",
 	"main": "index.js",
 	"scripts": {
 		"start": "node .",
@@ -14,7 +14,7 @@
 	},
 	"keywords": [],
 	"owners": "Domingo",
-	"programadores": "Domingo, Risto, Xnayx, Dirquel",
+	"programadores": "Domingo, Risto, Xnayx, Dirquel, Santer",
 	"license": "ISC",
 	"dependencies": {
 		"@androz2091/discord-invites-tracker": "^1.1.0",
