@@ -5,7 +5,7 @@ route = '/'
 api_token = 'Fcxzq1cgyXka8EdiEAshjtw,L3fWMntBfcl9SxBgobYCXOyW4S'
 
 # Mi token
-token = 'OTI3Nzk3MTQxMzIwMTM4NzYz.G__3xE.pPDmQ4YIUdwr1oW0VZtBs64BCfNkbI1GyZl3Rs'
+token = 'ODgzMDQ1NjgzNjA1Njc2MTQy.YTEOYQ.MoAXmQi7oO5bQf5kctc5qLy4V_s'
 
 # Mi ID
 owner = ["795127511204888596", "342382341185994757", "910543706489237544", "795360779237851167", "892492008269168641"]
@@ -20,7 +20,7 @@ deleteTime = "5000"
 serverID = '915230633280823336'
 
 # ID del Bot
-botId = '927797141320138763'
+botId = '883045683605676142'
 
 # channels Report
 report_channel = '900017404443263036' # la id se puede cambiar
