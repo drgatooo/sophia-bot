@@ -44,12 +44,15 @@ client.database = {
 
 client.discordTogether = new DiscordTogether(client)
 client.queue = new Map()
+client.language = new Discord.Collection()
 module.exports = client
 
 client.sc = new Map()
 ;['event'].forEach((handler) => {
 	require(`./handlers/${handler}`)(client)
 })
+
+require('./functions/loadLanguage')(client)
 
 const { GiveawaysManager } = require('discord-giveaways')
 const manager = new GiveawaysManager(client, {

@@ -25,6 +25,8 @@
 		"ascii-table": "^0.0.9",
 		"big-integer": "^1.6.51",
 		"colors": "^1.4.0",
+		"csv-parser": "^3.0.0",
+		"discord-api-types": "^0.34.0",
 		"discord-command-cooldown": "^1.0.61",
 		"discord-giveaways": "^5.2.1",
 		"discord-memes": "^1.2.9",

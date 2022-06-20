@@ -1,6 +1,6 @@
 const fs = require('fs')
 const { REST } = require('@discordjs/rest')
-const { Routes } = require('discord-api-types/v9')
+const { Routes } = require('discord-api-types/v10')
 const toml = require('toml')
 const config = toml.parse(fs.readFileSync('./config/config.toml', 'utf-8'))
 const { token, botId } = config
@@ -17,7 +17,7 @@ for (const folder of slashcommandsFiles) {
 	}
 }
 
-const rest = new REST({ version: '9' }).setToken(token)
+const rest = new REST({ version: '10' }).setToken(token)
 
 createSlash()
 
