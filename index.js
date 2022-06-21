@@ -47,7 +47,7 @@ client.queue = new Map()
 client.language = new Discord.Collection()
 module.exports = client
 
-client.sc = new Map()
+client.sc = new Discord.Collection()
 ;['event'].forEach((handler) => {
 	require(`./handlers/${handler}`)(client)
 })
