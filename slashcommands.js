@@ -7,6 +7,7 @@ const { token, botId, supportID } = config
 const commands = []
 const privateCommands = []
 const slashcommandsFiles = fs.readdirSync('./slashcommands')
+const { green } = require('colors')
 
 for (const folder of slashcommandsFiles) {
 	const Folder = fs
@@ -14,10 +15,8 @@ for (const folder of slashcommandsFiles) {
 		.filter((file) => file.endsWith('js'))
 	for (const cmd of Folder) {
 		const slash = require(`./slashcommands/${folder}/${cmd}`)
-		if(Folder == `private`){
-			privateCommands.push(slash.data.toJSON())
-		} else {
-			commands.push(slash.data.toJSON())}
+		if (Folder == 'private') privateCommands.push(slash.data.toJSON())
+		else commands.push(slash.data.toJSON())
 	}
 }
 
@@ -30,8 +29,11 @@ async function createSlash() {
 		await rest.put(Routes.applicationCommands(botId), {
 			body: commands,
 		})
-		await rest.put(Routes.applicationGuildCommands(botId, supportID), { body: privateCommands})
-      consoleColors(`[command] Comandos privados cargados`, `success`)
+		await rest.put(Routes.applicationGuildCommands(botId, supportID), {
+			body: privateCommands,
+		})
+		console.log(green('[command] Comandos privados cargados.'))
+		console.log(green('[command] Comandos cargados.'))
 	} catch (e) {
 		console.log(e)
 	}

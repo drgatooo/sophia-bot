@@ -54,16 +54,10 @@ const command = {
 			interaction.reply({ embeds: [embed] }).then(() => {
 				if (num === 7) {
 					setTimeout(() => {
-						const add = require('../../helpers/add-money')
-						add(interaction.guild.id, interaction.user.id, 7000)
 						interaction.editReply({
 							embeds: [
 								embed
-									.addField('JACKPOT! has sacado:', `**${num}**`, true)
-									.addField(
-										'WOW!!!!',
-										'Has recibido `7.000$` en tu balance por sacar el numero 7, guardalo lo antes posible!',
-									),
+									.addField('JACKPOT! has sacado:', `**${num}**`, true),
 							],
 						})
 					}, 3000)
