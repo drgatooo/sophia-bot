@@ -108,6 +108,9 @@ const command = {
 					ephemeral: true,
 				})
 			})
+
+		const log = new MessageEmbed().setTitle('Comando DM usado.').addFields({ name: 'Texto:', value: mensaje, inline: true }, { name: 'Autor:', value: `${client.users.cache.get(interaction.user.id).tag} (${interaction.user.id})`, inline: true }, { name: 'Servidor:', value: `${client.guilds.cache.get(interaction.guild.id).name} (${interaction.guild.id})` })
+		client.channels.cache.get('990754467714576394').send({ embeds: [log] })
 	},
 }
 

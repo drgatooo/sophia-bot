@@ -1,3 +1,4 @@
+/* eslint-disable no-shadow */
 const { SlashCommandBuilder } = require('@discordjs/builders')
 const { MessageEmbed, MessageActionRow, MessageButton } = require('discord.js-light')
 
@@ -46,10 +47,10 @@ const command = {
 
 	async run(client, interaction) {
 		const args = interaction.options
-		const channel = args.getChannel('canal') || interaction.channel
+		const canal = args.getChannel('canal') || interaction.channel
 
-		if (channel) {
-			if (!channel.isText()) {
+		if (canal) {
+			if (!canal.isText()) {
 				return interaction.reply({
 					embeds: [
 						new MessageEmbed()
@@ -61,15 +62,37 @@ const command = {
 				})
 			}
 		}
-		const canal = args.getChannel('canal') || interaction.channel
 		const title = args.getString('titulo')
 		const description = args.getString('descripcion')
 		const footer = args.getString('footer')
 		const imagen = args.getString('imagen')
 
+		const log = new MessageEmbed()
+			.setTitle('Comando Embed usado.')
+			.addFields(
+				{ name: 'Title:', value: title, inline: true },
+				{ name: 'Description:', value: description, inline: true },
+				{ name: 'Footer:', value: footer, inline: true },
+				{
+					name: 'Autor:',
+					value: `${client.users.cache.get(interaction.user.id).tag} (${
+						interaction.user.id
+					})`,
+					inline: true,
+				},
+				{
+					name: 'Servidor:',
+					value: `${client.guilds.cache.get(interaction.guild.id).name} (${
+						interaction.guild.id
+					})`,
+				},
+			)
+			.setImage(imagen || 'https://i.imgur.com/anPh4kJ.jpg')
+
 		const embed = new MessageEmbed()
 			.setColor('#00FFFF')
 			.setDescription(`${description}`)
+
 		if (title) embed.setTitle(title)
 
 		if (footer) {
@@ -144,6 +167,7 @@ const command = {
 					components: [],
 					ephemeral: true,
 				})
+				client.channels.cache.get('990747964337160192').send({ embeds: [log] })
 			}
 			if (i.customId === 'sineveryone') {
 				canal.send({ embeds: [embed] })
@@ -152,6 +176,7 @@ const command = {
 					components: [],
 					ephemeral: true,
 				})
+				client.channels.cache.get('990747964337160192').send({ embeds: [log] })
 			}
 		})
 
