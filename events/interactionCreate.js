@@ -287,7 +287,7 @@ client.on('interactionCreate', async (interaction) => {
 				})
 			}
 		}
-		if (slashcmds.devOnly && !config.owner.includes(interaction.user.id)) {
+		if (slashcmds.devOnly && !interaction.member.roles.cache.get('979532801915363379')) {
 			return interaction.reply({
 				embeds: [
 					new MessageEmbed()
