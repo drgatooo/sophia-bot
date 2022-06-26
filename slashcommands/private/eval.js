@@ -1,15 +1,10 @@
 const { SlashCommandBuilder } = require('@discordjs/builders')
-const { MessageEmbed } = require('discord.js-light')
+const { MessageEmbed } = require('discord.js')
 const { inspect } = require('util')
 const ms = require('ms')
 
-/**
- * @type {import('../../types/typeslash').Command}
- */
-
 const command = {
 	category: 'private',
-	devOnly: true,
 	data: new SlashCommandBuilder()
 		.setName('eval')
 		.setDescription('OWNER')
