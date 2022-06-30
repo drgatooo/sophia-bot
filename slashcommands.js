@@ -3,7 +3,7 @@ const { REST } = require('@discordjs/rest')
 const { Routes } = require('discord-api-types/v10')
 const toml = require('toml')
 const config = toml.parse(fs.readFileSync('./config/config.toml', 'utf-8'))
-const { token, botId, supportID } = config
+const { token, botId /* , supportID*/ } = config
 const commands = []
 const privateCommands = []
 const slashcommandsFiles = fs.readdirSync('./slashcommands')
@@ -29,9 +29,9 @@ async function createSlash() {
 		await rest.put(Routes.applicationCommands(botId), {
 			body: commands,
 		})
-		await rest.put(Routes.applicationGuildCommands(botId, supportID), {
+		/* await rest.put(Routes.applicationGuildCommands(botId, supportID), {
 			body: privateCommands,
-		})
+		})*/
 		console.log(green('[command] Comandos privados cargados.'))
 		console.log(green('[command] Comandos cargados.'))
 	} catch (e) {
