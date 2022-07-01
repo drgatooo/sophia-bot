@@ -13,7 +13,7 @@
 		"format": "prettier --write ."
 	},
 	"keywords": [],
-	"owners": "Domingo",
+	"owners": "Domingo, Xnayx",
 	"programadores": "Domingo, Risto, Xnayx, Dirquel, Santer",
 	"license": "ISC",
 	"dependencies": {
