@@ -30,22 +30,22 @@ client.once('ready', async () => {
 ╚═════╝░░╚════╝░╚═╝░░░░░╚═╝░░╚═╝╚═╝╚═╝░░╚═╝`),
 	)
 
-	const status = {
-		activities: [
-			'/help',
-			'/invite',
-			'¡SOPHIA 3.1.3!',
-			`${client.guilds.cache.size} servidores.`,
-			`${client.guilds.cache.reduce(
-				(prev, guild) => prev + guild.memberCount,
-				0,
-			)} Usuarios.`,
-			'Unifyware Association.',
-		],
-		activity_types: ['WATCHING', 'PLAYING', 'LISTENING', 'COMPETING'],
-	}
-
 	const AutoPresence = () => {
+		const status = {
+			activities: [
+				'/help',
+				'/invite',
+				'¡SOPHIA 3.1.3!',
+				`${client.guilds.cache.size} servidores.`,
+				`${client.guilds.cache.reduce(
+					(prev, guild) => prev + guild.memberCount,
+					0,
+				)} Usuarios.`,
+				'Unifyware Association.',
+			],
+			activity_types: ['WATCHING', 'PLAYING', 'LISTENING', 'COMPETING'],
+		}
+
 		const aleanum = Math.floor(Math.random() * status.activities.length)
 		client.user.setPresence({
 			activities: [
