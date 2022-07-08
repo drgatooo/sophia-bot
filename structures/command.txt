@@ -1,5 +1,5 @@
-const { SlashCommandBuilder } = require("@discordjs/builders");
-const { Client, CommandInteraction, MessageEmbed } = require("discord.js-light");
+const { SlashCommandBuilder } = require('@discordjs/builders')
+const { Client, CommandInteraction, MessageEmbed } = require('discord.js-light')
 
 /**
 * @type {import('../../types/typeslash').Command}
@@ -7,28 +7,26 @@ const { Client, CommandInteraction, MessageEmbed } = require("discord.js-light")
 
 const command = {
 
-    userPerms: [],
-    botPerms: [],
-    isMaintenance: true || false,
-    isPremium: true || false,
-    category: "categoria en español y sin faltas ortograficas",
+	userPerms: [],
+	botPerms: [],
+	isMaintenance: true || false,
+	isPremium: true || false,
+	category: 'categoria en español y sin faltas ortograficas',
 
 
-    data: new SlashCommandBuilder()
-    .setName("")
-    .setDescription(""),
+	data: new SlashCommandBuilder()
+	.setName('')
+	.setDescription(''),
 
-    /**
-     * 
-     * @param {Client} client 
-     * @param {CommandInteraction} interaction 
-     */
+	/**
+	 * 
+	 * @param {Client} client
+	 * @param {CommandInteraction} interaction
+	 */
 
-    async run(client, interaction){
+	async run(client, interaction) {
 
-        
-
-    }
+	},
 }
 
-module.exports = command;
+module.exports = command

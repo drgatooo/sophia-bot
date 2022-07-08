@@ -1,4 +1,4 @@
-const { MessageActionRow, MessageButton } = require('discord.js'),
+const { MessageActionRow, MessageButton } = require('discord.js-light'),
 	paginationComponent = new MessageActionRow().addComponents(
 		new MessageButton().setStyle('SECONDARY').setCustomId('first').setEmoji('⏪'),
 		new MessageButton().setStyle('SECONDARY').setEmoji('◀️').setCustomId('previous'),

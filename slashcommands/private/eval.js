@@ -1,5 +1,5 @@
 const { SlashCommandBuilder } = require('@discordjs/builders')
-const { MessageEmbed } = require('discord.js')
+const { MessageEmbed } = require('discord.js-light')
 const { inspect } = require('util')
 const ms = require('ms')
 

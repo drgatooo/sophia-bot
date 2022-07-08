@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 const { SlashCommandBuilder } = require('@discordjs/builders')
-const { MessageEmbed, Client, CommandInteraction } = require('discord.js')
+const { MessageEmbed, Client, CommandInteraction } = require('discord.js-light')
 const getLanguage = require('../../functions/getLanguage')
 
 module.exports = {
