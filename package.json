@@ -24,6 +24,7 @@
 		"@discordjs/voice": "^0.10.0",
 		"ascii-table": "^0.0.9",
 		"big-integer": "^1.6.51",
+		"canvacord": "^5.3.0",
 		"colors": "^1.4.0",
 		"csv-parser": "^3.0.0",
 		"discord-api-types": "^0.34.0",

@@ -23,9 +23,29 @@ client.on('messageCreate', async (message) => {
 			ServerID: message.guild.id,
 			UserID: message.author.id,
 			XP: XPRANDOM,
-			Nivel: 0,
 		})
 
 		return await newdates.save()
 	}
+
+	const XPTOTAL = datos.XP + XPRANDOM
+
+	if (XPTOTAL >= datos.Limit) {
+		message.channel.send({ content: `**¡Felicitaciones!**, has subido de nivel ${message.author}, tu nuevo nivel es: **${datos.Nivel + 1}**` })
+		return await levels.findOneAndUpdate({
+			ServerID: message.guild.id,
+			UserID: message.author.id,
+		}, {
+			XP: XPTOTAL,
+			Nivel: datos.Nivel + 1,
+			Limit: datos.Limit + 500,
+		})
+	}
+
+	await levels.findOneAndUpdate({
+		ServerID: message.guild.id,
+		UserID: message.author.id,
+	}, {
+		XP: XPTOTAL,
+	})
 })
