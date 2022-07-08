@@ -62,16 +62,17 @@ const command = {
 		}
 
 		try {
-			const msg = await interaction.reply({ embeds: [mensaje] })
-			setTimeout(() => {
-				msg.delete()
-				interaction.user.send({ embeds: [embed] }).catch(() => {
-					interaction.channel.send({
-						content: `<@${interaction.user.id}>`,
-						embeds: [embed],
+			await interaction.reply({ embeds: [mensaje] }).then((msg) => {
+				setTimeout(() => {
+					msg.deleteReply()
+					interaction.user.send({ embeds: [embed] }).catch(() => {
+						interaction.channel.send({
+							content: `<@${interaction.user.id}>`,
+							embeds: [embed],
+						})
 					})
-				})
-			}, ms(interaction.options.getString('tiempo')))
+				}, ms(interaction.options.getString('tiempo')))
+			})
 		} catch (err) {
 			console.log(err)
 		}
