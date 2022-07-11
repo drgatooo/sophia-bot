@@ -14,7 +14,6 @@ const command = {
 	botPerms: ['SEND_MESSAGES'],
 	category: 'Niveles',
 
-
 	data: new SlashCommandBuilder()
 		.setName('levels')
 		.setDescription('Sistema de niveles.')

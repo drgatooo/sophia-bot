@@ -1,5 +1,8 @@
 {
 	"editor.defaultFormatter": "esbenp.prettier-vscode",
 	"editor.formatOnSave": false,
-	"prettier.requireConfig": true
+	"prettier.requireConfig": true,
+	"[javascript]": {
+		"editor.defaultFormatter": "ms-vsliveshare.vsliveshare"
+	}
 }
