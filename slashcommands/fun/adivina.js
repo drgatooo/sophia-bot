@@ -64,7 +64,7 @@ const command = {
 			.setDescription(
 				`😮 Te ha tocado \`${final}\` intenta adivinarlo!\n**⚠ Intentos restantes**\n${intentos}/3`,
 			)
-			.setFooter('Recuerda escribir la palabra en minúsculas...')
+			.setFooter({ text: 'Recuerda escribir la palabra en minúsculas...' })
 			.setColor('WHITE')
 
 		await interaction.reply({ embeds: [embedQuiz] })

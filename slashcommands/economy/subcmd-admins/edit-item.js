@@ -1,4 +1,4 @@
-const { SlashCommandBuilder } = require('@discordjs/builders')
+const { SlashCommandSubcommandGroupBuilder } = require('@discordjs/builders')
 const { MessageEmbed } = require('discord.js-light')
 const schema = require('../../../models/shop-model.js')
 const bigInt = require('big-integer')
@@ -8,10 +8,10 @@ const bigInt = require('big-integer')
  */
 
 const command = {
-	userPerms: ['MANAGE_GUILDS'],
+	userPerms: ['MANAGE_GUILD'],
 	category: 'Economía',
 
-	data: new SlashCommandBuilder()
+	data: new SlashCommandSubcommandGroupBuilder()
 		.setName('edit-item')
 		.setDescription('Edita un producto de la tienda')
 

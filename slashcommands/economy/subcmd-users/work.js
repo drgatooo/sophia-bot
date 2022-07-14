@@ -2,7 +2,7 @@ const { SlashCommandSubcommandBuilder } = require('@discordjs/builders')
 const { MessageEmbed } = require('discord.js-light')
 const add = require('../../../helpers/add-money.js')
 const { CommandCooldown, msToMinutes } = require('discord-command-cooldown')
-const a = new CommandCooldown('work', 240000)
+const a = new CommandCooldown('work', 5000)
 
 /**
  * @type {import('../../types/typeslash').Command}
@@ -65,7 +65,7 @@ const command = {
 				)
 				.setColor('RANDOM')
 				.setTimestamp()
-				.setFooter('Suerte!')
+				.setFooter({ text: 'suerte!' })
 			await interaction.reply({ embeds: [embedSuccess] })
 		}
 		await a.addUser(interaction.member.id)

@@ -1,4 +1,4 @@
-const { SlashCommandBuilder } = require('@discordjs/builders')
+const { SlashCommandSubcommandBuilder } = require('@discordjs/builders')
 const { MessageEmbed } = require('discord.js-light')
 const schema = require('../../../models/shop-model.js')
 
@@ -11,7 +11,7 @@ const command = {
 	botPerms: ['MANAGE_GUILD'],
 	category: 'Economía',
 
-	data: new SlashCommandBuilder()
+	data: new SlashCommandSubcommandBuilder()
 		.setName('create-item')
 		.setDescription('Crea un item para la tienda!')
 		.addStringOption((o) =>

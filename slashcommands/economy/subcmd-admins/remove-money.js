@@ -1,4 +1,4 @@
-const { SlashCommandBuilder } = require('@discordjs/builders')
+const { SlashCommandSubcommandBuilder } = require('@discordjs/builders')
 const { MessageEmbed } = require('discord.js-light')
 const remove = require('../../../helpers/comando-remove-money')
 
@@ -10,7 +10,7 @@ const command = {
 	userPerms: ['MANAGE_GUILD'],
 	category: 'Economía',
 
-	data: new SlashCommandBuilder()
+	data: new SlashCommandSubcommandBuilder()
 		.setName('remove-money')
 		.setDescription('Quita dinero a un usuario.')
 		.addUserOption((o) =>
