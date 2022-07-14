@@ -55,7 +55,8 @@
 		"slash-calculator": "^1.0.1",
 		"toml": "^3.0.0",
 		"update": "^0.4.2",
-		"uuid": "^8.3.2"
+		"uuid": "^8.3.2",
+		"yt-channel-info": "^3.0.4"
 	},
 	"devDependencies": {
 		"eslint": "^8.17.0",
