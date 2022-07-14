@@ -36,7 +36,7 @@ const command = {
 		const { MessageEmbed } = require('discord.js-light')
 		const error = new MessageEmbed().setColor('RED').setTitle(':x: Error')
 
-		if (!channel.isText()) return interaction.reply({ embeds: [error.setDescription('El canal especificado no es de texto o es una categoría, ingresa uno nuevo.')], ephemeral: true })
+		if (!channel.type !== 'GUILD_TEXT') return interaction.reply({ embeds: [error.setDescription('El canal especificado no es de texto o es una categoría, ingresa uno nuevo.')], ephemeral: true })
 
 		db.findOne({ serverID: interaction.guildId }, (err, result) => {
 			if (err) throw err // a

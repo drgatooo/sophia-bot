@@ -72,7 +72,7 @@ const command = {
 					})
 				}
 
-				if (!canal.isText()) {
+				if (!canal.type !== 'GUILD_TEXT') {
 					return interaction.editReply({
 						embeds: [
 							new MessageEmbed()

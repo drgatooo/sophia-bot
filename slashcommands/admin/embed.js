@@ -50,7 +50,7 @@ const command = {
 		const canal = args.getChannel('canal') || interaction.channel
 
 		if (canal) {
-			if (!canal.isText()) {
+			if (canal.type !== 'GUILD_TEXT') {
 				return interaction.reply({
 					embeds: [
 						new MessageEmbed()
