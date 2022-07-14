@@ -1,5 +1,6 @@
 const { SlashCommandBuilder } = require('@discordjs/builders')
 const db = require('../../models/yt-system')
+const { MessageEmbed } = require('discord.js-light')
 
 /**
 * @type {import('../../types/typeslash').Command}
@@ -50,10 +51,11 @@ const command = {
 
 		if (subcmd === 'set') {
 
+			if (!channel.type === 'GUILD_TEXT') return interaction.reply({ embeds: [error.setDescription('El canal especificado no es de texto o es una categoría, ingresa uno nuevo.')], ephemeral: true })
+
 			const ChannelYTID = interaction.options.getString('ytchannelid')
 			const channel = interaction.options.getChannel('notificationchannel')
 			const { id: ChannelID } = channel
-			const { MessageEmbed } = require('discord.js-light')
 			const error = new MessageEmbed().setColor('RED').setTitle(':x: Error')
 
 			if (!channel.isText()) return interaction.reply({ embeds: [error.setDescription('El canal especificado no es de texto o es una categoría, ingresa uno nuevo.')], ephemeral: true })
@@ -97,21 +99,21 @@ const command = {
 				.setTitle('👌 Vale')
 				.setDescription('He eliminado los datos almacenados, ya puedes setear uno nuevo.')
 				.setColor('GREEN')
-		
+
 
 			const error = new MessageEmbed().setTitle(':x: Error').setColor('RED')
 			const data = await db.findOne({ ServerID: interaction.guildId })
 
-			if(!data) return interaction.reply({ embeds: [error.setDescription('No existe información en mi base de datos.')], ephemeral: true })
-			
+			if (!data) return interaction.reply({ embeds: [error.setDescription('No existe información en mi base de datos.')], ephemeral: true })
+
 			await db.findOneAndDelete({
 				ServerID: interaction.guildId,
 			})
-			
+
 			interaction.reply({ embeds: [okay] }) // no son necesarioos
-			
-			}
-		},
-	}
+
+		}
+	},
 }
+
 module.exports = command

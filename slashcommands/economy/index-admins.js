@@ -8,10 +8,11 @@ const subcmds = new Collection()
 
 const command = {
 	category: 'Economía',
+	userPerms: ['MANAGE_GUILD'],
 
 	data: new SlashCommandBuilder()
-		.setName('economy-users')
-		.setDescription('Comandos de economía que usan los usuarios.'),
+		.setName('economy-admins')
+		.setDescription('Comandos de economía que se usan para administrar la economía.'),
 
 	/**
 	 * @param {Client} _client
@@ -24,10 +25,10 @@ const command = {
 	},
 }
 
-fs.readdirSync('./slashcommands/economy/subcmd-users')
+fs.readdirSync('./slashcommands/economy/subcmd-admins')
 	.filter((file) => file.endsWith('.js'))
 	.forEach((file) => {
-		const subcmd = require(`./subcmd-users/${file}`)
+		const subcmd = require(`./subcmd-admins/${file}`)
 
 		subcmd.data instanceof SlashCommandSubcommandGroupBuilder ?
 			command.data.addSubcommandGroup(subcmd.data) : command.data.addSubcommand(subcmd.data)

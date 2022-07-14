@@ -92,7 +92,7 @@ const command = {
 			)
 			.setColor('#00FFFF')
 			.setTimestamp()
-			.setFooter('balance Sophia bot, Economy.')
+			.setFooter({ text: 'balance Sophia bot, Economy.' })
 		await interaction.reply({ embeds: [embedSuccess] })
 	},
 }

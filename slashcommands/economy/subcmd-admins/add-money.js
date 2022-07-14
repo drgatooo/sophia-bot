@@ -1,4 +1,4 @@
-const { SlashCommandBuilder } = require('@discordjs/builders')
+const { SlashCommandSubcommandBuilder } = require('@discordjs/builders')
 const { MessageEmbed } = require('discord.js-light')
 const schema = require('../../../models/economy-model.js')
 const schemaBank = require('../../../models/bank-model.js')
@@ -12,7 +12,7 @@ const command = {
 	userPerms: ['MANAGE_GUILD'],
 	category: 'Economía',
 
-	data: new SlashCommandBuilder()
+	data: new SlashCommandSubcommandBuilder()
 		.setName('add-money')
 		.setDescription('Agrega dinero a un usuario.')
 		.addUserOption((o) =>
@@ -32,7 +32,7 @@ const command = {
 				.setName('lugar')
 				.setDescription('Lugar donde se agregará dinero')
 				.setRequired(false)
-				.addChoice('banco', 'bank'),
+				.addChoices({ name: 'banco', value: 'bank' }),
 		),
 
 	/**
