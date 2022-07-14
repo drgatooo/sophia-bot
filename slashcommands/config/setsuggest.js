@@ -30,7 +30,7 @@ module.exports = {
 				ephemeral: true,
 			})
 		}
-		if (!channel.type !== 'GUILD_TEXT') {
+		if (channel.type !== 'GUILD_TEXT') {
 			return interaction.reply({
 				embeds: [
 					new MessageEmbed()
