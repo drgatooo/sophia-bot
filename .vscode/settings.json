@@ -3,6 +3,6 @@
 	"editor.formatOnSave": false,
 	"prettier.requireConfig": true,
 	"[javascript]": {
-		"editor.defaultFormatter": "ms-vsliveshare.vsliveshare"
+		"editor.defaultFormatter": "esbenp.prettier-vscode"
 	}
 }
