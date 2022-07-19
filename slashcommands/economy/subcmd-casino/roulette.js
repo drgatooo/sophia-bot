@@ -54,7 +54,7 @@ const command = {
 		}
 
 		function isOptionValid(text) {
-			if (['red', 'black'].includes(text) || (Number.isInteger(parseInt(text)) && parseInt(text) >= 1 && parseInt(text) <= 36))
+			if (['red', 'black'].includes(text) || (Number.isInteger(Number(text)) && Number(text) >= 1 && Number(text) <= 36))
 				return true
 			else return false
 		}
