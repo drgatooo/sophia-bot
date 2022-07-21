@@ -364,10 +364,3 @@ const command = {
 }
 
 module.exports = command
-
-/*
-wtfffff, 300 lineas ---- y si pa, por que crees que nadie sube tuto de este comando xdx
-esta todo con  funciones tambien, asi ahorro codigo, imaginate si no uso funciones xd
-
-Avisa cuando estés
-*/
