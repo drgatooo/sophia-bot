@@ -1,6 +1,7 @@
 /* eslint-disable no-unused-vars */
 const client = require('../index')
 const levels = require('../models/levels')
+const seting = require('../models/levels-set')
 
 client.on('messageCreate', async (message) => {
 	if (message.author.bot) return

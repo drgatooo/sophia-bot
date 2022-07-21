@@ -15,4 +15,4 @@ const schema = new Schema({
 	},
 })
 
-module.exports = model('SetLevels', schema)
+module.exports = model('Levels-Power', schema)

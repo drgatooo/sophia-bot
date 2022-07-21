@@ -46,7 +46,7 @@ const command = {
 						.setDescription('Establece si el sistena estará on u off.')
 						.addStringOption((o) =>
 							o
-								.setName('on-false')
+								.setName('on-off')
 								.setDescription(
 									'Establece si el sistema estará prendido o apagado.',
 								)
@@ -209,12 +209,12 @@ const command = {
 						ServerID: interaction.guildId,
 					},
 					{
-						Set: interaction.options.getString('on-false') === 'true' ? true : false,
+						Set: interaction.options.getString('on-off') === 'true' ? true : false,
 					},
 				)
 				const embed = new MessageEmbed()
 					.setTitle('Vale.')
-					.setDescription(`He dejado el sistema establecido como \`${interaction.options.getString('on-false') === 'true' ? 'activado' : 'desactivado' }\` en mi base de datos`)
+					.setDescription(`He dejado el sistema establecido como \`${interaction.options.getString('on-off') === 'true' ? 'activado' : 'desactivado' }\` en mi base de datos`)
 					.setColor('GREEN')
 				interaction.reply({ embeds: [embed] })
 			}
