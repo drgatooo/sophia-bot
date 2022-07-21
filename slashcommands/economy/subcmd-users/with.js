@@ -37,7 +37,7 @@ const command = {
 
 		const err = new MessageEmbed().setTitle(':x: Error').setColor('RED')
 
-		if (!['all', 'max'].includes(money) && isNaN(money) && !Number.isInteger(money)) {
+		if ((!['all', 'max'].includes(money) && isNaN(money)) || (!['all', 'max'].includes(money) && !Number.isInteger(money))) {
 			err.setDescription('Debes poner un numero valido!')
 			return interaction.reply({ embeds: [err], ephemeral: true })
 		}

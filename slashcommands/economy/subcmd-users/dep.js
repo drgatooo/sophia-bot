@@ -41,8 +41,8 @@ const command = {
 			userid: interaction.user.id,
 		})
 
-		if (!['all', 'max'].includes(money) && isNaN(money) && !Number.isInteger(money)) {
-			err.setDescription('Debes poner un numero!')
+		if ((!['all', 'max'].includes(money) && isNaN(money)) || (!['all', 'max'].includes(money) && !Number.isInteger(money))) {
+			err.setDescription('Debes poner un numero valido!')
 			return interaction.reply({ embeds: [err], ephemeral: true })
 		}
 		if (!resultsWallet || resultsWallet.money === 0) {

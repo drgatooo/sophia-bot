@@ -66,7 +66,7 @@ const command = {
 		const amount = interaction.options.getInteger('cantidad')
 
 		if (amount < 1 || !Number.isInteger(amount)) {
-			err.setDescription('Debes espcicificar una cantidad mayor a 1.')
+			err.setDescription('Debes espcicificar una cantidad mayor a 1 y el número no debe ser decimal.')
 			return interaction.reply({ embeds: [err], ephemeral: true })
 		}
 		const dbUser = await schema.findOne({

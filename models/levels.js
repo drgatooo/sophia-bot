@@ -1,6 +1,10 @@
 const { Schema, model } = require('mongoose')
 
 const niveles = new Schema({
+	Set: {
+		type: Boolean,
+		default: false,
+	},
 	ServerID: {
 		type:   String,
 		required: true,
@@ -21,6 +25,10 @@ const niveles = new Schema({
 		type: Number,
 		default: 100,
 	},
+	ChannelSend: {
+		type: String,
+		default: 'Not defined',
+	}
 })
 
 module.exports = model('Niveles', niveles)
