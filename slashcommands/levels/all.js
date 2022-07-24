@@ -204,14 +204,23 @@ const command = {
 		if (subcmdgroup === 'admins') {
 			const subcmd = interaction.options.getSubcommand()
 			if (subcmd === 'set') {
-				await seting.findOneAndUpdate(
-					{
+				const data = await seting.findOne({ ServerID: interaction.guildId })
+				if (data) {
+					await seting.findOneAndUpdate(
+						{
+							ServerID: interaction.guildId,
+						},
+						{
+							Set: interaction.options.getString('on-off') === 'true' ? true : false,
+						},
+					)
+				} else {
+					const newdb = new seting({
 						ServerID: interaction.guildId,
-					},
-					{
-						Set: interaction.options.getString('on-off') === 'true' ? true : false,
-					},
-				)
+						Set: interaction.options.getString('on-off') === 'true' ? 'true' : 'false',
+					})
+					await newdb.save()
+				}
 				const embed = new MessageEmbed()
 					.setTitle('Vale.')
 					.setDescription(`He dejado el sistema establecido como \`${interaction.options.getString('on-off') === 'true' ? 'activado' : 'desactivado' }\` en mi base de datos`)
@@ -221,17 +230,26 @@ const command = {
 
 			if (subcmd === 'channel') {
 				if (!interaction.options.getChannel('canal').type === 'GUILD_TEXT') return interaction.reply({ embeds: [error.setDescription('Selecciona un canal de texto.')], ephemeral: true })
-				await seting.findOneAndUpdate(
-					{
+				const data = await seting.findOne({ ServerID: interaction.guildId })
+				if (data) {
+					await seting.findOneAndUpdate(
+						{
+							ServerID: interaction.guildId,
+						},
+						{
+							ChannelSend: interaction.options.getChannel('canal').id,
+						},
+					)
+				} else {
+					const newdb = new seting({
 						ServerID: interaction.guildId,
-					},
-					{
-						ChannelSend: interaction.options.getChannel('canal'),
-					},
-				)
+						ChannelSend: interaction.options.getChannel('canal').id,
+					})
+					await newdb.save()
+				}
 				const si = new MessageEmbed()
 					.setTitle('Vale.')
-					.setDescription(`He dejado el canal establecido en \`${interaction.options.getChannel('canal')}\` en mi base de datos.`)
+					.setDescription(`He dejado el canal establecido en ${interaction.options.getChannel('canal')} en mi base de datos.`)
 					.setColor('GREEN')
 				interaction.reply({ embeds: [si] })
 			}
