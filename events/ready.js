@@ -1,5 +1,5 @@
 const client = require('../index')
-const { cyan, green, red } = require('colors'),
+const { cyan, green, red, yellow } = require('colors'),
 	mongoose = require('mongoose'),
 	fs = require('fs'),
 	toml = require('toml'),
@@ -35,7 +35,7 @@ client.once('ready', async () => {
 			activities: [
 				'/help',
 				'/invite',
-				'¡SOPHIA 3.1.3!',
+				'¡SOPHIA 3.1.4!',
 				`${client.guilds.cache.size} servidores.`,
 				`${client.guilds.cache.reduce(
 					(prev, guild) => prev + guild.memberCount,
@@ -64,5 +64,5 @@ client.once('ready', async () => {
 
 	client.super.cache.purgeAll()
 
-	console.log('Presencia del bot cargada exitosamente.')
+	console.log(yellow('Presencia del bot cargada exitosamente.'))
 })

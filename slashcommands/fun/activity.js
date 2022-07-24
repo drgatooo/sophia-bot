@@ -2,8 +2,16 @@ const { SlashCommandBuilder } = require('@discordjs/builders')
 const { MessageEmbed } = require('discord.js-light')
 require('moment').locale('es')
 
-module.exports = {
+/**
+* @type {import('../../types/typeslash').Command}
+*/
+
+const command = {
+
+	userPerms: ['SEND_MESSAGES'],
+	botPerms: ['SEND_MESSAGES'],
 	category: 'Diversión',
+
 	data: new SlashCommandBuilder()
 		.setName('activity')
 		.setDescription('Inicia una actividad de discord-together.')
@@ -21,7 +29,13 @@ module.exports = {
 				),
 		),
 
-	async run(client, interaction) {
+	/**
+     *
+     * @param {Client} client
+     * @param {CommandInteraction} interaction
+     */
+
+	 async run(client, interaction) {
 		function error(msg) {
 			return interaction.reply({
 				embeds: [
@@ -61,3 +75,5 @@ module.exports = {
 			})
 	},
 }
+
+module.exports = command
