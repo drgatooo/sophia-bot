@@ -1,6 +1,5 @@
 const { SlashCommandBuilder } = require('@discordjs/builders')
-const { Rank } = require('canvacord')
-const { MessageEmbed, MessageAttachment } = require('discord.js-light')
+const { MessageEmbed } = require('discord.js-light')
 const levels = require('../../models/levels')
 const seting = require('../../models/levels-set')
 const error = new MessageEmbed().setTitle(':x: Error').setColor('RED')
@@ -57,12 +56,12 @@ const command = {
 									},
 									{
 										name: 'desactivar',
-										value: 'false', // se supone que es un boolean, ya, pero la opcion es para un string, por algo existe boloeanOPtion, ese era el error
+										value: 'false',
 									},
 								),
 						),
 				)
-				.addSubcommand((f) =>// el problema es este comando
+				.addSubcommand((f) =>
 					f
 						.setName('channel')
 						.setDescription('Establece un canal donde enviar ls anuncios de los niveles.')
@@ -131,27 +130,33 @@ const command = {
 					})
 				}
 
-				const rankcard = new Rank()
-					.setAvatar(
-						member.user.displayAvatarURL({ size: 2048, format: 'png' }),
-					)
-					.setCurrentXP(datos.XP)
-					.setRequiredXP(datos.Limit)
-					.setLevel(datos.Nivel)
-					.setStatus('online')
-					.setProgressBar('#00FFFF', 'COLOR')
-					.setUsername(member.user.username)
-					.setDiscriminator(member.user.discriminator)
-					.setRank(
-						datosGlobales.findIndex(
-							(datosusuario) => datosusuario.UserID === member.user.id,
-						) + 1,
-					)
 
-				const buffer = await rankcard.build()
-				const archivo = new MessageAttachment(buffer, 'sophia-rank.png')
+				const embed = new MessageEmbed()
+					.setAuthor({ name: member.user.username, iconURL: member.user.displayAvatarURL({ size: 2048, format: 'png' }) })
+					.setTitle('Rank Sophia levels..')
+					.addFields(
+						{
+							name: 'XP:', value: `\`${datos.XP}\``, inline: true,
+						},
+						{
+							name: 'XP REQUERIDA:', value: `\`${datos.Limit}\``, inline: true,
+						},
+						{
+							name: 'NIVEL:', value: `\`${datos.Nivel}\``, inline: true,
+						},
+						{
+							name: '\u200b', value: '\u200b', inline: true,
+						},
+						{
+							name: 'RANK:', value: `${datosGlobales.findIndex((datosusuario) => datosusuario.UserID === member.user.id) + 1}`, inline: true,
+						},
+						{
+							name: '\u200b', value: '\u200b', inline: true,
+						},
+					)
+					.setColor('#00FFFF')
 
-				interaction.reply({ files: [archivo] })
+				interaction.reply({ embeds: [embed] })
 			}
 
 			if (subcmd === 'top') {
