@@ -21,12 +21,12 @@ module.exports = {
 		const language = getLanguage(
 			client,
 			interaction,
-			'calculated',
-			'waitMoment',
-			'statistics',
-			'currentPing',
-			'currentRam',
-			'currentLanguage',
+			'CALCULATED',
+			'WAIT_MOMENT',
+			'STATISTICS',
+			'CURRENT_PING',
+			'CURRENT_RAM',
+			'CURRENT_LANGUAGE',
 		)
 		const ping = Math.round(interaction.client.ws.ping)
 		const embed = new MessageEmbed()

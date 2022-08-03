@@ -11,10 +11,10 @@ module.exports = {
 		.setDescriptionLocalization('en-US', 'Invite the bot to your server'),
 
 	run(client, interaction) {
-		const language = getLanguage(client, interaction, 'thanksForInvitingMe', 'thanksForTheOpportunity', 'invitation')
+		const language = getLanguage(client, interaction, 'THANKS_FOR_INVITING_ME', 'THANKS_FOR_THE_OPPORTUNITY', 'INVITATION')
 		const gracias = new MessageEmbed()
 			.setTitle(language[0])
-			.setDescription(language[1])
+			.setDescription(language[1].replace('{user}', interaction.user.tag))
 			.setTimestamp(new Date())
 			.setImage(client.user.displayAvatarURL({ dynamic: true, size: 256 }))
 			.setColor('#00FFFF')
