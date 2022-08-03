@@ -52,7 +52,7 @@ client.sc = new Discord.Collection();
 	require(`./handlers/${handler}`)(client)
 })
 
-require('./functions/loadLanguage')(client)
+require('./handlers/language')(client)
 
 const { GiveawaysManager } = require('discord-giveaways')
 const manager = new GiveawaysManager(client, {
