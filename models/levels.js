@@ -28,7 +28,7 @@ const niveles = new Schema({
 	ChannelSend: {
 		type: String,
 		default: 'Not defined',
-	}
+	},
 })
 
 module.exports = model('Niveles', niveles)
