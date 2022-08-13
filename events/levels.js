@@ -10,7 +10,7 @@ client.on('messageCreate', async (message) => {
 	const datos = await levels.findOne({ ServerID: message.guild.id, UserID: message.author.id })
 	const data = await seting.findOne({ ServerID: message.guild.id })
 
-	if (data.Set === 'false') return
+	if (data && data.Set === 'false') return
 	let XPRANDOM
 
 	if (message.content.length <= 5) XPRANDOM = Math.floor(Math.random() * 3) + 1
@@ -36,7 +36,7 @@ client.on('messageCreate', async (message) => {
 	const XPTOTAL = datos.XP + XPRANDOM
 
 	if (XPTOTAL >= datos.Limit) {
-		if (data.ChannelSend === 'Not defined') {
+		if (data && data.ChannelSend === 'Not defined') {
 			message.channel.send({
 				content: `**¡Felicitaciones!**, has subido de nivel ${message.author}, tu nuevo nivel es: **${datos.Nivel + 1}**`,
 			})
