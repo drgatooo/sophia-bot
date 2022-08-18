@@ -6,7 +6,7 @@
 	"scripts": {
 		"start": "node .",
 		"uploadChanges": "git pull https://github.com/DomingoDeveloper/sophia-bot.git",
-		"dev": "node .",
+		"dev": "nodemon .",
 		"build": "node slashcommands.js",
 		"eslint": "eslint .",
 		"lint-fix": "eslint . --fix",
@@ -14,7 +14,7 @@
 	},
 	"keywords": [],
 	"owners": "Domingo, Xnayx",
-	"programadores": "Domingo, Risto, Xnayx, Dirquel, Santer",
+	"programadores": "Domingo, Risto, Xnayx",
 	"license": "ISC",
 	"dependencies": {
 		"@androz2091/discord-invites-tracker": "^1.1.0",

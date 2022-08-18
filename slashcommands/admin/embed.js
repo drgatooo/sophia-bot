@@ -1,6 +1,7 @@
 /* eslint-disable no-shadow */
 const { SlashCommandBuilder } = require('@discordjs/builders')
 const { MessageEmbed, MessageActionRow, MessageButton } = require('discord.js-light')
+const getLanguage = require('../../functions/getLanguage')
 
 /**
  * @type {import('../../types/typeslash').Command}
@@ -14,28 +15,35 @@ const command = {
 	data: new SlashCommandBuilder()
 		.setName('embed')
 		.setDescription('Envia un mensaje en embed')
+		.setDescriptionLocalization('en-US', 'Send a embed message')
 		.addStringOption((o) =>
 			o
 				.setName('descripcion')
 				.setDescription('Descripción del embed.')
+				.setNameLocalization('en-US', 'description')
+				.setDescriptionLocalization('en-US', 'Description of the embed')
 				.setRequired(true),
 		)
 		.addStringOption((o) =>
-			o.setName('titulo').setDescription('Titulo del embed.').setRequired(false),
+			o.setName('titulo').setDescription('Titulo del embed.').setRequired(false).setNameLocalization('en-US', 'title').setDescriptionLocalization('en-US', 'Title of the embed'),
 		)
 		.addStringOption((o) =>
-			o.setName('footer').setDescription('Footer del embed.').setRequired(false),
+			o.setName('footer').setDescription('Footer del embed.').setRequired(false).setDescriptionLocalization('en-US', 'Footer of the embed'),
 		)
 		.addStringOption((o) =>
 			o
 				.setName('imagen')
 				.setDescription('Imagen que llevará el embed.')
+				.setNameLocalization('en-US', 'image')
+				.setDescriptionLocalization('en-US', 'Image that will carry the embed')
 				.setRequired(false),
 		)
 		.addChannelOption((o) =>
 			o
 				.setName('canal')
 				.setDescription('Canal a enviar el embed.')
+				.setNameLocalization('en-US', 'channel')
+				.setDescriptionLocalization('en-US', 'Channel where the embed will be sent')
 				.setRequired(false),
 		),
 
@@ -48,6 +56,7 @@ const command = {
 	async run(client, interaction) {
 		const args = interaction.options
 		const canal = args.getChannel('canal') || interaction.channel
+		const language = getLanguage(client, interaction, 'TEXT_CHANNEL_WAS_EXPECTED', 'ENTER_A_VALID_IMAGE_URL', 'LITTLE_QUESTION', 'SEND_EMBED_USING_EVERYONE?', 'WITH_EVERYONE', 'WITHOUT_EVERYONE', 'SENDED', 'YOUR_MESSAGE_SENDED')
 
 		if (canal) {
 			if (canal.type !== 'GUILD_TEXT') {
@@ -55,7 +64,7 @@ const command = {
 					embeds: [
 						new MessageEmbed()
 							.setTitle(':x: Error')
-							.setDescription('El canal debe ser de texto.')
+							.setDescription(language[0])
 							.setColor('RED'),
 					],
 					ephemeral: true,
@@ -110,7 +119,7 @@ const command = {
 					embeds: [
 						new MessageEmbed()
 							.setTitle(':x: Error')
-							.setDescription('Ingresa una url de imagen valida.')
+							.setDescription(language[1])
 							.setColor('RED'),
 					],
 					ephemeral: true,
@@ -120,25 +129,25 @@ const command = {
 		}
 
 		const pregunta = new MessageEmbed()
-			.setTitle('<a:HeartBlack:878324191559032894> Preguntita...')
-			.setDescription('¿Deseas que el embed lo envie mencionando a everyone?')
+			.setTitle(`<a:HeartBlack:878324191559032894> ${language[2]}..`)
+			.setDescription(language[3])
 			.setColor('#00FFFF')
 
 		const row = new MessageActionRow().addComponents(
 			new MessageButton()
-				.setLabel('Con everyone')
+				.setLabel(language[4])
 				.setStyle('DANGER')
 				.setCustomId('everyone'),
 
 			new MessageButton()
-				.setLabel('Sin everyone')
+				.setLabel(language[5])
 				.setStyle('PRIMARY')
 				.setCustomId('sineveryone'),
 		)
 
 		const enviado = new MessageEmbed()
-			.setTitle('<a:TPato_Check:911378912775397436> Enviado.')
-			.setDescription('Tu mensaje fue enviado!')
+			.setTitle(`<a:TPato_Check:911378912775397436> ${language[6]}`)
+			.setDescription(language[7])
 			.setColor('GREEN')
 
 		await interaction.reply({
