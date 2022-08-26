@@ -30,7 +30,7 @@ const command = {
 	async run(client, interaction) {
 		const err = new MessageEmbed().setTitle(':x: Error').setColor('RED')
 		const args = interaction.options
-		let money = args.getString('cantidad')
+		let money = parseInt(args.getString('cantidad'))
 
 		const resultsWallet = await schema.findOne({
 			guildid: interaction.guild.id,
