@@ -14,7 +14,7 @@ module.exports = {
 			o
 				.setName('texto')
 				.setDescription('Texto que enviará el bot.')
-				.setNameLocalization('text')
+				.setNameLocalization('en-US', 'text')
 				.setDescriptionLocalization('en-US', 'Text that the bot will send')
 				.setRequired(true),
 		),
