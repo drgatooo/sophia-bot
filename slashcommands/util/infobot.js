@@ -20,7 +20,7 @@ const command = {
 	data: new SlashCommandBuilder()
 		.setName('infobot')
 		.setDescription('Revisa la información general de Sophia')
-		.setDescriptionLocalizations({ 'en-US': 'Review Sophia\'s general information' }),
+		.setDescriptionLocalizations({ 'en-US': 'View Sophia\'s general information' }),
 
 	/**
 	 *
@@ -29,7 +29,7 @@ const command = {
 	 */
 
 	async run(client, interaction) {
-		const language = getLanguage(client, interaction, ['INVITATION', 'SUPPORT_SERVER', 'SOPHIA_INFO', 'WELCOME_TO_ABOUT_ME', 'NAME', 'DISCRIMINATOR', 'OWNERS', 'DEVELOPERS', 'CREATION_DATE', 'UPTIME', 'PROGRAMMING_LANGUAGE', 'PACKAGE', 'SERVERS', 'USERS', 'TOTAL_COMMANDS'])
+		const language = getLanguage(client, interaction, 'INVITATION', 'SUPPORT_SERVER', 'SOPHIA_INFO', 'WELCOME_TO_ABOUT_ME', 'NAME', 'DISCRIMINATOR', 'OWNERS', 'DEVELOPERS', 'CREATION_DATE', 'UPTIME', 'PROGRAMMING_LANGUAGE', 'PACKAGE', 'SERVERS', 'USERS', 'TOTAL_COMMANDS')
 		const row = new MessageActionRow().addComponents(
 			new MessageButton()
 				.setLabel(language[0])
