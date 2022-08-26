@@ -33,7 +33,7 @@ const command = {
 			guildid: interaction.guild.id,
 			userid: interaction.user.id,
 		})
-		let money = interaction.options.getString('cantidad')
+		let money = parseInt(interaction.options.getString('cantidad'))
 
 		const err = new MessageEmbed().setTitle(':x: Error').setColor('RED')
 
@@ -42,7 +42,7 @@ const command = {
 			return interaction.reply({ embeds: [err], ephemeral: true })
 		}
 		if (['all', 'max'].includes(money)) money = resultsBank.money
-		if (money && parseInt(interaction.options.getString('cantidad')) < 1) {
+		if (money && money < 1) {
 			err.setDescription('Debes poner un numero mayor a 0!')
 			return interaction.reply({ embeds: [err], ephemeral: true })
 		}
