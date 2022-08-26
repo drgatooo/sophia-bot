@@ -1,6 +1,7 @@
 /* eslint-disable no-shadow */
+/* eslint-disable no-unused-vars */
 const { SlashCommandBuilder } = require('@discordjs/builders')
-const { MessageEmbed, MessageActionRow, MessageButton } = require('discord.js-light')
+const { MessageEmbed, MessageActionRow, MessageButton, CommandInteraction } = require('discord.js-light')
 const getLanguage = require('../../functions/getLanguage')
 
 /**
@@ -59,7 +60,7 @@ const command = {
 		const language = getLanguage(client, interaction, 'TEXT_CHANNEL_WAS_EXPECTED', 'ENTER_A_VALID_IMAGE_URL', 'LITTLE_QUESTION', 'SEND_EMBED_USING_EVERYONE?', 'WITH_EVERYONE', 'WITHOUT_EVERYONE', 'SENDED', 'YOUR_MESSAGE_SENDED')
 
 		if (canal) {
-			if (canal.type !== 'GUILD_TEXT') {
+			if (!['GUILD_TEXT', 'GUILD_NEWS'].includes(canal.type)) {
 				return interaction.reply({
 					embeds: [
 						new MessageEmbed()
@@ -71,17 +72,15 @@ const command = {
 				})
 			}
 		}
-		const title = args.getString('titulo')
+		const title = args.getString('titulo') || null
 		const description = args.getString('descripcion')
-		const footer = args.getString('footer')
+		const footer = args.getString('footer') || null
 		const imagen = args.getString('imagen')
 
 		const log = new MessageEmbed()
 			.setTitle('Comando Embed usado.')
 			.addFields(
-				{ name: 'Title:', value: title, inline: true },
 				{ name: 'Description:', value: description, inline: true },
-				{ name: 'Footer:', value: footer, inline: true },
 				{
 					name: 'Autor:',
 					value: `${client.users.cache.get(interaction.user.id).tag} (${
@@ -102,13 +101,17 @@ const command = {
 			.setColor('#00FFFF')
 			.setDescription(`${description}`)
 
-		if (title) embed.setTitle(title)
+		if (title) {
+			embed.setTitle(title)
+			log.addField({ name: 'Title:', value: title, inline: true })
+		}
 
 		if (footer) {
 			embed.setFooter({
 				text: footer,
 				iconURL: interaction.guild.iconURL({ dynamic: true }),
 			})
+			log.addField({ name: 'Footer:', value: footer, inline: true })
 		}
 		if (imagen) {
 			const linkRegex = new RegExp(
@@ -178,7 +181,7 @@ const command = {
 				})
 				client.channels.cache.get('990747964337160192').send({ embeds: [log] })
 			}
-			if (i.customId === 'sineveryone') {
+			else if (i.customId === 'sineveryone') {
 				canal.send({ embeds: [embed] })
 				interaction.editReply({
 					embeds: [enviado],
