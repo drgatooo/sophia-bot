@@ -1,5 +1,6 @@
+/* eslint-disable no-unused-vars */
 const { SlashCommandBuilder } = require('@discordjs/builders')
-const { MessageEmbed, MessageActionRow, MessageButton } = require('discord.js-light')
+const { MessageEmbed, MessageActionRow, MessageButton, CommandInteraction } = require('discord.js-light')
 
 /**
  * @type {import('../../types/typeslash').Command}
@@ -72,7 +73,7 @@ const command = {
 					})
 				}
 
-				if (!canal.type !== 'GUILD_TEXT') {
+				if (!['GUILD_TEXT', 'GUILD_NEWS'].includes(canal.type)) {
 					return interaction.editReply({
 						embeds: [
 							new MessageEmbed()
