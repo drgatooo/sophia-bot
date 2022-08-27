@@ -14,8 +14,14 @@ const command = {
 	data: new SlashCommandBuilder()
 		.setName('avatar')
 		.setDescription('Mira tu avatar o el de un usuario.')
+		// .setDescriptionLocalization('en-US', 'View your avatar or that of another user')
 		.addUserOption((o) =>
-			o.setName('usuario').setDescription('Usuario a mirar').setRequired(false),
+			o
+				.setName('usuario')
+				.setDescription('Usuario a mirar')
+				/* .setNameLocalization('en-US', 'user')
+				.setDescriptionLocalization('en-US', 'User whose avatar you want to see')*/
+				.setRequired(false),
 		),
 
 	async run(client, interaction) {
