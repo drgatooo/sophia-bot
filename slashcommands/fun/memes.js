@@ -12,6 +12,7 @@ const command = {
 	data: new SlashCommandBuilder()
 		.setName('memes')
 		.setDescription('Diviertete con memes!'),
+	// .setDescriptionLocalization('en-US', 'Have fun with memes'),
 
 	/**
 	 *
