@@ -1,5 +1,6 @@
 const { SlashCommandBuilder } = require('@discordjs/builders')
 const { MessageEmbed, MessageActionRow, MessageButton } = require('discord.js-light')
+const getLanguage = require('../../functions/getLanguage')
 
 /**
  * @type {import('../../types/typeslash').Command}
@@ -17,23 +18,18 @@ const command = {
 			o.setName('usuario').setDescription('Usuario a mirar').setRequired(false),
 		),
 
-	/**
-	 *
-	 * @param {Client} client
-	 * @param {CommandInteraction} interaction
-	 */
-
 	async run(client, interaction) {
+		const language = getLanguage(client, interaction, 'LITLE_QUESTION', 'AVATAR_IN_DM_OR_HERE', 'DM', 'HERE', 'AVATAR_OF', 'AVATAR_REQUESTED_BY', 'READY', 'SENDED', 'ERROR', 'OPEN_DM')
 		const User = interaction.options.getUser('usuario') || interaction.user
 
 		const pregunta = new MessageEmbed()
-			.setTitle('Una preguntita... <a:cora:925477856711180379>')
-			.setDescription('¿ Quieres que te lo muestre aqui, o te lo mando a tu MD ?')
+			.setTitle(`${language[0]}... <a:cora:925477856711180379>`)
+			.setDescription(language[1])
 			.setColor('#00FFFF')
 		const row = new MessageActionRow().addComponents(
-			new MessageButton().setLabel('MD').setStyle('SUCCESS').setCustomId('md'),
+			new MessageButton().setLabel(language[2]).setStyle('SUCCESS').setCustomId('md'),
 
-			new MessageButton().setLabel('Aquí').setStyle('SUCCESS').setCustomId('aqui'),
+			new MessageButton().setLabel(language[3]).setStyle('SUCCESS').setCustomId('aqui'),
 		)
 
 		await interaction.reply({
@@ -55,10 +51,10 @@ const command = {
 					.send({
 						embeds: [
 							new MessageEmbed()
-								.setTitle('Avatar de ' + User.username)
+								.setTitle(language[4].replace('{user}', User.username))
 								.setColor('#00FFFF')
 								.setFooter({
-									text: `Avatar solicitado por: ${interaction.user.username}`,
+									text: language[5].replace('{user}', interaction.user.username),
 									iconURL: interaction.user.displayAvatarURL({
 										dynamic: true,
 									}),
@@ -76,8 +72,8 @@ const command = {
 						interaction.followUp({
 							embeds: [
 								new MessageEmbed()
-									.setTitle('✅ Listo')
-									.setDescription('Enviado')
+									.setTitle(`✅ ${language[6]}`)
+									.setDescription(language[7])
 									.setColor('GREEN'),
 							],
 							ephemeral: true,
@@ -87,8 +83,8 @@ const command = {
 						interaction.followUp({
 							embeds: [
 								new MessageEmbed()
-									.setTitle(':x: Error')
-									.setDescription('Abre MD')
+									.setTitle(`:x: ${language[8]}`)
+									.setDescription(language[9])
 									.setColor('RED'),
 							],
 							ephemeral: true,
@@ -99,10 +95,10 @@ const command = {
 				interaction.channel.send({
 					embeds: [
 						new MessageEmbed()
-							.setTitle('Avatar de ' + User.username)
+							.setTitle(language[4].replace('{user}', User.username))
 							.setColor('#00FFFF')
 							.setFooter({
-								text: `Avatar solicitado por: ${interaction.user.username}`,
+								text: language[5].replace('{user}', interaction.user.username),
 								iconURL: interaction.user.displayAvatarURL({
 									dynamic: true,
 								}),
@@ -119,8 +115,8 @@ const command = {
 				interaction.editReply({
 					embeds: [
 						new MessageEmbed()
-							.setTitle('Listo ✅')
-							.setDescription('Avatar enviado al canal.')
+							.setTitle(`${language[6]} ✅`)
+							.setDescription(language[7])
 							.setColor('GREEN'),
 					],
 					components: [],
