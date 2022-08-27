@@ -16,35 +16,44 @@ const command = {
 	data: new SlashCommandBuilder()
 		.setName('embed')
 		.setDescription('Envia un mensaje en embed')
-		.setDescriptionLocalization('en-US', 'Send a embed message')
+		// .setDescriptionLocalization('en-US', 'Send a embed message')
 		.addStringOption((o) =>
 			o
 				.setName('descripcion')
 				.setDescription('Descripción del embed.')
-				.setNameLocalization('en-US', 'description')
-				.setDescriptionLocalization('en-US', 'Description of the embed')
+				/* .setNameLocalization('en-US', 'description')
+				.setDescriptionLocalization('en-US', 'Description of the embed')*/
 				.setRequired(true),
 		)
 		.addStringOption((o) =>
-			o.setName('titulo').setDescription('Titulo del embed.').setRequired(false).setNameLocalization('en-US', 'title').setDescriptionLocalization('en-US', 'Title of the embed'),
+			o
+				.setName('titulo')
+				.setDescription('Titulo del embed.')
+				.setRequired(false)
+				/* .setNameLocalization('en-US', 'title')
+				.setDescriptionLocalization('en-US', 'Title of the embed')*/,
 		)
 		.addStringOption((o) =>
-			o.setName('footer').setDescription('Footer del embed.').setRequired(false).setDescriptionLocalization('en-US', 'Footer of the embed'),
+			o
+				.setName('footer')
+				.setDescription('Footer del embed.')
+				.setRequired(false)
+				/* .setDescriptionLocalization('en-US', 'Footer of the embed')*/,
 		)
 		.addStringOption((o) =>
 			o
 				.setName('imagen')
 				.setDescription('Imagen que llevará el embed.')
-				.setNameLocalization('en-US', 'image')
-				.setDescriptionLocalization('en-US', 'Image that will carry the embed')
+				/* .setNameLocalization('en-US', 'image')
+				.setDescriptionLocalization('en-US', 'Image that will carry the embed') */
 				.setRequired(false),
 		)
 		.addChannelOption((o) =>
 			o
 				.setName('canal')
 				.setDescription('Canal a enviar el embed.')
-				.setNameLocalization('en-US', 'channel')
-				.setDescriptionLocalization('en-US', 'Channel where the embed will be sent')
+				/* .setNameLocalization('en-US', 'channel')
+				.setDescriptionLocalization('en-US', 'Channel where the embed will be sent')*/
 				.setRequired(false),
 		),
 

@@ -7,8 +7,8 @@ module.exports = {
 	botPerms: 'ADMINISTRATOR',
 	data: new SlashCommandBuilder()
 		.setName('invite')
-		.setDescription('Invita el bot a tu servidor')
-		.setDescriptionLocalization('en-US', 'Invite the bot to your server'),
+		.setDescription('Invita el bot a tu servidor'),
+	// .setDescriptionLocalization('en-US', 'Invite the bot to your server'),
 
 	run(client, interaction) {
 		const language = getLanguage(client, interaction, 'THANKS_FOR_INVITING_ME', 'THANKS_FOR_THE_OPPORTUNITY', 'INVITATION')

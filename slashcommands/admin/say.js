@@ -9,13 +9,13 @@ module.exports = {
 	data: new SlashCommandBuilder()
 		.setName('say')
 		.setDescription('Envia un mensaje a traves del bot.')
-		.setDescriptionLocalization('en-US', 'Send a message using the bot')
+		// .setDescriptionLocalization('en-US', 'Send a message using the bot')
 		.addStringOption((o) =>
 			o
 				.setName('texto')
 				.setDescription('Texto que enviará el bot.')
-				.setNameLocalization('en-US', 'text')
-				.setDescriptionLocalization('en-US', 'Text that the bot will send')
+				/* .setNameLocalization('en-US', 'text')
+				.setDescriptionLocalization('en-US', 'Text that the bot will send')*/
 				.setRequired(true),
 		),
 

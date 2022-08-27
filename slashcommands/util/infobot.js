@@ -19,8 +19,8 @@ const command = {
 
 	data: new SlashCommandBuilder()
 		.setName('infobot')
-		.setDescription('Revisa la información general de Sophia')
-		.setDescriptionLocalizations({ 'en-US': 'View Sophia\'s general information' }),
+		.setDescription('Revisa la información general de Sophia'),
+	// .setDescriptionLocalizations({ 'en-US': 'View Sophia\'s general information' })
 
 	/**
 	 *
