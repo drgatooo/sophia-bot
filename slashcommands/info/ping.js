@@ -7,8 +7,8 @@ module.exports = {
 	category: 'Información',
 	data: new SlashCommandBuilder()
 		.setName('ping')
-		.setDescription('Comando ping')
-		.setDescriptionLocalization('en-US', 'Ping command'),
+		.setDescription('Comando ping'),
+	// .setDescriptionLocalization('en-US', 'Ping command'),
 
 	/**
 	 * @param {Client} client
