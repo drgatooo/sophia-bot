@@ -6,3 +6,6 @@ DM,MD,DM
 READY,¡Listo!,Ready!
 ERROR,Error,Error
 OPEN_DM,Habilita los mensajes directos (MD),Enable direct messages (DM)
+REASON,Razón,Reason
+MEMBER,Miembro,Member
+STAFF,Staff,Staff
