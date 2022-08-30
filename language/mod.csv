@@ -8,3 +8,7 @@ I_CANT_BAN_USER,No puedo banear a ese usuario,I can't ban that user,
 MEMBER_BANNED,Miembro baneado,Member banned
 USER_SUCCESSFULLY_BANNED,El usuario fue baneado con éxito del servidor,The user was successfully banned from the server
 ERROR_OCURRED_DEVELOPERS_ALREADY_NOTIFIED,Ocurrio un error&44 ya fue notificado a mis desarrolladores.,An error occurred&44 my developers have already been notified.
+MUST_WRITE_INTEGER,Debes escribir un numero entero!,You must write an integer!
+THERE_NOT_MESSAGE_DELETE,No hay ningún mensaje para borrar.,There is no message to delete.
+HAVE_BEEN_DELETED,se han borrado,Have been deleted
+MESSAGES_OLDER_CANT_DELETED,Los mensajes de 14 días de antigüedad no podrán ser borrados.,Messages older than 14 days cannot be deleted.

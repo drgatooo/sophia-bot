@@ -1,16 +1,22 @@
 const { SlashCommandBuilder } = require('@discordjs/builders')
 const { MessageEmbed } = require('discord.js-light')
+const getLanguage = require('../../functions/getLanguage')
 
 module.exports = {
 	userPerms: ['MANAGE_MESSAGES'],
 	category: 'Moderación',
 	data: new SlashCommandBuilder()
 		.setName('clear')
-		.setDescription('borra una cantidad de mensajes')
+		.setDescription('Borra una cantidad de mensajes')
+		// .setDescriptionLocalizations('en-US', 'Delete a number of messages')
 		.addIntegerOption((o) =>
 			o
 				.setName('cantidad')
 				.setDescription('escribe un cantidad menor a 100.')
+				/* .setNameLocalization('en-US', 'amount')
+				.setDescriptionLocalization('en-US', 'Write an amount')*/
+				.setMaxValue(100)
+				.setMinValue(1)
 				.setRequired(true),
 		),
 
@@ -28,29 +34,28 @@ module.exports = {
 		}
 		const args = interaction.options
 		const cantidad = +args.getInteger('cantidad')
-		if (!Number.isInteger(cantidad)) return error('Debes escribir un numero entero!')
-		if (cantidad > 100 || cantidad < 1)
-			return error('Escribe un numero valido! (menor a 100 y mayor a 1)')
+		const language = getLanguage(client, interaction, 'MUST_WRITE_INTEGER', 'THERE_NOT_MESSAGE_DELETE', 'SUCCESSFUL', 'HAVE_BEEN_DELETED', 'MESSAGES', 'MESSAGES_OLDER_CANT_DELETED')
+		if (!Number.isInteger(cantidad)) return error(language[0])
 		interaction.channel
 			.bulkDelete(
 				await interaction.channel.messages.fetch({ limit: cantidad }),
 				true,
 			)
 			.then(async (c) => {
-				if (c.size < 1) return error('No hay ningún mensaje para borrar.')
+				if (c.size < 1) return error(language[1])
 				interaction.reply({
 					embeds: [
 						new MessageEmbed()
-							.setTitle('<a:TPato_Check:911378912775397436> Exito!')
+							.setTitle('<a:TPato_Check:911378912775397436> ' + language[2])
 							.setDescription(
-								'se han borrado `' +
+								language[3] + ' `' +
 									c.size +
 									'/' +
 									cantidad.toString() +
-									'` mensajes.',
+									'` ' + language[4].toLowerCase(),
 							)
 							.setFooter({
-								text: 'Los mensajes de 14 días de antigüedad, no podrán ser borrados.',
+								text: language[5],
 							})
 							.setColor('GREEN'),
 					],
