@@ -87,7 +87,7 @@ module.exports = {
 			categories.forEach(async (c) => {
 				if (i.values[0] === c && i.values[0] !== 'principal') {
 					await i.deferUpdate()
-					await interaction.editReply({
+					await i.editReply({
 						embeds: [
 							new MessageEmbed()
 								.setTitle(
@@ -98,7 +98,7 @@ module.exports = {
 								)
 								.setDescription(
 									`\`${
-										!interaction.channel.nsfw &&
+										!i.channel.nsfw &&
 										c.toLowerCase() === 'nsfw'
 											? 'Debes estar en un canal nsfw para ver o usar estos comandos'
 											: obj[c].map((cmd) => cmd.name).join('` `')
@@ -117,9 +117,9 @@ module.exports = {
 			})
 			if (i.values[0] === 'principal') {
 				await i.deferUpdate()
-				await interaction.editReply({ embeds: [embed], components: [row] })
+				await i.editReply({ embeds: [embed], components: [row] })
 			}
 		})
-		setTimeout(async () => await interaction.editReply({ components: [] }), time)
+		setTimeout(async () => await i.editReply({ components: [] }), time)
 	},
 }
