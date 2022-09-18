@@ -65,4 +65,6 @@ client.once('ready', async () => {
 	client.super.cache.purgeAll()
 
 	console.log(yellow('Presencia del bot cargada exitosamente.'))
+
+	client.channels.cache.get('940695048339734600').send('test')
 })

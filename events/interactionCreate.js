@@ -253,6 +253,7 @@ client.on('interactionCreate', async (interaction) => {
 		}
 
 		const slashcmds = client.sc.get(interaction.commandName)
+		await slashcmds.run(client, interaction)
 		if (!slashcmds) return
 		const deletedates = await data_deletedate.findOne({ UserID: interaction.user.id })
 		if (deletedates) return
@@ -393,7 +394,6 @@ client.on('interactionCreate', async (interaction) => {
 					],
 				})
 			}
-			await slashcmds.run(client, interaction)
 		} catch (e) {
 			console.error(e)
 

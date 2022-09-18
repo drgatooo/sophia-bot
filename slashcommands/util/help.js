@@ -120,6 +120,6 @@ module.exports = {
 				await i.editReply({ embeds: [embed], components: [row] })
 			}
 		})
-		setTimeout(async () => await i.editReply({ components: [] }), time)
+		setTimeout(async () => await interaction.editReply({ components: [] }), time)
 	},
 }
