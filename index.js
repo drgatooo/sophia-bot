@@ -32,6 +32,7 @@ const toml = require('toml')
 const config = toml.parse(fs.readFileSync('./config/config.toml', 'utf-8'))
 const token = config.token
 const { DiscordTogether } = require('discord-together')
+const mongoose = require('mongoose')
 
 const { cacheManager, cacheManagerDatabase } = require('./cacheManager')
 client.super = {
@@ -53,7 +54,14 @@ client.sc = new Discord.Collection();
 })
 
 require('./handlers/language')(client)
-
+mongoose.connect(config.MongoDB_URL, {
+	useNewUrlParser: true,
+	useUnifiedTopology: true,
+}).then(() => {
+	console.log(green('conectado a MongoDB'))
+}).catch((err) => {
+	console.log(red(err))
+})
 const { GiveawaysManager } = require('discord-giveaways')
 const manager = new GiveawaysManager(client, {
 	storage: './config/giveaways.json',

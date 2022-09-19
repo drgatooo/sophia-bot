@@ -9,6 +9,7 @@ const command = {
 	userPerms: ['MANAGE_GUILD'],
 	botPerms: ['MANAGE_GUILD'],
 	category: 'Configuración',
+	isMaintenance: true,
 
 	data: new SlashCommandBuilder()
 		.setName('setinvites')

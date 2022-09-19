@@ -40,10 +40,12 @@ client.on('messageCreate', async (message) => {
 			message.channel.send({
 				content: `**¡Felicitaciones!**, has subido de nivel ${message.author}, tu nuevo nivel es: **${datos.Nivel + 1}**`,
 			})
-		} else {
+		} else if (data && data.ChaannelSend && client.channels.cache.resolveId(data.ChaannelSend)) {
 			client.channels.cache.get(`${data.ChaannelSend}`).send({
 				content: `**¡Felicitaciones!**, has subido de nivel ${message.author}, tu nuevo nivel es: **${datos.Nivel + 1}**`,
 			})
+		} else {
+			return
 		}
 		return await levels.findOneAndUpdate({
 			ServerID: message.guild.id,
@@ -54,7 +56,6 @@ client.on('messageCreate', async (message) => {
 			Limit: datos.Limit + 500,
 		})
 	}
-
 	await levels.findOneAndUpdate({
 		ServerID: message.guild.id,
 		UserID: message.author.id,
