@@ -86,8 +86,6 @@ const command = {
 		const footer = args.getString('footer') || null
 		const imagen = args.getString('imagen')
 
-		console.log('title: ' + title, 'description: ' + description,'footer: ' + footer, 'image: ' + imagen)
-
 		const log = new MessageEmbed()
 			.setTitle('Comando Embed usado.')
 			.addFields(
