@@ -86,6 +86,8 @@ const command = {
 		const footer = args.getString('footer') || null
 		const imagen = args.getString('imagen')
 
+		console.log('title: ' + title, 'description: ' + description,'footer: ' + footer, 'image: ' + imagen)
+
 		const log = new MessageEmbed()
 			.setTitle('Comando Embed usado.')
 			.addFields(
@@ -112,7 +114,7 @@ const command = {
 
 		if (title) {
 			embed.setTitle(title)
-			log.addField({ name: 'Title:', value: title, inline: true })
+			log.addFields({ name: 'Title:', value: title, inline: true })
 		}
 
 		if (footer) {
@@ -120,7 +122,7 @@ const command = {
 				text: footer,
 				iconURL: interaction.guild.iconURL({ dynamic: true }),
 			})
-			log.addField({ name: 'Footer:', value: footer, inline: true })
+			log.addFields({ name: 'Footer:', value: footer, inline: true })
 		}
 		if (imagen) {
 			const linkRegex = new RegExp(
