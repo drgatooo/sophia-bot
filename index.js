@@ -5,15 +5,15 @@ const client = new Discord.Client({
 	makeCache: Discord.Options.cacheWithLimits({
 		ApplicationCommandManager: 100, // guild.commands
 		BaseGuildEmojiManager: 10, // guild.emojis
-		ChannelManager: 150, // client.channels
-		GuildChannelManager: 150, // guild.channels
+		ChannelManager: Infinity, // client.channels
+		GuildChannelManager: Infinity, // guild.channels
 		GuildBanManager: 20, // guild.bans
 		GuildInviteManager: 10, // guild.invites
 		GuildManager: Infinity, // client.guilds
 		GuildMemberManager: 1000, // guild.members
 		GuildStickerManager: 0, // guild.stickers
 		GuildScheduledEventManager: 0, // guild.scheduledEvents
-		MessageManager: 100, // channel.messages
+		MessageManager: Infinity, // channel.messages
 		PermissionOverwriteManager: 30, // channel.permissionOverwrites
 		PresenceManager: 0, // guild.presences
 		ReactionManager: 12, // message.reactions
@@ -22,11 +22,12 @@ const client = new Discord.Client({
 		StageInstanceManager: 0, // guild.stageInstances
 		ThreadManager: 0, // channel.threads
 		ThreadMemberManager: 0, // threadchannel.members
-		UserManager: 1000, // client.users
+		UserManager: Infinity, // client.users
 		VoiceStateManager: 0, // guild.voiceStates
 	}),
 	intents: [130815],
 })
+
 const fs = require('fs')
 const toml = require('toml')
 const config = toml.parse(fs.readFileSync('./config/config.toml', 'utf-8'))
@@ -48,20 +49,23 @@ client.queue = new Map()
 client.language = new Discord.Collection()
 module.exports = client
 
-client.sc = new Discord.Collection();
-['event'].forEach((handler) => {
+client.sc = new Discord.Collection()
+;['event'].forEach((handler) => {
 	require(`./handlers/${handler}`)(client)
 })
 
 require('./handlers/language')(client)
-mongoose.connect(config.MongoDB_URL, {
-	useNewUrlParser: true,
-	useUnifiedTopology: true,
-}).then(() => {
-	console.log(green('conectado a MongoDB'))
-}).catch((err) => {
-	console.log(red(err))
-})
+mongoose
+	.connect(config.MongoDB_URL, {
+		useNewUrlParser: true,
+		useUnifiedTopology: true,
+	})
+	.then(() => {
+		console.log(green('conectado a MongoDB'))
+	})
+	.catch((err) => {
+		console.log(red(err))
+	})
 const { GiveawaysManager } = require('discord-giveaways')
 const manager = new GiveawaysManager(client, {
 	storage: './config/giveaways.json',
