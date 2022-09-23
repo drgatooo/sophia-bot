@@ -20,7 +20,7 @@ module.exports = {
 			},
 			{
 				question: 'Quien es el dueño de amazon?',
-				answer: 'jeff Bezos',
+				answer: 'jeff bezos',
 			},
 		]
 
@@ -40,18 +40,18 @@ module.exports = {
 
 			console.log(actualQuestion)
 
-			if (actualQuestion === questions.length - 1) {
-				console.log('end')
-				collector.stop('gameEnded')
-				return interaction.editReply({
-					embeds: [
-						embed.setDescription('fin del juego.'),
-					],
-				})
-			}
-
 			if (msg.content.toLowerCase().includes(questions[actualQuestion].answer)) {
+				if (actualQuestion === questions.length - 1) {
+					console.log('end')
+					collector.stop('gameEnded')
+					return interaction.editReply({
+						embeds: [
+							embed.setDescription('fin del juego.'),
+						],
+					})
+				}
 				actualQuestion++
+
 				await interaction.editReply({
 					embeds: [
 						embed.setDescription('**pregunta:** ' + questions[actualQuestion].question),
