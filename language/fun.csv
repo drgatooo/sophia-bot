@@ -2,3 +2,9 @@ key,es-ES,en-US
 AVATAR_IN_DM_OR_HERE,¿Quieres que muestre el avatar aquí o te lo envio al MD?,Do you want me to show the avatar here or send it to your DM?
 AVATAR_OF,Avatar de {user},{user}'s avatar
 AVATAR_REQUESTED_BY,Avatar solicitado por {user},Avatar requested by {user}
+RESPONSES_EIGHT_BALL,Sí|No|Tal vez|Puedes ser|No en absoluto|Mejor pregunta otra cosa|Mmmm... no lo sé|Eso no se pregunta...|No lo sé&44 tú dime,Yes|No|Maybe|Could be|Not at all|Better ask something else|Mmmm... I don't know|You don't ask that...|I don't know&44 you tell me
+YOU_CANT_PUT_TEXT_MORE,¡No puedes poner textos de más de {max} caracteres!,You can't put texts of more than {max} characters!
+YOU_CANT_PUT_LINKS_IN_QUESTION,¡No puedes poner links en la pregunta!,You can't put links in the question
+YOUR_QUESTION,Tu pregunta es,Your question is
+MY_ANSWER_TO_QUESTION,Mi respuesta a la pregunta es,My answer to the question is
+EIGHT_BALL,Bola 8,8 ball
