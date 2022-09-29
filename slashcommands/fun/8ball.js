@@ -6,8 +6,7 @@ require('moment').locale('es')
 module.exports = {
 	category: 'Diversión',
 	data: new SlashCommandBuilder()
-		.setName('bola8')
-		.setNameLocalization('en-US', '8ball')
+		.setName('8ball')
 		.setDescription('Pregúntale algo de si o no al bot.')
 		.setDescriptionLocalization('en-US', 'Ask the bot a yes or no question.')
 		.addStringOption((o) =>
@@ -21,7 +20,6 @@ module.exports = {
 		const discordInvite = new RegExp(/discord\.gg\/.[a-zA-Z0-9()]{1,256}/g)
 		const language = getLanguage(client, interaction, 'RESPONSES_EIGHT_BALL', 'YOU_CANT_PUT_TEXT_MORE', 'YOU_CANT_PUT_LINKS_IN_QUESTION', 'YOUR_QUESTION', 'MY_ANSWER_TO_QUESTION', 'EIGHT_BALL')
 
-		const respuesta = language[0].split('|')
 		const pregunta = interaction.options.getString('pregunta')
 		if (pregunta.length > 40) {
 			return await interaction.reply({
@@ -55,7 +53,7 @@ module.exports = {
 					'\n' +
 					`👀 *${language[4]}:* \n` +
 					'||' +
-					respuesta[Math.floor(Math.random() * respuesta.length)] +
+					language[0] +
 					'||',
 			)
 			.setColor('#00FFFF')
