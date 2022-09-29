@@ -3,6 +3,7 @@ const client = require('../index.js')
 const toml = require('toml')
 const fs = require('fs')
 const config = toml.parse(fs.readFileSync('./config/config.toml', 'utf-8'))
+const getLanguage = require('../functions/getLanguage')
 
 const premiumguild = require('../models/premiumGuild')
 const autoroles = require('../models/autorole.js')
@@ -393,7 +394,9 @@ client.on('interactionCreate', async (interaction) => {
 					],
 				})
 			}
-			await slashcmds.run(client, interaction)
+			let language
+			if (slashcmds.language) language = getLanguage(client, interaction, slashcmds.language)
+			await slashcmds.run(client, interaction, language)
 		} catch (e) {
 			console.error(e)
 

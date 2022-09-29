@@ -8,7 +8,7 @@ const { CommandInteraction, Client } = require('discord.js-light')
  * @return {String[]}
  */
 
-module.exports = (client, interaction, ...keys) => {
+module.exports = (client, interaction, keys) => {
 	const lang = interaction.locale || interaction.preferredLocale || interaction
 	return keys.map((key) => {
 		const k = client.language.get(key)

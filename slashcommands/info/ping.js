@@ -5,6 +5,13 @@ const getLanguage = require('../../functions/getLanguage')
 
 module.exports = {
 	category: 'Información',
+	language: [
+		'CALCULATED',
+		'WAIT_MOMENT',
+		'STATISTICS',
+		'CURRENT_PING',
+		'CURRENT_RAM',
+		'CURRENT_LANGUAGE'],
 	data: new SlashCommandBuilder()
 		.setName('ping')
 		.setDescription('Comando ping'),
@@ -13,21 +20,11 @@ module.exports = {
 	/**
 	 * @param {Client} client
 	 * @param {CommandInteraction} interaction
+	 * @param {string[]} language
 	 */
 
-	async run(client, interaction) {
+	async run(client, interaction, language) {
 		await interaction.deferReply()
-
-		const language = getLanguage(
-			client,
-			interaction,
-			'CALCULATED',
-			'WAIT_MOMENT',
-			'STATISTICS',
-			'CURRENT_PING',
-			'CURRENT_RAM',
-			'CURRENT_LANGUAGE',
-		)
 		const ping = Math.round(interaction.client.ws.ping)
 		const embed = new MessageEmbed()
 			.setTitle(':ping_pong: ' + language[0] + '...')
