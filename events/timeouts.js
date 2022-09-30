@@ -58,7 +58,7 @@ const expirePremiun = async (client) => {
 						})
 					}, timeRemaining)
 				} catch (error) {
-					console.log(error)
+					return
 				}
 			}
 		}

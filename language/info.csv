@@ -1,7 +1,26 @@
 key,es-ES,en-US
-CALCULATED,Calculando,Calculated,
+CALCULATED,Calculando,Calculated
 WAIT_MOMENT,Espera un momento,Wait a moment
 STATISTICS,Estadísticas,Statistics
 CURRENT_PING,Ping actual,Current ping
 CURRENT_RAM,Ram actual,Current Ram
 CURRENT_LANGUAGE,Actualmente respondo los mensajes en español,I currently answer messages in English (US)
+
+RESET_RECORD,Reiniciar record,Reset record
+EXIT,Salir,Exit
+STATISTICS_GAME,Estadisticas de QuizWords,QuizWords Statistics
+RECORD_TIME,Tiempo record,Record time
+NEVER_PLAYED,Todavia no has jugado,You haven't played yet!
+STREAK,Racha:,Streak:
+NONE,Ninguna,None
+WORD_LONGEST,Palabra mas larga descubierta:,Longest discovered word:
+ACCERTS_LONGTH,Cantidad de palabras acertadas:,Number of words hit:
+MISSED_WORDS_LONGTH,Canridad de palabras no acertadas;,Number of misspelled words:
+TIMES_PLAYED,Veces jugadas:,Times played:
+STATISCTICS_OF,Statistics of {user},Estadísticas de {user}
+RESETED_RECORD,Record reseteado,Record reset
+NO_RESETED,Todo sigue tal cual,Everything goes as is
+SECOND," segundos",seconds
+NO_RECORD,No hay ningun record,There is no record
+YOUR_STREAK,Tienes una racha de {data} palabras seguidas!,You have a streak of {data} words in a row!
+OKAY,Hecho,Okay

@@ -14,36 +14,39 @@ client.on('ready', async () => {
 
 			if (docs) {
 				docs.forEach(async (doc) => {
-					const videos = await getChannelVideos({
-						channelId: `${doc.ChannelYTID}`,
-						channelIdType: 0,
-					})
+					try {
+						const videos = await getChannelVideos({
+							channelId: `${doc.ChannelYTID}`,
+							channelIdType: 0,
+						})
 
-					if (videos.length <= 0)
+						if (videos.length <= 0)
+							return
+
+						const lastVideo = videos.items[0]
+						const lastVideoID = lastVideo.videoId
+
+						if (doc.VideoID !== lastVideoID) {
+							doc.VideoID = lastVideoID
+							doc.save()
+							const row = new MessageActionRow().addComponents(
+								new MessageButton()
+									.setLabel('Click para abrir video.')
+									.setStyle('LINK')
+									.setURL(`https://www.youtube.com/watch?v=${lastVideoID}`),
+							)
+
+							client.channels.cache.get(doc.ChannelID).send({ content: doc.everyone ? '@everyone' : null, embeds: [
+								new MessageEmbed()
+									.setTitle(`**${lastVideo.author}** ha subido un nuevo video!\n**${lastVideo.title}**`)
+									.setURL(`https://www.youtube.com/watch?v=${lastVideoID}`)
+									.setColor('#ff0000')
+									.setImage(lastVideo.videoThumbnails[3].url),
+							], components: [row] })
+						}
+					} catch {
 						return
-
-					const lastVideo = videos.items[0]
-					const lastVideoID = lastVideo.videoId
-
-					if (doc.VideoID !== lastVideoID) {
-						doc.VideoID = lastVideoID
-						doc.save()
-						const row = new MessageActionRow().addComponents(
-							new MessageButton()
-								.setLabel('Click para abrir video.')
-								.setStyle('LINK')
-								.setURL(`https://www.youtube.com/watch?v=${lastVideoID}`),
-						)
-
-						client.channels.cache.get(doc.ChannelID).send({ content: doc.everyone ? '@everyone' : null, embeds: [
-							new MessageEmbed()
-								.setTitle(`**${lastVideo.author}** ha subido un nuevo video!\n**${lastVideo.title}**`)
-								.setURL(`https://www.youtube.com/watch?v=${lastVideoID}`)
-								.setColor('#ff0000')
-								.setImage(lastVideo.videoThumbnails[3].url),
-						], components: [row] })
 					}
-
 				})
 			}
 		})
