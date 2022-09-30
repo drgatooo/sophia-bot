@@ -40,32 +40,18 @@ module.exports = {
 		),
 
 	async run(client, interaction, language) {
-		const usuario = interaction.options.getUser('usuario')
-
-		if (usuario) {
-			const row = new MessageActionRow().addComponents(
-				new MessageButton()
-					.setStyle('PRIMARY')
-					.setLabel(`${language[0]}`)
-					.setDisabled(true)
-					.setCustomId('Si'),
-				new MessageButton()
-					.setStyle('SECONDARY')
-					.setLabel(`${language[1]}`)
-					.setCustomId('No'),
-			)
-		} else {
-			const row = new MessageActionRow().addComponents(
-				new MessageButton()
-					.setStyle('PRIMARY')
-					.setLabel(`${language[0]}`)
-					.setCustomId('Si'),
-				new MessageButton()
-					.setStyle('SECONDARY')
-					.setLabel(`${language[1]}`)
-					.setCustomId('No'),
-			)
-		}
+		const usuario = interaction.options.getMember('usuario') || interaction.member
+		const row = new MessageActionRow().addComponents(
+			new MessageButton()
+				.setStyle('PRIMARY')
+				.setLabel(`${language[0]}`)
+				.setDisabled(usuario.id !== interaction.user.id ? true : false)
+				.setCustomId('Si'),
+			new MessageButton()
+				.setStyle('SECONDARY')
+				.setLabel(`${language[1]}`)
+				.setCustomId('No'),
+		)
 
 		if (usuario) quizTimer = await timeModel.findOne({ UserID: usuario.id })
 		else quizTimer = await timeModel.findOne({ UserID: interaction.user.id })
@@ -75,12 +61,26 @@ module.exports = {
 				.setTitle(`🎲 ${language[2]}`)
 				.setColor('ORANGE')
 
-			embedTiempo2.addField(`⌛ ${language[3]}`, `\`${language[4]}!\``)
-			embedTiempo2.addField(`🔥 ${language[5]}`, `${language[6]}`)
-			embedTiempo2.addField(`🔠 ${language[7]}`, `${language[6]}`)
-			embedTiempo2.addField(`✅ ${language[8]}`, '`0`')
-			embedTiempo2.addField(`❎ ${language[9]}`, '`0`')
-			embedTiempo2.addField(`🌐 ${language[10]}`, '`0`')
+			embedTiempo2.addFields([
+				{
+					name: `⌛ ${language[3]}`, value: `\`${language[4]}!\``,
+				},
+				{
+					name: `🔥 ${language[5]}`, value: `${language[6]}`,
+				},
+				{
+					name: `🔠 ${language[7]}`, value: `${language[6]}`,
+				},
+				{
+					name: `✅ ${language[8]}`, value: '`0`',
+				},
+				{
+					name: `❎ ${language[9]}`, value: '`0`',
+				},
+				{
+					name: `🌐 ${language[10]}`, value: '`0`',
+				},
+			])
 
 			return interaction.reply({ embeds: [embedTiempo2] })
 		}
@@ -116,11 +116,11 @@ module.exports = {
 			`${quizTimer.NoAssertions ? `\`${quizTimer.NoAssertions}\`` : '`0`'}`,
 		)
 		embedTiempo.addField(
-			`🌐 ${language[10]}`,
+			`🌐 ${language[10].replaceAll('{user}', usuario.user.tag)}`,
 			`\`${quizTimer.Assertions + quizTimer.NoAssertions}\``,
 		)
 		embedTiempo.setFooter({
-			text: `${language[11].replace('{user}', usuario.user.tag)}`,
+			text: `${language[11]}`,
 		})
 
 		if (quizTimer && quizTimer.TimeMax > 0) {

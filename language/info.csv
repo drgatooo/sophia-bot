@@ -17,7 +17,7 @@ WORD_LONGEST,Palabra mas larga descubierta:,Longest discovered word:
 ACCERTS_LONGTH,Cantidad de palabras acertadas:,Number of words hit:
 MISSED_WORDS_LONGTH,Canridad de palabras no acertadas;,Number of misspelled words:
 TIMES_PLAYED,Veces jugadas:,Times played:
-STATISCTICS_OF,Statistics of {user},Estadísticas de {user}
+STATISCTICS_OF,Estadísticas de {user}, Statistics of {user}
 RESETED_RECORD,Record reseteado,Record reset
 NO_RESETED,Todo sigue tal cual,Everything goes as is
 SECOND," segundos",seconds
