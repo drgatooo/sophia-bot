@@ -8,7 +8,7 @@ module.exports = {
 	data: new SlashCommandBuilder()
 		.setName('clear')
 		.setDescription('Borra una cantidad de mensajes')
-		.setDescriptionLocalizations('en-US', 'Delete a number of messages')
+		.setDescriptionLocalization('en-US', 'Delete a number of messages')
 		.addIntegerOption((o) =>
 			o
 				.setName('cantidad')

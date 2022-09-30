@@ -23,7 +23,7 @@ module.exports = {
 				.setName('razón')
 				.setDescription('Razón del baneo')
 				.setNameLocalization('en-US', 'reason')
-				.setDescriptionLocalizations('en-US', 'The reasonfor the ban')
+				.setDescriptionLocalization('en-US', 'The reasonfor the ban')
 				.setRequired(false),
 		),
 
