@@ -10,14 +10,17 @@ const command = {
 	userPerms: ['ADMINISTRATOR'],
 	botPerms: ['ADMINISTRATOR'],
 	category: 'Administración',
+	languageKeys: ['YES_IM_SURE', 'IVE_REGRETTED', 'ATTENTION', 'NUKE_WARN', 'I_CANT_PERMS_TO_NUKE_CHANNEL', 'TEXT_CHANNEL_WAS_EXPECTED', 'CHANNEL_DELETED', 'THIS_MESSAGE_DELETED_10S', 'PERFECT', 'CHANNEL_NUKED', 'LEAVE', 'CHOOSING_TIME_OUT_RETRY_COMMAND'],
 
 	data: new SlashCommandBuilder()
 		.setName('nukechannel')
 		.setDescription('Nukea un canal de tu servidor!')
+		.setDescriptionLocalization('en-US', 'Nuke a channel of the server')
 		.addChannelOption((o) =>
 			o
 				.setName('canal')
 				.setDescription('Menciona el canal a nukear')
+				.setDescriptionLocalization('en-US', 'Channel to nuke')
 				.setRequired(false),
 		),
 
@@ -27,25 +30,25 @@ const command = {
 	 * @param {CommandInteraction} interaction
 	 */
 
-	async run(client, interaction) {
+	async run(client, interaction, language) {
 		const canal = interaction.options.getChannel('canal') || interaction.channel
 		const posicion = canal.position
 
 		const row = new MessageActionRow().addComponents(
 			new MessageButton()
-				.setLabel('Si, estoy seguro')
+				.setLabel(language[0])
 				.setStyle('SECONDARY')
 				.setCustomId('SI'),
 			new MessageButton()
-				.setLabel('No, me arrepiento')
+				.setLabel(language[1])
 				.setStyle('DANGER')
 				.setCustomId('NO'),
 		)
 
 		const confirmacion = new MessageEmbed()
-			.setTitle('⚠ Atencion')
+			.setTitle(`⚠ ${language[2]}`)
 			.setDescription(
-				`➡ Estas a punto de borrar ${canal}\nTodo el progreso que haya conseguido el canal, **⚠ se perdera ⚠**\nContinuas?`,
+				`➡ ${language[3].replace('{channel}', `<#${canal.id}>`)}`,
 			)
 			.setColor('ORANGE')
 
@@ -63,9 +66,7 @@ const command = {
 						embeds: [
 							new MessageEmbed()
 								.setTitle(':x: Error')
-								.setDescription(
-									'No puedo borrar o modificar ese canal actualmente, verifica que siga teniendo permisos!',
-								)
+								.setDescription(language[4])
 								.setColor('RED'),
 						],
 						components: [],
@@ -78,9 +79,7 @@ const command = {
 						embeds: [
 							new MessageEmbed()
 								.setTitle(':x: Error')
-								.setDescription(
-									`No puedo borrar ${canal} ya que es un canal de voz, menciona un canal valido.`,
-								)
+								.setDescription(language[5])
 								.setColor('RED'),
 						],
 						components: [],
@@ -95,8 +94,8 @@ const command = {
 				}, 3000)
 
 				const Embed = new MessageEmbed()
-					.setTitle(':recycle: Canal eliminado correctamente!')
-					.setFooter({ text: 'Este mensaje será eliminado en 10 segundos.' })
+					.setTitle(`:recycle: ${language[6]}`)
+					.setFooter({ text: language[7] })
 					.setImage(
 						'https://i.pinimg.com/originals/01/82/5e/01825e981b49caaa693395ca637376db.gif',
 					)
@@ -115,9 +114,7 @@ const command = {
 						embeds: [
 							new MessageEmbed()
 								.setTitle(':x: Error')
-								.setDescription(
-									'No puedo borrar o modificar un canal de voz!',
-								)
+								.setDescription(language[5])
 								.setColor('RED'),
 						],
 						components: [],
@@ -127,10 +124,8 @@ const command = {
 				interaction.editReply({
 					embeds: [
 						new MessageEmbed()
-							.setTitle('<a:Giveaways:878324188753068072> Perfecto')
-							.setDescription(
-								`He borrado ${canal}, y a la vez lo he vuelto a crear, pero... sin mensajes!`,
-							)
+							.setTitle(`<a:Giveaways:878324188753068072> ${language[8]}`)
+							.setDescription(language[9])
 							.setColor('GREEN'),
 					],
 					components: [],
@@ -139,11 +134,11 @@ const command = {
 
 			if (i.customId == 'NO') {
 				const exit = new MessageEmbed()
-					.setTitle('⬅ Saliendo')
+					.setTitle(`⬅ ${language[10]}`)
 					.setColor('WHITE')
-					.setDescription('Este mensaje será eliminado.')
+					.setDescription(language[7])
 				interaction.editReply({ embeds: [exit], components: [] })
-				setTimeout(() => interaction.deleteReply(), 5000)
+				setTimeout(() => interaction.deleteReply(), 10000)
 			}
 		})
 
@@ -151,9 +146,7 @@ const command = {
 			if (reason === 'time') {
 				const offTime = new MessageEmbed()
 					.setColor('RED')
-					.setDescription(
-						'Se ha agotado el tiempo para elegir, reutiliza el comando.',
-					)
+					.setDescription(language[11])
 					.setTitle(':x: Error')
 				interaction.editReply({ embeds: [offTime], components: [] })
 				setTimeout(() => interaction.deleteReply(), 5000)
