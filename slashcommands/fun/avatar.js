@@ -9,23 +9,24 @@ const getLanguage = require('../../functions/getLanguage')
 const command = {
 	userPerms: ['SEND_MESSAGES'],
 	botPerms: ['SEND_MESSAGES'],
+	languageKeys: ['LITLE_QUESTION', 'AVATAR_IN_DM_OR_HERE', 'DM', 'HERE', 'AVATAR_OF', 'AVATAR_REQUESTED_BY', 'READY', 'SENDED', 'ERROR', 'OPEN_DM'],
 	category: 'Diversión',
 
 	data: new SlashCommandBuilder()
 		.setName('avatar')
 		.setDescription('Mira tu avatar o el de un usuario.')
-		// .setDescriptionLocalization('en-US', 'View your avatar or that of another user')
+		.setDescriptionLocalization('en-US', 'View your avatar or that of another user')
 		.addUserOption((o) =>
 			o
 				.setName('usuario')
 				.setDescription('Usuario a mirar')
-				/* .setNameLocalization('en-US', 'user')
-				.setDescriptionLocalization('en-US', 'User whose avatar you want to see')*/
+				.setNameLocalization('en-US', 'user')
+				.setDescriptionLocalization('en-US', 'User whose avatar you want to see')
 				.setRequired(false),
 		),
 
 	async run(client, interaction) {
-		const language = getLanguage(client, interaction, 'LITLE_QUESTION', 'AVATAR_IN_DM_OR_HERE', 'DM', 'HERE', 'AVATAR_OF', 'AVATAR_REQUESTED_BY', 'READY', 'SENDED', 'ERROR', 'OPEN_DM')
+		const language = getLanguage(client, interaction)
 		const User = interaction.options.getUser('usuario') || interaction.user
 
 		const pregunta = new MessageEmbed()

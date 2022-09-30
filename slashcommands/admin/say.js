@@ -1,11 +1,11 @@
 const { SlashCommandBuilder } = require('@discordjs/builders')
 const { MessageEmbed } = require('discord.js-light')
-const getLanguage = require('../../functions/getLanguage')
 
 module.exports = {
 	userPerms: ['ADMINISTRATOR'],
 	botPerms: ['ADMINISTRATOR'],
 	category: 'Administración',
+	languageKeys: ['SENDED', 'YOUR_MESSAGE_SENDED'],
 	data: new SlashCommandBuilder()
 		.setName('say')
 		.setDescription('Envia un mensaje a traves del bot.')
@@ -19,9 +19,8 @@ module.exports = {
 				.setRequired(true),
 		),
 
-	async run(client, interaction) {
+	async run(client, interaction, language) {
 		const text = interaction.options.getString('texto')
-		const language = getLanguage(client, interaction, 'SENDED', 'YOUR_MESSAGE_SENDED')
 
 		const log = new MessageEmbed().setTitle('Comando Say usado.').addFields({ name: 'Texto:', value: text, inline: true }, { name: 'Autor:', value: `${client.users.cache.get(interaction.user.id).tag} (${interaction.user.id})`, inline: true }, { name: 'Servidor:', value: `${client.guilds.cache.get(interaction.guild.id).name} (${interaction.guild.id})` })
 		const enviado = new MessageEmbed()

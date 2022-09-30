@@ -1,17 +1,16 @@
 const { SlashCommandBuilder } = require('@discordjs/builders')
 const { MessageEmbed, MessageActionRow, MessageButton } = require('discord.js-light')
-const getLanguage = require('../../functions/getLanguage')
 
 module.exports = {
 	category: 'Utilidad',
 	botPerms: 'ADMINISTRATOR',
+	languageKeys: ['THANKS_FOR_INVITING_ME', 'THANKS_FOR_THE_OPPORTUNITY', 'INVITATION'],
 	data: new SlashCommandBuilder()
 		.setName('invite')
-		.setDescription('Invita el bot a tu servidor'),
-	// .setDescriptionLocalization('en-US', 'Invite the bot to your server'),
+		.setDescription('Invita el bot a tu servidor')
+		.setDescriptionLocalization('en-US', 'Invite the bot to your server'),
 
-	run(client, interaction) {
-		const language = getLanguage(client, interaction, 'THANKS_FOR_INVITING_ME', 'THANKS_FOR_THE_OPPORTUNITY', 'INVITATION')
+	run(client, interaction, language) {
 		const gracias = new MessageEmbed()
 			.setTitle(language[0])
 			.setDescription(language[1].replace('{user}', interaction.user.tag))

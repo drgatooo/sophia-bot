@@ -1,29 +1,29 @@
 const { SlashCommandBuilder } = require('@discordjs/builders')
 // eslint-disable-next-line no-unused-vars
 const { MessageEmbed, Client, CommandInteraction } = require('discord.js-light')
-const getLanguage = require('../../functions/getLanguage')
 
 module.exports = {
 	userPerms: ['BAN_MEMBERS'],
 	category: 'Moderación',
+	languageKeys: ['UNSPECIFIED', 'ERROR', 'CANT_BAN_BOT', 'YOU_CANT_SELF_BAN', 'I_CANT_SELF_BAN', 'YOU_CANT_BAN_HIGHER_ROLE', 'I_CANT_BAN_USER', 'MEMBER_BANNED', 'USER_SUCCESSFULLY_BANNED', 'MEMBER', 'STAFF', 'REASON', 'ERROR_OCURRED_DEVELOPERS_ALREADY_NOTIFIED'],
 	data: new SlashCommandBuilder()
 		.setName('ban')
 		.setDescription('Banea a un usuario')
-		// .setDescriptionLocalization('en-US', 'Ban a member')
+		.setDescriptionLocalization('en-US', 'Ban a member')
 		.addUserOption((o) =>
 			o
 				.setName('usuario')
 				.setDescription('Usuario a banear')
-				/* .setNameLocalization('en-US', 'user')
-				.setDescriptionLocalization('en-US', 'User to ban')*/
+				.setNameLocalization('en-US', 'user')
+				.setDescriptionLocalization('en-US', 'User to ban')
 				.setRequired(true),
 		)
 		.addStringOption((o) =>
 			o
 				.setName('razón')
 				.setDescription('Razón del baneo')
-				/* .setNameLocalization('en-US', 'reason')
-				.setDescriptionLocalizations('en-US', 'The reasonfor the ban')*/
+				.setNameLocalization('en-US', 'reason')
+				.setDescriptionLocalizations('en-US', 'The reasonfor the ban')
 				.setRequired(false),
 		),
 
@@ -32,8 +32,7 @@ module.exports = {
 		* @param {CommandInteraction} interaction Interaction
 	  */
 
-	async run(client, interaction) {
-		const language = getLanguage(client, interaction, 'UNSPECIFIED', 'ERROR', 'CANT_BAN_BOT', 'YOU_CANT_SELF_BAN', 'I_CANT_SELF_BAN', 'YOU_CANT_BAN_HIGHER_ROLE', 'I_CANT_BAN_USER', 'MEMBER_BANNED', 'USER_SUCCESSFULLY_BANNED', 'MEMBER', 'STAFF', 'REASON', 'ERROR_OCURRED_DEVELOPERS_ALREADY_NOTIFIED')
+	async run(client, interaction, language) {
 		const args = interaction.options
 		const member = interaction.guild.members.cache.get(args.getUser('usuario').id)
 		let reason = args.getString('razón')

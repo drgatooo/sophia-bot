@@ -1,10 +1,10 @@
 const { SlashCommandBuilder } = require('@discordjs/builders')
 const { MessageEmbed } = require('discord.js-light')
-const getLanguage = require('../../functions/getLanguage')
 require('moment').locale('es')
 
 module.exports = {
 	category: 'Diversión',
+	languageKeys: ['RESPONSES_EIGHT_BALL', 'YOU_CANT_PUT_TEXT_MORE', 'YOU_CANT_PUT_LINKS_IN_QUESTION', 'YOUR_QUESTION', 'MY_ANSWER_TO_QUESTION', 'EIGHT_BALL'],
 	data: new SlashCommandBuilder()
 		.setName('8ball')
 		.setDescription('Pregúntale algo de si o no al bot.')
@@ -13,12 +13,11 @@ module.exports = {
 			o.setName('pregunta').setDescription('dime tu pregunta.').setRequired(true).setNameLocalization('en-US', 'question').setDescriptionLocalization('en-US', 'Tell me your question'),
 		),
 
-	async run(client, interaction) {
+	async run(client, interaction, language) {
 		const linkRegex = new RegExp(
 			/(https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]+\.[^\s]{2,}|www\.[a-zA-Z0-9]+\.[^\s]{2,})/g,
 		)
 		const discordInvite = new RegExp(/discord\.gg\/.[a-zA-Z0-9()]{1,256}/g)
-		const language = getLanguage(client, interaction, 'RESPONSES_EIGHT_BALL', 'YOU_CANT_PUT_TEXT_MORE', 'YOU_CANT_PUT_LINKS_IN_QUESTION', 'YOUR_QUESTION', 'MY_ANSWER_TO_QUESTION', 'EIGHT_BALL')
 
 		const pregunta = interaction.options.getString('pregunta')
 		if (pregunta.length > 40) {

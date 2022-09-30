@@ -1,26 +1,26 @@
 const { SlashCommandBuilder } = require('@discordjs/builders')
 const { MessageEmbed } = require('discord.js-light')
-const getLanguage = require('../../functions/getLanguage')
 
 module.exports = {
 	userPerms: ['MANAGE_MESSAGES'],
 	category: 'Moderación',
+	languageKeys: ['MUST_WRITE_INTEGER', 'THERE_NOT_MESSAGE_DELETE', 'SUCCESSFUL', 'HAVE_BEEN_DELETED', 'MESSAGES', 'MESSAGES_OLDER_CANT_DELETED'],
 	data: new SlashCommandBuilder()
 		.setName('clear')
 		.setDescription('Borra una cantidad de mensajes')
-		// .setDescriptionLocalizations('en-US', 'Delete a number of messages')
+		.setDescriptionLocalizations('en-US', 'Delete a number of messages')
 		.addIntegerOption((o) =>
 			o
 				.setName('cantidad')
 				.setDescription('escribe un cantidad menor a 100.')
-				/* .setNameLocalization('en-US', 'amount')
-				.setDescriptionLocalization('en-US', 'Write an amount')*/
+				.setNameLocalization('en-US', 'amount')
+				.setDescriptionLocalization('en-US', 'Write an amount')
 				.setMaxValue(100)
 				.setMinValue(1)
 				.setRequired(true),
 		),
 
-	async run(client, interaction) {
+	async run(client, interaction, language) {
 		function error(msg) {
 			return interaction.reply({
 				embeds: [
@@ -34,7 +34,6 @@ module.exports = {
 		}
 		const args = interaction.options
 		const cantidad = +args.getInteger('cantidad')
-		const language = getLanguage(client, interaction, 'MUST_WRITE_INTEGER', 'THERE_NOT_MESSAGE_DELETE', 'SUCCESSFUL', 'HAVE_BEEN_DELETED', 'MESSAGES', 'MESSAGES_OLDER_CANT_DELETED')
 		if (!Number.isInteger(cantidad)) return error(language[0])
 		interaction.channel
 			.bulkDelete(

@@ -1,11 +1,10 @@
 /* eslint-disable no-unused-vars */
 const { SlashCommandBuilder } = require('@discordjs/builders')
 const { MessageEmbed, Client, CommandInteraction } = require('discord.js-light')
-const getLanguage = require('../../functions/getLanguage')
 
 module.exports = {
 	category: 'Información',
-	language: [
+	languageKeys: [
 		'CALCULATED',
 		'WAIT_MOMENT',
 		'STATISTICS',
@@ -14,8 +13,8 @@ module.exports = {
 		'CURRENT_LANGUAGE'],
 	data: new SlashCommandBuilder()
 		.setName('ping')
-		.setDescription('Comando ping'),
-	// .setDescriptionLocalization('en-US', 'Ping command'),
+		.setDescription('Comando ping')
+		.setDescriptionLocalization('en-US', 'Ping command'),
 
 	/**
 	 * @param {Client} client

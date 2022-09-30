@@ -12,17 +12,18 @@ const command = {
 	userPerms: ['ADMINISTRATOR'],
 	botPerms: ['ADMINISTRATOR'],
 	category: 'Administración',
+	languageKeys: ['TEXT_CHANNEL_WAS_EXPECTED', 'ENTER_A_VALID_IMAGE_URL', 'LITTLE_QUESTION', 'SEND_EMBED_USING_EVERYONE?', 'WITH_EVERYONE', 'WITHOUT_EVERYONE', 'SENDED', 'YOUR_MESSAGE_SENDED'],
 
 	data: new SlashCommandBuilder()
 		.setName('embed')
 		.setDescription('Envia un mensaje en embed')
-		// .setDescriptionLocalization('en-US', 'Send a embed message')
+		.setDescriptionLocalization('en-US', 'Send a embed message')
 		.addStringOption((o) =>
 			o
 				.setName('descripcion')
 				.setDescription('Descripción del embed.')
-				/* .setNameLocalization('en-US', 'description')
-				.setDescriptionLocalization('en-US', 'Description of the embed')*/
+				.setNameLocalization('en-US', 'description')
+				.setDescriptionLocalization('en-US', 'Description of the embed')
 				.setRequired(true),
 		)
 		.addStringOption((o) =>
@@ -30,30 +31,30 @@ const command = {
 				.setName('titulo')
 				.setDescription('Titulo del embed.')
 				.setRequired(false)
-				/* .setNameLocalization('en-US', 'title')
-				.setDescriptionLocalization('en-US', 'Title of the embed')*/,
+				.setNameLocalization('en-US', 'title')
+				.setDescriptionLocalization('en-US', 'Title of the embed'),
 		)
 		.addStringOption((o) =>
 			o
 				.setName('footer')
 				.setDescription('Footer del embed.')
 				.setRequired(false)
-				/* .setDescriptionLocalization('en-US', 'Footer of the embed')*/,
+				.setDescriptionLocalization('en-US', 'Footer of the embed'),
 		)
 		.addStringOption((o) =>
 			o
 				.setName('imagen')
 				.setDescription('Imagen que llevará el embed.')
-				/* .setNameLocalization('en-US', 'image')
-				.setDescriptionLocalization('en-US', 'Image that will carry the embed') */
+				.setNameLocalization('en-US', 'image')
+				.setDescriptionLocalization('en-US', 'Image that will carry the embed')
 				.setRequired(false),
 		)
 		.addChannelOption((o) =>
 			o
 				.setName('canal')
 				.setDescription('Canal a enviar el embed.')
-				/* .setNameLocalization('en-US', 'channel')
-				.setDescriptionLocalization('en-US', 'Channel where the embed will be sent')*/
+				.setNameLocalization('en-US', 'channel')
+				.setDescriptionLocalization('en-US', 'Channel where the embed will be sent')
 				.setRequired(false),
 		),
 
@@ -61,12 +62,12 @@ const command = {
 	 *
 	 * @param {Client} client
 	 * @param {CommandInteraction} interaction
+	 * @param {string[]} language
 	 */
 
-	async run(client, interaction) {
+	async run(client, interaction, language) {
 		const args = interaction.options
 		const canal = args.getChannel('canal') || interaction.channel
-		const language = getLanguage(client, interaction, 'TEXT_CHANNEL_WAS_EXPECTED', 'ENTER_A_VALID_IMAGE_URL', 'LITTLE_QUESTION', 'SEND_EMBED_USING_EVERYONE?', 'WITH_EVERYONE', 'WITHOUT_EVERYONE', 'SENDED', 'YOUR_MESSAGE_SENDED')
 
 		if (canal) {
 			if (!['GUILD_TEXT', 'GUILD_NEWS'].includes(canal.type)) {

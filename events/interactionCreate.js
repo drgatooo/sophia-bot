@@ -395,7 +395,7 @@ client.on('interactionCreate', async (interaction) => {
 				})
 			}
 			let language
-			if (slashcmds.language) language = getLanguage(client, interaction, slashcmds.language)
+			if (slashcmds.languageKeys) language = getLanguage(client, interaction, slashcmds.languageKeys)
 			await slashcmds.run(client, interaction, language)
 		} catch (e) {
 			console.error(e)

@@ -6,7 +6,6 @@ const {
 	version,
 } = require('discord.js-light')
 const { name, owners, programadores } = require('../../package.json')
-const getLanguage = require('../../functions/getLanguage')
 
 /**
  * @type {import('../../types/typeslash').Command}
@@ -16,11 +15,12 @@ const command = {
 	userPerms: ['SEND_MESSAGES'],
 	botPerms: ['SEND_MESSAGES'],
 	category: 'Utilidad',
+	languageKeys: ['INVITATION', 'SUPPORT_SERVER', 'SOPHIA_INFO', 'WELCOME_TO_ABOUT_ME', 'NAME', 'DISCRIMINATOR', 'OWNERS', 'DEVELOPERS', 'CREATION_DATE', 'UPTIME', 'PROGRAMMING_LANGUAGE', 'PACKAGE', 'SERVERS', 'USERS', 'TOTAL_COMMANDS'],
 
 	data: new SlashCommandBuilder()
 		.setName('infobot')
-		.setDescription('Revisa la información general de Sophia'),
-	// .setDescriptionLocalizations({ 'en-US': 'View Sophia\'s general information' })
+		.setDescription('Revisa la información general de Sophia')
+		.setDescriptionLocalizations({ 'en-US': 'View Sophia\'s general information' }),
 
 	/**
 	 *
@@ -28,8 +28,7 @@ const command = {
 	 * @param {CommandInteraction} interaction
 	 */
 
-	async run(client, interaction) {
-		const language = getLanguage(client, interaction, 'INVITATION', 'SUPPORT_SERVER', 'SOPHIA_INFO', 'WELCOME_TO_ABOUT_ME', 'NAME', 'DISCRIMINATOR', 'OWNERS', 'DEVELOPERS', 'CREATION_DATE', 'UPTIME', 'PROGRAMMING_LANGUAGE', 'PACKAGE', 'SERVERS', 'USERS', 'TOTAL_COMMANDS')
+	async run(client, interaction, language) {
 		const row = new MessageActionRow().addComponents(
 			new MessageButton()
 				.setLabel(language[0])
