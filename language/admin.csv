@@ -8,7 +8,7 @@ WITHOUT_EVERYONE,Sin everyone,Without everyone
 YOUR_MESSAGE_SENDED,Tu mensaje ha sido enviado,Your message has been sended
 YES_IM_SURE,Sí&44 estoy seguro,Yes&44 I'm sure
 IVE_REGRETTED,No&44 me he arrepentido,No&44 I've regretted it
-NUKE_WARN,Estas a punto de borrar el canal ${channel}\n Todo el contenido del canal&44 **⚠ se perdera ⚠**\n¿Deseas continuar?,You are about to delete the channel ${channel}\n All the content of this channel&44 **⚠ will be lost ⚠**\nDo you want to continue?
+NUKE_WARN,Estas a punto de borrar el canal {channel}\n Todo el contenido del canal&44 **⚠ se perdera ⚠**\n¿Deseas continuar?,You are about to delete the channel {channel}\n All the content of this channel&44 **⚠ will be lost ⚠**\nDo you want to continue?
 I_CANT_PERMS_TO_NUKE_CHANNEL,No puedo borrar o modificar ese canal actualmente&44 ¡Verifica que siga teniendo permisos!,I can't delete or modify that channel at the moment&44 verify that it still has permissions!
 CHANNEL_DELETED,¡Canal eliminado correctamente!,Channel deleted successfulluy!
 THIS_MESSAGE_DELETED_10S,Este mensaje será eliminado en 10 segundos,This message are deleted in 10 seconds

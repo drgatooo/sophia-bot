@@ -16,3 +16,12 @@ SERVERS,Servidores,Servers
 USERS,Usuarios,Users
 TOTAL_COMMANDS,Comandos totales,Total commands
 PROGRAMMING_LANGUAGE,Lenguaje de programación,Programming language
+DESCRIPTION_OPTION_MENU,Revisa los comandos de la categoría {category},Review the commands of the {category} category
+MAIN_OPTION_MENU_RETURN,Volver,Return
+MAIN_OPTION_MENU_DESCRIPTION,Vuelve al menú principal,Return to main menu
+MAIN_EMBED_TITLE,Comandos de {clientName},{ClientName} commands
+MAIN_EMBED_DESCRIPTION,🎀 Hola {user}&44 tengo un total de {commandsSize} comandos para que puedas usar! Para verlos&44 selecciona la categoría que quieras!\n\n*Espero que los disfrutes y te sean utiles!*,🎀 Hi {user}&44 I have a total of {commandsSize} commands for you to use! To see them&44 select the category you want!\n\n*I hope you enjoy them and find them useful!*
+SELECT_CATEGORY,Selecciona una categoría,Select a category
+NOT_INTERFERE,No puedes interferir en el comando de otra persona.,You cannot interfere with another person's command.
+COMMANDSOF_TITLE,Comandos de ,Commands of 
+NSFW_CHANNEL,Debes estar en un canal nsfw para ver o usar estos comandos,You must be on an nsfw channel to view or use these commands

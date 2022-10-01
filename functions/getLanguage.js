@@ -15,16 +15,16 @@ module.exports = (client, interaction, keys) => {
 		if (k?.[lang]) {
 			if (k[lang].includes('|')) {
 				const choices = k[lang].split('|')
-				return choices[Math.floor(Math.random() * choices.length) + 1].replaceAll('&44', ',')
+				return choices[Math.floor(Math.random() * choices.length) + 1].replaceAll('&44', ',').replaceAll('\\n', '\n')
 			} else {
-				return k[lang].replaceAll('&44', ',')
+				return k[lang].replaceAll('&44', ',').replaceAll('\\n', '\n')
 			}
 		} else if (k?.['es-ES']) {
 			if (k['es-ES'].includes('|')) {
 				const choices = k['es-ES'].split('|')
-				return choices[Math.floor(Math.random() * choices.length) + 1].replaceAll('&44', ',')
+				return choices[Math.floor(Math.random() * choices.length) + 1].replaceAll('&44', ',').replaceAll('\\n', '\n')
 			} else {
-				return k['es-ES'].replaceAll('&44', ',')
+				return k['es-ES'].replaceAll('&44', ',').replaceAll('\\n', '\n')
 			}
 		} else {
 			console.log('No se encontró la key', key)

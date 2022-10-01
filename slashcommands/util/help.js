@@ -3,11 +3,23 @@ const { MessageEmbed, MessageActionRow, MessageSelectMenu } = require('discord.j
 
 module.exports = {
 	category: 'Utilidad',
+	languageKeys: [
+		'DESCRIPTION_OPTION_MENU',
+		'MAIN_OPTION_MENU_RETURN',
+		'MAIN_OPTION_MENU_DESCRIPTION',
+		'MAIN_EMBED_TITLE',
+		'MAIN_EMBED_DESCRIPTION',
+		'SELECT_CATEGORY',
+		'NOT_INTERFERE',
+		'COMMANDSOF_TITLE',
+		'NSFW_CHANNEL',
+	],
 	data: new SlashCommandBuilder()
 		.setName('help')
-		.setDescription('Muestra los comandos del bot.'),
+		.setDescription('Muestra los comandos del bot.')
+		.setDescriptionLocalization('en-US', 'show the bot commands'),
 
-	async run(client, interaction) {
+	async run(client, interaction, language) {
 		const emojis = {
 			Administración: '💼',
 			Moderación: '👮',
@@ -24,8 +36,7 @@ module.exports = {
 		const data = client.sc
 		const $data = data.map((a) => a.category)
 		const categories = $data
-			// eslint-disable-next-line no-shadow
-			.filter((a, t) => data.map((a) => a.category).indexOf(a) === t)
+			.filter((a, t) => data.map((ac) => ac.category).indexOf(a) === t)
 			.filter((c) => c !== undefined)
 			.filter((c) => c !== 'private')
 		const obj = new Object()
@@ -33,7 +44,7 @@ module.exports = {
 		categories.forEach((c) => {
 			options.push({
 				label: c,
-				description: 'revisa los comandos de la categoria ' + c,
+				description: language[0].replace('{category}', c),
 				value: c,
 				emoji: emojis[c] || '➖',
 			})
@@ -42,33 +53,27 @@ module.exports = {
 			})
 		})
 		options.push({
-			label: 'volver',
-			description: 'vuelve al menú principal',
+			label: language[1],
+			description: language[2],
 			value: 'principal',
 			emoji: '❌',
 		})
-		// const embed1 = new MessageEmbed().setColor('#00FFFF').setTitle('¿Ayuda , alguien necesita ayuda? Acá está Sophia para ayudarte!').setDescription('🎀 Hola <@'+interaction.user.id+'> ! aca tenes una lista de comandos que podes usar\n🌐 Tengo un total de ['+client.sc.size+'] comandos para que puedas usar!\n💡 Recuerda que mis comandos se usan con slash commands (/)');
 
 		const embed = new MessageEmbed()
 			.setColor('#00FFFF')
-			.setTitle('Comandos de ' + client.user.username.toLowerCase() + ' 🛠')
-			.setDescription(
-				'🎀 Hola <@' +
-					interaction.user.id +
-					'>, Tengo un total de `' +
-					client.sc.size +
-					'` comandos para que puedas usar! para verlos selecciona la categoria que quieras!\n\n*Espero que los disfrutes y te sean utiles!*',
-			)
+			.setTitle(language[3].replace('{ClientName}', client.user.username.toLowerCase()) + ' 🛠')
+
+			.setDescription(language[4].replace('{user}', interaction.user.toString()).replace('{commandsSize}', `\`${client.sc.size}\``))
 			.setThumbnail(client.user.avatarURL({ format: 'png' }))
 			.setTimestamp()
 			.setFooter({
 				text: 'Unifyware Association 2022.',
 				iconURL: interaction.user.avatarURL({ dynamic: true, format: 'png' }),
 			})
-		// categories.forEach(async (item, i) => embed.addField((emojis[Object.keys(obj)[i].toString()]||'➖')+' '+Object.keys(obj)[i].toString()+' ['+obj[item].length+']', `\`${!interaction.channel.nsfw && Object.keys(obj)[i].toLowerCase() === 'nsfw' ? 'Debes estar en un canal nsfw para ver o usar estos comandos' : obj[item].map(cmd => cmd.name).join('` `')}\``));
+
 		const menu = new MessageSelectMenu()
 			.setCustomId('menu')
-			.setPlaceholder('Selecciona una categoría')
+			.setPlaceholder(language[5])
 			.addOptions(options)
 		const row = new MessageActionRow().addComponents(menu)
 		interaction.reply({ embeds: [embed], components: [row] })
@@ -80,10 +85,11 @@ module.exports = {
 		collector.on('collect', async (i) => {
 			if (interaction.user.id !== i.user.id) {
 				return interaction.reply({
-					content: 'No puedes interferir en el comando de otra persona.',
+					content: language[6],
 					ephemeral: true,
 				})
 			}
+
 			categories.forEach(async (c) => {
 				if (i.values[0] === c && i.values[0] !== 'principal') {
 					await i.deferUpdate()
@@ -91,7 +97,7 @@ module.exports = {
 						embeds: [
 							new MessageEmbed()
 								.setTitle(
-									'comandos de ' +
+									language[7] +
 										c.toLowerCase() +
 										' ' +
 										(emojis[c] || '➖'),
@@ -100,16 +106,16 @@ module.exports = {
 									`\`${
 										!i.channel.nsfw &&
 										c.toLowerCase() === 'nsfw'
-											? 'Debes estar en un canal nsfw para ver o usar estos comandos'
+											? language[8]
 											: obj[c].map((cmd) => cmd.name).join('` `')
 									}\``,
 								)
 								.setColor('#00FFFF')
 								.setTimestamp()
-								.setFooter(
-									interaction.user.username,
-									interaction.user.avatarURL({ format: 'png' }),
-								),
+								.setFooter({
+									text: interaction.user.username,
+									iconURL: interaction.user.avatarURL({ format: 'png' }),
+								}),
 						],
 						components: [row],
 					})
