@@ -1,0 +1,11 @@
+key,es-ES,en-US
+CHANNEL_NOT_VALID,Este no es un canal válido,Invalid channel
+INVALID_AUTOROLE_FORMAT,El formato De los datos no es correcto\\nRevisa {command} para saber cómo hacerlo,Invalid autorole format\\nCheck {command}
+CANT_MANAGE_SOME_ROLES,Alguno de los roles que agregaste no puedo gestionarlos&44 por lo tanto no podre agregarlo.,I can't manage some of the roles you added&44 so I won't be able to add them.
+DONT_REPEAT_ROLES,Los roles no pueden repetirse,Don't repeat roles
+CANT_TRANSFORM_JSON,No se puedo transformar correctamente el JSON\nRevisa el comando {command} para saber cómo hacerlo,Can't transform JSON correctly\\nReview command {command} to know how to do it
+HELP_AUTOROLE,Para setear los autoroles&44 debes ejecutar el comando {command} en el valor channel poner el canal donde se enviarán los autoroles y en el valor roles deberas poner un JSON con la información.\n\nEjemplo:\n{example}\n\nEl rol no puede repetirse\n**RESPETAR CADA SIGNO PARA QUE FUNCIONE BIEN**\n\nejemplo del comando entero:,To set the autoroles&44 you must execute the command {command} in the channel value put the channel where the autoroles will be sent and in the roles value you must put a JSON with the information.\n\nExample:\n{example}\n\nThe role cannot be repeated\n**RESPECT EACH SIGN SO THAT IT WORKS PROPERLY**\n\nexample of the entire command:
+HOW_SET_AUTOROLES,¿Como setear los autoroles?,How to set autoroles?
+ONLY_SET_ONE_CHANNEL_AUTOROLE,Disfruta del bot! Recuerda que solo puedes establecer un canal de autoroles.,Enjoy to the bot! Remember that you can only set one autorole channel.
+AUTOROLE_SET_SUCCESSFULLY,El autorol se ha establecido correctamente,Autorol has been set successfully
+BUTTON_TEXT_DISPLAY,Texto que mostrará el botón,Text that the button will display
