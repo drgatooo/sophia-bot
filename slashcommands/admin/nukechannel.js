@@ -1,6 +1,7 @@
 /* eslint-disable no-unused-vars */
 const { SlashCommandBuilder } = require('@discordjs/builders')
 const { MessageEmbed, MessageActionRow, MessageButton, CommandInteraction } = require('discord.js-light')
+const { ChannelType } = require('discord-api-types/v10')
 
 /**
  * @type {import('../../types/typeslash').Command}
@@ -10,7 +11,7 @@ const command = {
 	userPerms: ['ADMINISTRATOR'],
 	botPerms: ['ADMINISTRATOR'],
 	category: 'Administración',
-	languageKeys: ['YES_IM_SURE', 'IVE_REGRETTED', 'ATTENTION', 'NUKE_WARN', 'I_CANT_PERMS_TO_NUKE_CHANNEL', 'TEXT_CHANNEL_WAS_EXPECTED', 'CHANNEL_DELETED', 'THIS_MESSAGE_DELETED_10S', 'PERFECT', 'CHANNEL_NUKED', 'LEAVE', 'CHOOSING_TIME_OUT_RETRY_COMMAND'],
+	languageKeys: ['YES_IM_SURE', 'IVE_REGRETTED', 'ATENTION', 'NUKE_WARN', 'I_CANT_PERMS_TO_NUKE_CHANNEL', 'TEXT_CHANNEL_WAS_EXPECTED', 'CHANNEL_DELETED', 'THIS_MESSAGE_DELETED_10S', 'PERFECT', 'CHANNEL_NUKED', 'LEAVE', 'CHOOSING_TIME_OUT_RETRY_COMMAND'],
 
 	data: new SlashCommandBuilder()
 		.setName('nukechannel')
@@ -19,8 +20,10 @@ const command = {
 		.addChannelOption((o) =>
 			o
 				.setName('canal')
+				.setNameLocalization('en-US', 'channel')
 				.setDescription('Menciona el canal a nukear')
 				.setDescriptionLocalization('en-US', 'Channel to nuke')
+				.addChannelTypes(ChannelType.GuildText)
 				.setRequired(false),
 		),
 
