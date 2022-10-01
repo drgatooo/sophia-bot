@@ -14,10 +14,11 @@ module.exports = {
 		'RECORD_TIME',
 		'NEVER_PLAYED',
 		'STREAK',
+		'NONE',
 		'WORD_LONGEST',
 		'ACCERTS_LONGTH',
-		'NONE',
 		'MISSED_WORDS_LONGTH',
+		'TIMES_PLAYED',
 		'STATISCTICS_OF',
 		'RESETED_RECORD',
 		'NO_RESETED',
@@ -85,21 +86,21 @@ module.exports = {
 			return interaction.reply({ embeds: [embedTiempo2] })
 		}
 
-		const embedTiempo = new MessageEmbed().setColor('ORANGE').setTitle('🎲 Estadisticas de QuizWords')
+		const embedTiempo = new MessageEmbed().setColor('ORANGE').setTitle(`🎲 ${language[2]}`)
 
 		embedTiempo.addField(
 			`⌛ ${language[3]}`,
 			`${
 				quizTimer.TimeMax
-					? `\`${quizTimer.TimeMax}\` ${language[13]}!`
-					: `\`${language[14]}\``
+					? `\`${quizTimer.TimeMax}\` ${language[14]}!`
+					: `\`${language[15]}\``
 			}`,
 		)
 		embedTiempo.addField(
 			`🔥 ${language[5]}`,
 			`${
 				quizTimer.Racha
-					? `${language[15].replace('{data}', `\`${quizTimer.Racha}\``)}`
+					? `${language[16].replaceAll('{data}', `\`${quizTimer.Racha}\``)}`
 					: '`0`'
 			}`,
 		)
@@ -116,11 +117,11 @@ module.exports = {
 			`${quizTimer.NoAssertions ? `\`${quizTimer.NoAssertions}\`` : '`0`'}`,
 		)
 		embedTiempo.addField(
-			`🌐 ${language[10].replaceAll('{user}', usuario.user.tag)}`,
+			`🌐 ${language[10]}`,
 			`\`${quizTimer.Assertions + quizTimer.NoAssertions}\``,
 		)
 		embedTiempo.setFooter({
-			text: `${language[11]}`,
+			text: `${language[11].replaceAll('{user}', usuario.user.tag)}`,
 		})
 
 		if (quizTimer && quizTimer.TimeMax > 0) {
@@ -143,20 +144,18 @@ module.exports = {
 						.setTitle(`✅ ${language[16]}`)
 						.setColor('GREEN')
 						.setDescription(`${language[12]}`)
-					await i.deferUpdate()
-					i.editReply({ embeds: [Si], components: [] })
+					interaction.editReply({ embeds: [Si], components: [] })
 				}
 				if (i.customId === 'No') {
 					const No = new MessageEmbed()
 						.setTitle(`✅ ${language[16]}`)
 						.setColor('GREEN')
 						.setDescription(`✅ ${language[13]} ;)`)
-					await i.deferUpdate()
-					i.editReply({ embeds: [No], components: [] })
+					interaction.editReply({ embeds: [No], components: [] })
 				}
 			})
 		} else {
-			return interaction.reply({ embeds: [embedTiempo] })
+			return interaction.reply({ embeds: [embedTiempo], components: [row] })
 		}
 	},
 }
