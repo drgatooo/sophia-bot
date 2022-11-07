@@ -1,6 +1,8 @@
 const { SlashCommandBuilder } = require('@discordjs/builders')
 const { MessageEmbed } = require('discord.js-light')
 const schema = require('../../models/limitusecommands')
+const { ChannelType } = require('discord-api-types/v10')
+const getLanguage = require('../../functions/getLanguage')
 /**
  * @type {import('../../types/typeslash').Command}
  */
@@ -15,20 +17,23 @@ const command = {
 		.setDescription(
 			'Establece o quita el canal de uso de comandos de Sophia del servidor.',
 		)
-		.addSubcommand((o) =>
-			o
+		.addSubcommand((s) =>
+			s
 				.setName('enable')
 				.setDescription('Activa el sistema')
-				// eslint-disable-next-line no-shadow
+				.setDescriptionLocalization('en-US', 'Enable the system')
 				.addChannelOption((o) =>
 					o
+						.addChannelTypes(ChannelType.GuildText, ChannelType.GuildPublicThread, ChannelType.GuildPublicThread, ChannelType.GuildNews, ChannelType.GuildNewsThread)
 						.setName('canal')
+						.setNameLocalization('en-US', 'channel')
 						.setDescription('Canal de comandos')
+						.setDescriptionLocalization('en-US', 'Command channel')
 						.setRequired(true),
 				),
 		)
 		.addSubcommand((o) =>
-			o.setName('disable').setDescription('Desactiva el sistema.'),
+			o.setName('disable').setDescription('Desactiva el sistema.').setDescriptionLocalization('en-US', 'Disable the system'),
 		),
 
 	/**
@@ -37,41 +42,28 @@ const command = {
 	 * @param {CommandInteraction} interaction
 	 */
 
-	async run(_, interaction) {
+	async run(client, interaction) {
 		const args = interaction.options
 		const subcmd = args.getSubcommand()
+		const language = getLanguage(client, interaction, 'ESTABLISHES_ANOTHER_CHANNEL_ID', 'COMMAND_USAGE_UPDATE', 'READY', 'COMMAND_USAGE_SET', 'I_DEACTIVED_SYSTEM')
 
 		if (subcmd === 'enable') {
 			const chid = args.getChannel('canal')
-			if (chid.type !== 'GUILD_TEXT' || !chid.viewable) {
-				const noValid = new MessageEmbed()
-					.setTitle('❌ Error')
-					.setDescription('¡Ese no es un canal valido!')
-					.setColor('RED')
-
-				return await interaction.reply({ embeds: [noValid], ephemeral: true })
-			}
 
 			const sameID = new MessageEmbed()
 				.setTitle('❌ Error')
 				.setColor('RED')
-				.setDescription(
-					'El canal establecido tiene el mismo ID de antes, establece otro!',
-				)
+				.setDescription(language[0])
 
 			const successUpdate = new MessageEmbed()
-				.setTitle('✅ Exito')
+				.setTitle(`✅ ${language[2]}`)
 				.setColor('GREEN')
-				.setDescription(
-					`El canal de uso de comandos fue actualizado a <#${chid.id}>`,
-				)
+				.setDescription(language[1].replace('{channel}', `<#${chid.id}>`))
 
 			const success = new MessageEmbed()
-				.setTitle('✅ Exito')
+				.setTitle(`✅ ${language[2]}`)
 				.setColor('GREEN')
-				.setDescription(
-					`El canal de uso de comandos fue establecido a <#${chid.id}>`,
-				)
+				.setDescription(language[3].replace('{channel}', `<#${chid.id}>`))
 
 			const channel = await schema.findOne({ ServerID: interaction.guild.id })
 
@@ -98,8 +90,8 @@ const command = {
 			await schema.deleteOne({ ServerID: interaction.guild.id })
 
 			const embed = new MessageEmbed()
-				.setTitle('Okay! ♦')
-				.setDescription('He desactivado el sistema!')
+				.setTitle(language[2])
+				.setDescription(language[4])
 				.setColor('GREEN')
 
 			interaction.reply({ embeds: [embed] })

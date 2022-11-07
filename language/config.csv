@@ -9,3 +9,7 @@ HOW_SET_AUTOROLES,¿Como setear los autoroles?,How to set autoroles?
 ONLY_SET_ONE_CHANNEL_AUTOROLE,Disfruta del bot! Recuerda que solo puedes establecer un canal de autoroles.,Enjoy to the bot! Remember that you can only set one autorole channel.
 AUTOROLE_SET_SUCCESSFULLY,El autorol se ha establecido correctamente,Autorol has been set successfully
 BUTTON_TEXT_DISPLAY,Texto que mostrará el botón,Text that the button will display
+ESTABLISHES_ANOTHER_CHANNEL_ID,El canal establecido tiene el mismo ID de antes&44 establece otro!,The established channel has the same ID as before&44 establishes another!
+COMMAND_USAGE_UPDATE,El canal de uso de comandos fue actualizado a {channel},Command usage channel updated to {channel}
+COMMAND_USAGE_SET,El canal de uso de comandos fue establecido a {channel},The command usage channel was set to {channel}
+I_DEACTIVED_SYSTEM,He desactivado el sistema!,I have deactivated the system!
